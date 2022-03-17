@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="FnRegistration">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="firstname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="middlename" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="lastname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tphoneNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tResidentialsAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tpostalAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tAlternativeNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="twhatsappNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="twebsite" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcertificateNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tDate" type="dateTime" />
+            <element minOccurs="1" maxOccurs="1" name="temailAddress" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnRegistration_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnResetPassword">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="emailaddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="originalpass" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="newpass" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="confirmpass" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnResetPassword_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="PortalResetPassword">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="emailaddress" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="PortalResetPassword_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnLicenceApplicationHeader">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="temail" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tapplicationCategory" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tApplicantType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tPhysicalLocation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tPhysicalAddressStatus" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tLicenseType" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tCustomerNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnLicenceApplicationHeader_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertLocation">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tPhysicalLocation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tpostcode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcounty" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcity" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertLocation_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgencyActivities">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tActivityCode" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgencyActivities_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgentFacilities">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tActivityCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tquantity" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tFacilityCode" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgentFacilities_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertGovernmentCompliance">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tCertificateCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcertificateDescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcertificateNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="dateOfIssue" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="dateOfExpiry" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="authorityIssuingCertificate" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertGovernmentCompliance_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="FnRegistration">
+    <part name="parameters" element="tns:FnRegistration" />
+  </message>
+  <message name="FnRegistration_Result">
+    <part name="parameters" element="tns:FnRegistration_Result" />
+  </message>
+  <message name="FnResetPassword">
+    <part name="parameters" element="tns:FnResetPassword" />
+  </message>
+  <message name="FnResetPassword_Result">
+    <part name="parameters" element="tns:FnResetPassword_Result" />
+  </message>
+  <message name="PortalResetPassword">
+    <part name="parameters" element="tns:PortalResetPassword" />
+  </message>
+  <message name="PortalResetPassword_Result">
+    <part name="parameters" element="tns:PortalResetPassword_Result" />
+  </message>
+  <message name="FnLicenceApplicationHeader">
+    <part name="parameters" element="tns:FnLicenceApplicationHeader" />
+  </message>
+  <message name="FnLicenceApplicationHeader_Result">
+    <part name="parameters" element="tns:FnLicenceApplicationHeader_Result" />
+  </message>
+  <message name="FnInsertLocation">
+    <part name="parameters" element="tns:FnInsertLocation" />
+  </message>
+  <message name="FnInsertLocation_Result">
+    <part name="parameters" element="tns:FnInsertLocation_Result" />
+  </message>
+  <message name="FnInsertAgencyActivities">
+    <part name="parameters" element="tns:FnInsertAgencyActivities" />
+  </message>
+  <message name="FnInsertAgencyActivities_Result">
+    <part name="parameters" element="tns:FnInsertAgencyActivities_Result" />
+  </message>
+  <message name="FnInsertAgentFacilities">
+    <part name="parameters" element="tns:FnInsertAgentFacilities" />
+  </message>
+  <message name="FnInsertAgentFacilities_Result">
+    <part name="parameters" element="tns:FnInsertAgentFacilities_Result" />
+  </message>
+  <message name="FnInsertGovernmentCompliance">
+    <part name="parameters" element="tns:FnInsertGovernmentCompliance" />
+  </message>
+  <message name="FnInsertGovernmentCompliance_Result">
+    <part name="parameters" element="tns:FnInsertGovernmentCompliance_Result" />
+  </message>
+  <portType name="LicencingPortal_Port">
+    <operation name="FnRegistration">
+      <input name="FnRegistration" message="tns:FnRegistration" />
+      <output name="FnRegistration_Result" message="tns:FnRegistration_Result" />
+    </operation>
+    <operation name="FnResetPassword">
+      <input name="FnResetPassword" message="tns:FnResetPassword" />
+      <output name="FnResetPassword_Result" message="tns:FnResetPassword_Result" />
+    </operation>
+    <operation name="PortalResetPassword">
+      <input name="PortalResetPassword" message="tns:PortalResetPassword" />
+      <output name="PortalResetPassword_Result" message="tns:PortalResetPassword_Result" />
+    </operation>
+    <operation name="FnLicenceApplicationHeader">
+      <input name="FnLicenceApplicationHeader" message="tns:FnLicenceApplicationHeader" />
+      <output name="FnLicenceApplicationHeader_Result" message="tns:FnLicenceApplicationHeader_Result" />
+    </operation>
+    <operation name="FnInsertLocation">
+      <input name="FnInsertLocation" message="tns:FnInsertLocation" />
+      <output name="FnInsertLocation_Result" message="tns:FnInsertLocation_Result" />
+    </operation>
+    <operation name="FnInsertAgencyActivities">
+      <input name="FnInsertAgencyActivities" message="tns:FnInsertAgencyActivities" />
+      <output name="FnInsertAgencyActivities_Result" message="tns:FnInsertAgencyActivities_Result" />
+    </operation>
+    <operation name="FnInsertAgentFacilities">
+      <input name="FnInsertAgentFacilities" message="tns:FnInsertAgentFacilities" />
+      <output name="FnInsertAgentFacilities_Result" message="tns:FnInsertAgentFacilities_Result" />
+    </operation>
+    <operation name="FnInsertGovernmentCompliance">
+      <input name="FnInsertGovernmentCompliance" message="tns:FnInsertGovernmentCompliance" />
+      <output name="FnInsertGovernmentCompliance_Result" message="tns:FnInsertGovernmentCompliance_Result" />
+    </operation>
+  </portType>
+  <binding name="LicencingPortal_Binding" type="tns:LicencingPortal_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="FnRegistration">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnRegistration" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnRegistration">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnRegistration_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnResetPassword">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnResetPassword" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnResetPassword">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnResetPassword_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="PortalResetPassword">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:PortalResetPassword" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="PortalResetPassword">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="PortalResetPassword_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnLicenceApplicationHeader">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnLicenceApplicationHeader" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnLicenceApplicationHeader">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnLicenceApplicationHeader_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertLocation">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertLocation" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertLocation">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertLocation_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertAgencyActivities">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertAgencyActivities" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertAgencyActivities">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertAgencyActivities_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertAgentFacilities">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertAgentFacilities" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertAgentFacilities">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertAgentFacilities_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertGovernmentCompliance">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertGovernmentCompliance" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertGovernmentCompliance">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertGovernmentCompliance_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="LicencingPortal">
+    <port name="LicencingPortal_Port" binding="tns:LicencingPortal_Binding">
+      <address location="http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/LicencingPortal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

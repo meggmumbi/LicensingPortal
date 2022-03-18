@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace HRPortal
@@ -23,13 +24,26 @@ namespace HRPortal
                 country.DataBind();
                 country.Items.Insert(0, new ListItem("--select--", ""));
 
+                countryRecruit.DataSource = countries;
+                countryRecruit.DataTextField = "Name";
+                countryRecruit.DataValueField = "Code";
+                countryRecruit.DataBind();
+                countryRecruit.Items.Insert(0, new ListItem("--select--", ""));
+                
+
 
                 var postC = nav.postcodes.ToList();
                 postCode.DataSource = postC;
-                postCode.DataTextField = "City";
+                postCode.DataTextField = "Code";
                 postCode.DataValueField = "Code";
                 postCode.DataBind();
                 postCode.Items.Insert(0, new ListItem("--select--", ""));
+
+                postalAddress.DataSource = postC;
+                postalAddress.DataTextField = "Code";
+                postalAddress.DataValueField = "Code";
+                postalAddress.DataBind();
+                postalAddress.Items.Insert(0, new ListItem("--select--", ""));
 
                 var Countyz = nav.county.ToList();
                 county.DataSource = Countyz;
@@ -39,20 +53,20 @@ namespace HRPortal
                 county.Items.Insert(0, new ListItem("--select--", ""));
 
 
-                var Facilities = nav.AgencyFacilitiesCategories.ToList();
-                facilityDescription.DataSource = Facilities;
-                facilityDescription.DataTextField = "Description";
-                facilityDescription.DataValueField = "Code";
-                facilityDescription.DataBind();
-                facilityDescription.Items.Insert(0, new ListItem("--select--", ""));
+                //var Facilities = nav.AgencyFacilitiesCategories.ToList();
+                //facilityDescription.DataSource = Facilities;
+                //facilityDescription.DataTextField = "Description";
+                //facilityDescription.DataValueField = "Code";
+                //facilityDescription.DataBind();
+                //facilityDescription.Items.Insert(0, new ListItem("--select--", ""));
 
 
-                var Activities = nav.AgencyActivitiesSetup.ToList();
-                AgencyActivity.DataSource = Activities;
-                AgencyActivity.DataTextField = "Description";
-                AgencyActivity.DataValueField = "Code";
-                AgencyActivity.DataBind();
-                AgencyActivity.Items.Insert(0, new ListItem("--select--", ""));
+                //var Activities = nav.AgencyActivitiesSetup.ToList();
+                //AgencyActivity.DataSource = Activities;
+                //AgencyActivity.DataTextField = "Description";
+                //AgencyActivity.DataValueField = "Code";
+                //AgencyActivity.DataBind();
+                //AgencyActivity.Items.Insert(0, new ListItem("--select--", ""));
 
                 var Compliance = nav.AgencyComplianceSetup.ToList();
                 certificateType.DataSource = Compliance;
@@ -60,6 +74,70 @@ namespace HRPortal
                 certificateType.DataValueField = "Code";
                 certificateType.DataBind();
                 certificateType.Items.Insert(0, new ListItem("--select--", ""));
+
+                var LicenseType = nav.LicenceTypeList.ToList();
+                licenseType.DataSource = LicenseType;
+                licenseType.DataTextField = "Description";
+                licenseType.DataValueField = "Code";
+                licenseType.DataBind();
+                licenseType.Items.Insert(0, new ListItem("--select--", ""));
+
+
+                string docNo = Request.QueryString["ApplicationNo"];
+                if (docNo != null)
+                {
+                    var data = nav.LicenceApplicationHeader.Where(x => x.Application_No == docNo).ToList();
+                    if (data.Count > 0)
+                    {
+                        editButton.Visible = true;
+                        addapplication.Visible = false;
+                        Nexttostep2.Visible = true;
+
+                        foreach (var item in data)
+                        {
+                            licenseType.SelectedValue = item.Licence_Type;
+                            string addresTyp = item.Physical_Address_Status;
+                            string AppCategory = item.Application_Category;
+                            string appType = item.Applicant_Type;
+                            // addrresstype.SelectedValue = item.Physical_Address_Status;
+                            // category.SelectedValue = item.Application_Category;
+                            country.SelectedValue = item.Country_Region_Code;
+                            // ApplicantType.SelectedValue = item.Applicant_Type;
+                            Institutionuniversity.Text = item.Institution_Name;
+                            PhysicalLocation.Text = item.Physical_Location;
+                            email.Text = item.Email;
+
+                            if (addresTyp == "Owned")
+                            {
+                                addrresstype.SelectedValue = "1";
+                            }
+                            else if (addresTyp == "Leased")
+                            {
+                                addrresstype.SelectedValue = "2";
+                            }
+
+                            if (AppCategory == "New")
+                            {
+                                category.SelectedValue = "0";
+                            }
+                            else
+                            {
+                                category.SelectedValue = "1";
+                            }
+                            if (appType == "Agency")
+                            {
+                                ApplicantType.SelectedValue = "1";
+                            }
+                            else if (appType == "Collaboration")
+                            {
+                                ApplicantType.SelectedValue = "2";
+                            }
+
+
+
+                        }
+                    }
+                }
 
 
             }
@@ -125,6 +203,7 @@ namespace HRPortal
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
+                        Nexttostep2.Visible = true;
                         linesfeedback.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                     else
@@ -251,6 +330,162 @@ namespace HRPortal
         //    Response.Redirect("NewApplication.aspx?step=3");
         //}
 
+
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static string selectedActivities(List<Targets> targetNumber)
+        {
+
+            HtmlGenericControl NewControl = new HtmlGenericControl();
+            var results = (dynamic)null;
+            int category = 0;
+            string part = "";
+
+            try
+            {
+                if (targetNumber == null)
+                {
+                    targetNumber = new List<Targets>();
+                }
+                NewControl.ID = "feedback";
+               
+                foreach (Targets target in targetNumber)
+                {
+
+                    string InitiativeNumber = target.TargetNumber;
+                    var nav1 = new Config().ReturnNav();
+                
+                    var status = Config.ObjNav.FnInsertAgencyActivities(target.ApplicationNo, target.TargetNumber);
+                    string[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[0];
+                    }
+                    else if (info[0] == "danger")
+                    {
+
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[1];
+
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                results = ex.Message;
+            }
+            return results;
+        }
+
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static string selectedFacilities(List<Targets> targetNumber)
+        {
+
+            HtmlGenericControl NewControl = new HtmlGenericControl();
+            var results = (dynamic)null;
+            int category = 0;
+            string part = "";
+
+            try
+            {
+                if (targetNumber == null)
+                {
+                    targetNumber = new List<Targets>();
+                }
+                NewControl.ID = "feedback";
+
+                foreach (Targets target in targetNumber)
+                {
+
+                    string InitiativeNumber = target.TargetNumber;
+                    var nav1 = new Config().ReturnNav();
+
+                    var status = Config.ObjNav.FnInsertAgentFacilities(target.ApplicationNo, target.TargetNumber, target.quantity, "");
+                    string[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[0];
+                    }
+                    else if (info[0] == "danger")
+                    {
+
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[1];
+
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                results = ex.Message;
+            }
+            return results;
+        }
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static string selectedServices(List<Targets> targetNumber)
+        {
+
+            HtmlGenericControl NewControl = new HtmlGenericControl();
+            var results = (dynamic)null;
+            int category = 0;
+            string part = "";
+
+            try
+            {
+                if (targetNumber == null)
+                {
+                    targetNumber = new List<Targets>();
+                }
+                NewControl.ID = "feedback";
+
+                foreach (Targets target in targetNumber)
+                {
+
+                    string InitiativeNumber = target.TargetNumber;
+                    var nav1 = new Config().ReturnNav();
+
+                    var status = ""; /*Config.ObjNav.FnInsertAgentServices(target.ApplicationNo, target.TargetNumber, target.comment);*/
+                    string[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[0];
+                    }
+                    else if (info[0] == "danger")
+                    {
+
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[1];
+
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                results = ex.Message;
+            }
+            return results;
+        }
+
         protected void backtostep1_Click(object sender, EventArgs e)
         {
             string docNo = Request.QueryString["ApplicationNo"];          
@@ -363,6 +598,7 @@ namespace HRPortal
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
+                        nextBtn.Visible = true;
                         physicalLocations.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                     else
@@ -377,44 +613,44 @@ namespace HRPortal
             }
         }
 
-        protected void Facility_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool error = false;
-                string msg = "";
+        //protected void Facility_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        bool error = false;
+        //        string msg = "";
 
-                string tfacilityCode = facilityDescription.SelectedValue.Trim();
-                int tQuantity = Convert.ToInt32(quantity.Text.Trim());               
-                string tApplicationNo = Request.QueryString["ApplicationNo"];                
+        //        string tfacilityCode = facilityDescription.SelectedValue.Trim();
+        //        int tQuantity = Convert.ToInt32(quantity.Text.Trim());               
+        //        string tApplicationNo = Request.QueryString["ApplicationNo"];                
                
-                decimal txtfees = 0;
+        //        decimal txtfees = 0;
 
 
-                if (error)
-                {
-                    AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                }
-                else
-                {
+        //        if (error)
+        //        {
+        //            AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //        }
+        //        else
+        //        {
 
-                    String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, tfacilityCode, tQuantity,"");
-                    String[] info = status.Split('*');
-                    if (info[0] == "success")
-                    {
-                        AgencyFacilities.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                    }
-                    else
-                    {
-                        AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                    }
-                }
-            }
-            catch (Exception m)
-            {
-                AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-            }
-        }
+        //            String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, tfacilityCode, tQuantity,"");
+        //            String[] info = status.Split('*');
+        //            if (info[0] == "success")
+        //            {
+        //                AgencyFacilities.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //            }
+        //            else
+        //            {
+        //                AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //            }
+        //        }
+        //    }
+        //    catch (Exception m)
+        //    {
+        //        AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //    }
+        //}
 
         protected void backToPhysical_Click(object sender, EventArgs e)
         {
@@ -422,44 +658,44 @@ namespace HRPortal
             Response.Redirect("NewApplication.aspx?step=2&&applicationNo=" + docNo);
         }
 
-        protected void activity_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool error = false;
-                string msg = "";
+        //protected void activity_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        bool error = false;
+        //        string msg = "";
 
-                string tAgencyActivity = AgencyActivity.SelectedValue.Trim();
-                string tdescription = description.Text.Trim();
-                string tApplicationNo = Request.QueryString["ApplicationNo"];
+        //        string tAgencyActivity = AgencyActivity.SelectedValue.Trim();
+        //        string tdescription = description.Text.Trim();
+        //        string tApplicationNo = Request.QueryString["ApplicationNo"];
 
-                decimal txtfees = 0;
+        //        decimal txtfees = 0;
 
 
-                if (error)
-                {
-                    AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                }
-                else
-                {
+        //        if (error)
+        //        {
+        //            AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //        }
+        //        else
+        //        {
 
-                    String status = Config.ObjNav.FnInsertAgencyActivities(tApplicationNo, tAgencyActivity);
-                    String[] info = status.Split('*');
-                    if (info[0] == "success")
-                    {
-                        AgencyActivitys.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                    }
-                    else
-                    {
-                        AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                    }
-                }
-            }
-            catch (Exception m)
-            {
-                AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-            }
-        }
+        //            String status = Config.ObjNav.FnInsertAgencyActivities(tApplicationNo, tAgencyActivity);
+        //            String[] info = status.Split('*');
+        //            if (info[0] == "success")
+        //            {
+        //                AgencyActivitys.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //            }
+        //            else
+        //            {
+        //                AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //            }
+        //        }
+        //    }
+        //    catch (Exception m)
+        //    {
+        //        AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+        //    }
+        //}
 
         protected void backFacility_Click(object sender, EventArgs e)
         {
@@ -522,6 +758,192 @@ namespace HRPortal
             foreach (var myCity in cities)
             {
                 city.Text = myCity.City;
+                city2.Text = myCity.City;
+            }
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(entryNoRemove.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];              
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    physicalLocations.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveItem(mLineNo,ApplicationNo);
+                    String[] info = status.Split('*');
+                    physicalLocations.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }
+
+        }
+
+        protected void facilities_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(entryNoRemove.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    physicalLocations.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveItem(mLineNo, ApplicationNo);
+                    String[] info = status.Split('*');
+                    physicalLocations.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }
+        }
+
+        protected void staffButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool error = false;
+                string msg = "";
+                string tApplicationNo = Request.QueryString["ApplicationNo"];
+                string tstaffName = staffName.Text.Trim();
+                int tgender = Convert.ToInt32(gender.SelectedValue.Trim());
+                string tNationality = nationality.Text.Trim();              
+                string tiIdNumber = idnumber.Text.Trim();
+                string tworkPermit = workPermit.Text.Trim();
+                DateTime texpiryDate = Convert.ToDateTime(workExpiryDate.Text.Trim());
+                string tgoodconduct = goodConduct.Text.Trim();
+                string tAcademic = academics.Text.Trim();
+                int tTerms = Convert.ToInt32(termsOfService.SelectedValue.Trim());
+
+
+                decimal txtfees = 0;
+
+
+                if (error)
+                {
+                    keyStaff.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+
+                    String status = Config.ObjNav.FnInsertStaffMember(tApplicationNo, tstaffName, tgender, tNationality, tiIdNumber, tworkPermit, texpiryDate, tgoodconduct, tAcademic, tTerms);
+                    String[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        keyStaff.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                    else
+                    {
+                        keyStaff.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                keyStaff.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void recruitButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool error = false;
+                string msg = "";
+                string tApplicationNo = Request.QueryString["ApplicationNo"];
+                string tName = InstName.Text.Trim();                
+                string tpostCode = postalAddress.SelectedValue.Trim();
+                string tphysicalAddress = residentialAddress.Text.Trim();
+                string tphysicalLocation = locationPhysical.Text.Trim();             
+                string tcity = city2.Text.Trim();
+                string tPhoneNumber = telephoneNo.Text.Trim();
+                string tcountry = countryRecruit.SelectedValue.Trim();
+                string temial = emailAddress.Text.Trim();
+                int tAccredStatus = Convert.ToInt32(AccredStatus.SelectedValue.Trim());
+                string tAccredBody = AccreditingBody.Text.Trim();
+
+
+                decimal txtfees = 0;
+
+
+                if (error)
+                {
+                    recruitingInst.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+
+                    String status = Config.ObjNav.FnInsertRecruitmentInst(tApplicationNo, tName, tpostCode, tphysicalAddress, tphysicalLocation, tcity, tPhoneNumber, tcountry, temial, tAccredStatus, tAccredBody);
+                    String[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        recruitingInst.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                    else
+                    {
+                        recruitingInst.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                recruitingInst.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void postalAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var nav = new Config().ReturnNav();
+            var cities = nav.postcodes.Where(r => r.Code == postalAddress.SelectedValue);
+            foreach (var myCity in cities)
+            {
+                
+                city2.Text = myCity.City;
             }
         }
     }

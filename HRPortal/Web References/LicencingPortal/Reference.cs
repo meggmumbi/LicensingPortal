@@ -45,6 +45,12 @@ namespace HRPortal.LicencingPortal {
         
         private System.Threading.SendOrPostCallback FnInsertGovernmentComplianceOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnInsertStaffMemberOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertRecruitmentInstOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RemoveItemOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -106,6 +112,15 @@ namespace HRPortal.LicencingPortal {
         
         /// <remarks/>
         public event FnInsertGovernmentComplianceCompletedEventHandler FnInsertGovernmentComplianceCompleted;
+        
+        /// <remarks/>
+        public event FnInsertStaffMemberCompletedEventHandler FnInsertStaffMemberCompleted;
+        
+        /// <remarks/>
+        public event FnInsertRecruitmentInstCompletedEventHandler FnInsertRecruitmentInstCompleted;
+        
+        /// <remarks/>
+        public event RemoveItemCompletedEventHandler RemoveItemCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnRegistration", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnRegistration_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -422,6 +437,136 @@ namespace HRPortal.LicencingPortal {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertStaffMember", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnInsertStaffMember_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertStaffMember(string tapplicationNo, string tstaffName, int tGender, string tNationality, string tIdNumber, string tworkPermit, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime tExpiryDate, string tGoodConduct, string tAcademic, int terms) {
+            object[] results = this.Invoke("FnInsertStaffMember", new object[] {
+                        tapplicationNo,
+                        tstaffName,
+                        tGender,
+                        tNationality,
+                        tIdNumber,
+                        tworkPermit,
+                        tExpiryDate,
+                        tGoodConduct,
+                        tAcademic,
+                        terms});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffMemberAsync(string tapplicationNo, string tstaffName, int tGender, string tNationality, string tIdNumber, string tworkPermit, System.DateTime tExpiryDate, string tGoodConduct, string tAcademic, int terms) {
+            this.FnInsertStaffMemberAsync(tapplicationNo, tstaffName, tGender, tNationality, tIdNumber, tworkPermit, tExpiryDate, tGoodConduct, tAcademic, terms, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffMemberAsync(string tapplicationNo, string tstaffName, int tGender, string tNationality, string tIdNumber, string tworkPermit, System.DateTime tExpiryDate, string tGoodConduct, string tAcademic, int terms, object userState) {
+            if ((this.FnInsertStaffMemberOperationCompleted == null)) {
+                this.FnInsertStaffMemberOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertStaffMemberOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertStaffMember", new object[] {
+                        tapplicationNo,
+                        tstaffName,
+                        tGender,
+                        tNationality,
+                        tIdNumber,
+                        tworkPermit,
+                        tExpiryDate,
+                        tGoodConduct,
+                        tAcademic,
+                        terms}, this.FnInsertStaffMemberOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertStaffMemberOperationCompleted(object arg) {
+            if ((this.FnInsertStaffMemberCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertStaffMemberCompleted(this, new FnInsertStaffMemberCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertRecruitmentInst", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnInsertRecruitmentInst_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertRecruitmentInst(string tapplicationNo, string name, string postcode, string physicalAddress, string physicalLocation, string city, string phoneNumber, string country, string temail, int accredStatus, string accredBody) {
+            object[] results = this.Invoke("FnInsertRecruitmentInst", new object[] {
+                        tapplicationNo,
+                        name,
+                        postcode,
+                        physicalAddress,
+                        physicalLocation,
+                        city,
+                        phoneNumber,
+                        country,
+                        temail,
+                        accredStatus,
+                        accredBody});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertRecruitmentInstAsync(string tapplicationNo, string name, string postcode, string physicalAddress, string physicalLocation, string city, string phoneNumber, string country, string temail, int accredStatus, string accredBody) {
+            this.FnInsertRecruitmentInstAsync(tapplicationNo, name, postcode, physicalAddress, physicalLocation, city, phoneNumber, country, temail, accredStatus, accredBody, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertRecruitmentInstAsync(string tapplicationNo, string name, string postcode, string physicalAddress, string physicalLocation, string city, string phoneNumber, string country, string temail, int accredStatus, string accredBody, object userState) {
+            if ((this.FnInsertRecruitmentInstOperationCompleted == null)) {
+                this.FnInsertRecruitmentInstOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertRecruitmentInstOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertRecruitmentInst", new object[] {
+                        tapplicationNo,
+                        name,
+                        postcode,
+                        physicalAddress,
+                        physicalLocation,
+                        city,
+                        phoneNumber,
+                        country,
+                        temail,
+                        accredStatus,
+                        accredBody}, this.FnInsertRecruitmentInstOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertRecruitmentInstOperationCompleted(object arg) {
+            if ((this.FnInsertRecruitmentInstCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertRecruitmentInstCompleted(this, new FnInsertRecruitmentInstCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveItem", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveItem_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string RemoveItem(int entryNo, string applicationNo) {
+            object[] results = this.Invoke("RemoveItem", new object[] {
+                        entryNo,
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RemoveItemAsync(int entryNo, string applicationNo) {
+            this.RemoveItemAsync(entryNo, applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void RemoveItemAsync(int entryNo, string applicationNo, object userState) {
+            if ((this.RemoveItemOperationCompleted == null)) {
+                this.RemoveItemOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveItemOperationCompleted);
+            }
+            this.InvokeAsync("RemoveItem", new object[] {
+                        entryNo,
+                        applicationNo}, this.RemoveItemOperationCompleted, userState);
+        }
+        
+        private void OnRemoveItemOperationCompleted(object arg) {
+            if ((this.RemoveItemCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RemoveItemCompleted(this, new RemoveItemCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -635,6 +780,84 @@ namespace HRPortal.LicencingPortal {
         private object[] results;
         
         internal FnInsertGovernmentComplianceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void FnInsertStaffMemberCompletedEventHandler(object sender, FnInsertStaffMemberCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertStaffMemberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertStaffMemberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void FnInsertRecruitmentInstCompletedEventHandler(object sender, FnInsertRecruitmentInstCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertRecruitmentInstCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertRecruitmentInstCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void RemoveItemCompletedEventHandler(object sender, RemoveItemCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RemoveItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RemoveItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

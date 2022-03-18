@@ -150,6 +150,68 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnInsertStaffMember">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tstaffName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tGender" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tNationality" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tIdNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tworkPermit" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tExpiryDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="tGoodConduct" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tAcademic" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="terms" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffMember_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRecruitmentInst">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="name" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="postcode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="physicalAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="physicalLocation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="city" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="phoneNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="country" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="temail" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="accredStatus" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="accredBody" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRecruitmentInst_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RemoveItem">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="entryNo" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="applicationNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RemoveItem_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegistration">
@@ -200,6 +262,24 @@
   <message name="FnInsertGovernmentCompliance_Result">
     <part name="parameters" element="tns:FnInsertGovernmentCompliance_Result" />
   </message>
+  <message name="FnInsertStaffMember">
+    <part name="parameters" element="tns:FnInsertStaffMember" />
+  </message>
+  <message name="FnInsertStaffMember_Result">
+    <part name="parameters" element="tns:FnInsertStaffMember_Result" />
+  </message>
+  <message name="FnInsertRecruitmentInst">
+    <part name="parameters" element="tns:FnInsertRecruitmentInst" />
+  </message>
+  <message name="FnInsertRecruitmentInst_Result">
+    <part name="parameters" element="tns:FnInsertRecruitmentInst_Result" />
+  </message>
+  <message name="RemoveItem">
+    <part name="parameters" element="tns:RemoveItem" />
+  </message>
+  <message name="RemoveItem_Result">
+    <part name="parameters" element="tns:RemoveItem_Result" />
+  </message>
   <portType name="LicencingPortal_Port">
     <operation name="FnRegistration">
       <input name="FnRegistration" message="tns:FnRegistration" />
@@ -232,6 +312,18 @@
     <operation name="FnInsertGovernmentCompliance">
       <input name="FnInsertGovernmentCompliance" message="tns:FnInsertGovernmentCompliance" />
       <output name="FnInsertGovernmentCompliance_Result" message="tns:FnInsertGovernmentCompliance_Result" />
+    </operation>
+    <operation name="FnInsertStaffMember">
+      <input name="FnInsertStaffMember" message="tns:FnInsertStaffMember" />
+      <output name="FnInsertStaffMember_Result" message="tns:FnInsertStaffMember_Result" />
+    </operation>
+    <operation name="FnInsertRecruitmentInst">
+      <input name="FnInsertRecruitmentInst" message="tns:FnInsertRecruitmentInst" />
+      <output name="FnInsertRecruitmentInst_Result" message="tns:FnInsertRecruitmentInst_Result" />
+    </operation>
+    <operation name="RemoveItem">
+      <input name="RemoveItem" message="tns:RemoveItem" />
+      <output name="RemoveItem_Result" message="tns:RemoveItem_Result" />
     </operation>
   </portType>
   <binding name="LicencingPortal_Binding" type="tns:LicencingPortal_Port">
@@ -305,6 +397,33 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnInsertGovernmentCompliance_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertStaffMember">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertStaffMember" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertStaffMember">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertStaffMember_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertRecruitmentInst">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertRecruitmentInst" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertRecruitmentInst">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertRecruitmentInst_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="RemoveItem">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveItem" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="RemoveItem">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="RemoveItem_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

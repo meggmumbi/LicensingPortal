@@ -6400,6 +6400,7 @@
     <Content Include="images\cue-header.jpg" />
     <Content Include="images\cueLogo.png" />
     <Content Include="images\hr-img.png" />
+    <Content Include="images\imagesrm.png" />
     <Content Include="images\logo.png" />
     <Content Include="img\body-bg.png" />
     <Content Include="img\glyphicons-halflings-white.html" />
@@ -7754,6 +7755,7 @@
     <Compile Include="StatusOfApplication.aspx.designer.cs">
       <DependentUpon>StatusOfApplication.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Targets.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -173,6 +173,21 @@
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
         <NavigationProperty Name="Person_Responsible_Link" Relationship="NAV.JobList_Person_Responsible_Link" ToRole="Person_Responsible_Link" FromRole="JobList" />
       </EntityType>
+      <EntityType Name="LicenceTypeList">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Duration" Type="Edm.String" />
+        <Property Name="No_of_Applications" Type="Edm.Int32" />
+        <Property Name="Active_Licences" Type="Edm.Int32" />
+        <Property Name="Expired_Licences" Type="Edm.Int32" />
+        <Property Name="Currency_Code" Type="Edm.String" />
+        <Property Name="Amount" Type="Edm.Decimal" />
+        <Property Name="Licence_Nos" Type="Edm.String" />
+        <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
+      </EntityType>
       <EntityType Name="PostCodes">
         <Key>
           <PropertyRef Name="City" />
@@ -596,6 +611,41 @@
         <Property Name="Date_of_issue" Type="Edm.DateTime" />
         <Property Name="Date_of_expiry" Type="Edm.DateTime" />
         <Property Name="Authority_issuing_certificate" Type="Edm.String" />
+        <Property Name="Entry_No" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AgencyRecruitingUniversities">
+        <Key>
+          <PropertyRef Name="Application_No" />
+          <PropertyRef Name="Entry_No" />
+        </Key>
+        <Property Name="Application_No" Type="Edm.String" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Post_Code" Type="Edm.String" />
+        <Property Name="Address" Type="Edm.String" />
+        <Property Name="Physical_Location" Type="Edm.String" />
+        <Property Name="City" Type="Edm.String" />
+        <Property Name="Phone_No" Type="Edm.String" />
+        <Property Name="Country_Region_Code" Type="Edm.String" />
+        <Property Name="Email" Type="Edm.String" />
+        <Property Name="Accreditation_Status" Type="Edm.String" />
+        <Property Name="Accrediting_Body" Type="Edm.String" />
+        <Property Name="Entry_No" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AgencyStaffProfile">
+        <Key>
+          <PropertyRef Name="Application_No" />
+          <PropertyRef Name="Entry_No" />
+        </Key>
+        <Property Name="Application_No" Type="Edm.String" Nullable="false" />
+        <Property Name="Name_of_staff" Type="Edm.String" />
+        <Property Name="Gender" Type="Edm.String" />
+        <Property Name="Nationality" Type="Edm.String" />
+        <Property Name="ID_No_Passport_No" Type="Edm.String" />
+        <Property Name="Work_permit_No" Type="Edm.String" />
+        <Property Name="Work_permit_expiry_date" Type="Edm.DateTime" />
+        <Property Name="Good_Conduct_No" Type="Edm.String" />
+        <Property Name="Highest_academic_qualification" Type="Edm.String" />
+        <Property Name="Terms_of_Service" Type="Edm.String" />
         <Property Name="Entry_No" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="allstudentsenrolled">
@@ -4128,6 +4178,19 @@
         <Property Name="Submitted" Type="Edm.Boolean" />
         <Property Name="Accreditation_Status" Type="Edm.String" />
         <Property Name="Accrediting_Body" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="LicenceType">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Duration" Type="Edm.String" />
+        <Property Name="No_of_Applications" Type="Edm.Int32" />
+        <Property Name="Active_Licences" Type="Edm.Int32" />
+        <Property Name="Expired_Licences" Type="Edm.Int32" />
+        <Property Name="Currency_Code" Type="Edm.String" />
+        <Property Name="Amount" Type="Edm.Decimal" />
+        <Property Name="Licence_Nos" Type="Edm.String" />
       </EntityType>
       <EntityType Name="Locations">
         <Key>
@@ -8895,6 +8958,7 @@
         <NavigationProperty Name="ImprestRequisition" Relationship="NAV.Company_ImprestRequisition" ToRole="ImprestRequisition" FromRole="Company" />
         <NavigationProperty Name="ImprestRequisitionImprest_Lines" Relationship="NAV.Company_ImprestRequisitionImprest_Lines" ToRole="ImprestRequisitionImprest_Lines" FromRole="Company" />
         <NavigationProperty Name="JobList" Relationship="NAV.Company_JobList" ToRole="JobList" FromRole="Company" />
+        <NavigationProperty Name="LicenceTypeList" Relationship="NAV.Company_LicenceTypeList" ToRole="LicenceTypeList" FromRole="Company" />
         <NavigationProperty Name="PostCodes" Relationship="NAV.Company_PostCodes" ToRole="PostCodes" FromRole="Company" />
         <NavigationProperty Name="ProcurementPlanEntry" Relationship="NAV.Company_ProcurementPlanEntry" ToRole="ProcurementPlanEntry" FromRole="Company" />
         <NavigationProperty Name="ResourceList" Relationship="NAV.Company_ResourceList" ToRole="ResourceList" FromRole="Company" />
@@ -8917,6 +8981,8 @@
         <NavigationProperty Name="AgencyComplianceSetup" Relationship="NAV.Company_AgencyComplianceSetup" ToRole="AgencyComplianceSetup" FromRole="Company" />
         <NavigationProperty Name="AgencyFacilitiesCategories" Relationship="NAV.Company_AgencyFacilitiesCategories" ToRole="AgencyFacilitiesCategories" FromRole="Company" />
         <NavigationProperty Name="AgencyGovernmentCompliance" Relationship="NAV.Company_AgencyGovernmentCompliance" ToRole="AgencyGovernmentCompliance" FromRole="Company" />
+        <NavigationProperty Name="AgencyRecruitingUniversities" Relationship="NAV.Company_AgencyRecruitingUniversities" ToRole="AgencyRecruitingUniversities" FromRole="Company" />
+        <NavigationProperty Name="AgencyStaffProfile" Relationship="NAV.Company_AgencyStaffProfile" ToRole="AgencyStaffProfile" FromRole="Company" />
         <NavigationProperty Name="allstudentsenrolled" Relationship="NAV.Company_allstudentsenrolled" ToRole="allstudentsenrolled" FromRole="Company" />
         <NavigationProperty Name="Appeals" Relationship="NAV.Company_Appeals" ToRole="Appeals" FromRole="Company" />
         <NavigationProperty Name="ApplicantProfile" Relationship="NAV.Company_ApplicantProfile" ToRole="ApplicantProfile" FromRole="Company" />
@@ -9080,6 +9146,7 @@
         <NavigationProperty Name="LibraryFunctionalArea" Relationship="NAV.Company_LibraryFunctionalArea" ToRole="LibraryFunctionalArea" FromRole="Company" />
         <NavigationProperty Name="LibraryServices" Relationship="NAV.Company_LibraryServices" ToRole="LibraryServices" FromRole="Company" />
         <NavigationProperty Name="LicenceApplicationHeader" Relationship="NAV.Company_LicenceApplicationHeader" ToRole="LicenceApplicationHeader" FromRole="Company" />
+        <NavigationProperty Name="LicenceType" Relationship="NAV.Company_LicenceType" ToRole="LicenceType" FromRole="Company" />
         <NavigationProperty Name="Locations" Relationship="NAV.Company_Locations" ToRole="Locations" FromRole="Company" />
         <NavigationProperty Name="MachiraEmployees" Relationship="NAV.Company_MachiraEmployees" ToRole="MachiraEmployees" FromRole="Company" />
         <NavigationProperty Name="MyHeldeskRequests" Relationship="NAV.Company_MyHeldeskRequests" ToRole="MyHeldeskRequests" FromRole="Company" />
@@ -9388,6 +9455,10 @@
         <End Type="NAV.JobList" Role="JobList" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
       </Association>
+      <Association Name="Company_LicenceTypeList">
+        <End Type="NAV.LicenceTypeList" Role="LicenceTypeList" Multiplicity="*" />
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+      </Association>
       <Association Name="Company_PostCodes">
         <End Type="NAV.PostCodes" Role="PostCodes" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
@@ -9475,6 +9546,14 @@
       <Association Name="Company_AgencyGovernmentCompliance">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AgencyGovernmentCompliance" Role="AgencyGovernmentCompliance" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_AgencyRecruitingUniversities">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyRecruitingUniversities" Role="AgencyRecruitingUniversities" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_AgencyStaffProfile">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyStaffProfile" Role="AgencyStaffProfile" Multiplicity="*" />
       </Association>
       <Association Name="Company_allstudentsenrolled">
         <End Type="NAV.allstudentsenrolled" Role="allstudentsenrolled" Multiplicity="*" />
@@ -10126,6 +10205,10 @@
       </Association>
       <Association Name="Company_LicenceApplicationHeader">
         <End Type="NAV.LicenceApplicationHeader" Role="LicenceApplicationHeader" Multiplicity="*" />
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_LicenceType">
+        <End Type="NAV.LicenceType" Role="LicenceType" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
       </Association>
       <Association Name="Company_Locations">
@@ -10983,6 +11066,7 @@
         <EntitySet Name="ImprestRequisition" EntityType="NAV.ImprestRequisition" />
         <EntitySet Name="ImprestRequisitionImprest_Lines" EntityType="NAV.ImprestRequisitionImprest_Lines" />
         <EntitySet Name="JobList" EntityType="NAV.JobList" />
+        <EntitySet Name="LicenceTypeList" EntityType="NAV.LicenceTypeList" />
         <EntitySet Name="PostCodes" EntityType="NAV.PostCodes" />
         <EntitySet Name="ProcurementPlanEntry" EntityType="NAV.ProcurementPlanEntry" />
         <EntitySet Name="ResourceList" EntityType="NAV.ResourceList" />
@@ -11005,6 +11089,8 @@
         <EntitySet Name="AgencyComplianceSetup" EntityType="NAV.AgencyComplianceSetup" />
         <EntitySet Name="AgencyFacilitiesCategories" EntityType="NAV.AgencyFacilitiesCategories" />
         <EntitySet Name="AgencyGovernmentCompliance" EntityType="NAV.AgencyGovernmentCompliance" />
+        <EntitySet Name="AgencyRecruitingUniversities" EntityType="NAV.AgencyRecruitingUniversities" />
+        <EntitySet Name="AgencyStaffProfile" EntityType="NAV.AgencyStaffProfile" />
         <EntitySet Name="allstudentsenrolled" EntityType="NAV.allstudentsenrolled" />
         <EntitySet Name="Appeals" EntityType="NAV.Appeals" />
         <EntitySet Name="ApplicantProfile" EntityType="NAV.ApplicantProfile" />
@@ -11168,6 +11254,7 @@
         <EntitySet Name="LibraryFunctionalArea" EntityType="NAV.LibraryFunctionalArea" />
         <EntitySet Name="LibraryServices" EntityType="NAV.LibraryServices" />
         <EntitySet Name="LicenceApplicationHeader" EntityType="NAV.LicenceApplicationHeader" />
+        <EntitySet Name="LicenceType" EntityType="NAV.LicenceType" />
         <EntitySet Name="Locations" EntityType="NAV.Locations" />
         <EntitySet Name="MachiraEmployees" EntityType="NAV.MachiraEmployees" />
         <EntitySet Name="MyHeldeskRequests" EntityType="NAV.MyHeldeskRequests" />
@@ -11476,6 +11563,10 @@
           <End Role="Company" EntitySet="Company" />
           <End Role="JobList" EntitySet="JobList" />
         </AssociationSet>
+        <AssociationSet Name="Company_LicenceTypeList_LicenceTypeList" Association="NAV.Company_LicenceTypeList">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="LicenceTypeList" EntitySet="LicenceTypeList" />
+        </AssociationSet>
         <AssociationSet Name="Company_PostCodes_PostCodes" Association="NAV.Company_PostCodes">
           <End Role="Company" EntitySet="Company" />
           <End Role="PostCodes" EntitySet="PostCodes" />
@@ -11563,6 +11654,14 @@
         <AssociationSet Name="Company_AgencyGovernmentCompliance_AgencyGovernmentCompliance" Association="NAV.Company_AgencyGovernmentCompliance">
           <End Role="Company" EntitySet="Company" />
           <End Role="AgencyGovernmentCompliance" EntitySet="AgencyGovernmentCompliance" />
+        </AssociationSet>
+        <AssociationSet Name="Company_AgencyRecruitingUniversities_AgencyRecruitingUniversities" Association="NAV.Company_AgencyRecruitingUniversities">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyRecruitingUniversities" EntitySet="AgencyRecruitingUniversities" />
+        </AssociationSet>
+        <AssociationSet Name="Company_AgencyStaffProfile_AgencyStaffProfile" Association="NAV.Company_AgencyStaffProfile">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyStaffProfile" EntitySet="AgencyStaffProfile" />
         </AssociationSet>
         <AssociationSet Name="Company_allstudentsenrolled_allstudentsenrolled" Association="NAV.Company_allstudentsenrolled">
           <End Role="Company" EntitySet="Company" />
@@ -12215,6 +12314,10 @@
         <AssociationSet Name="Company_LicenceApplicationHeader_LicenceApplicationHeader" Association="NAV.Company_LicenceApplicationHeader">
           <End Role="Company" EntitySet="Company" />
           <End Role="LicenceApplicationHeader" EntitySet="LicenceApplicationHeader" />
+        </AssociationSet>
+        <AssociationSet Name="Company_LicenceType_LicenceType" Association="NAV.Company_LicenceType">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="LicenceType" EntitySet="LicenceType" />
         </AssociationSet>
         <AssociationSet Name="Company_Locations_Locations" Association="NAV.Company_Locations">
           <End Role="Company" EntitySet="Company" />

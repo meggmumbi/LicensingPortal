@@ -293,4 +293,3 @@ D:\C#projects\Clients\CUE\LICENSING PORTAL\LICENSING PORTAL\HRPortal\bin\zh-Hans
 D:\C#projects\Clients\CUE\LICENSING PORTAL\LICENSING PORTAL\HRPortal\bin\zh-Hant\System.Spatial.resources.dll
 D:\C#projects\Clients\CUE\LICENSING PORTAL\LICENSING PORTAL\HRPortal\obj\Debug\HRPortal.dll
 D:\C#projects\Clients\CUE\LICENSING PORTAL\LICENSING PORTAL\HRPortal\obj\Debug\HRPortal.pdb
-D:\C#projects\Clients\CUE\LICENSING PORTAL\LICENSING PORTAL\HRPortal\obj\Debug\HRPortal.csprojResolveAssemblyReference.cache

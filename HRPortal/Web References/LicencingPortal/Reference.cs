@@ -49,7 +49,27 @@ namespace HRPortal.LicencingPortal {
         
         private System.Threading.SendOrPostCallback FnInsertRecruitmentInstOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnInsertResponseOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnAddDocumentsLinksOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnSubmitApplicationOperationCompleted;
+        
         private System.Threading.SendOrPostCallback RemoveItemOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RemoveFacilityOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RemoveGovernanceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RemoveStaffOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RemoveActivityOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback EditPhysicalLocationOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback EditStaffProfileOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback EditGovernanceComplianceOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -120,7 +140,37 @@ namespace HRPortal.LicencingPortal {
         public event FnInsertRecruitmentInstCompletedEventHandler FnInsertRecruitmentInstCompleted;
         
         /// <remarks/>
+        public event FnInsertResponseCompletedEventHandler FnInsertResponseCompleted;
+        
+        /// <remarks/>
+        public event FnAddDocumentsLinksCompletedEventHandler FnAddDocumentsLinksCompleted;
+        
+        /// <remarks/>
+        public event FnSubmitApplicationCompletedEventHandler FnSubmitApplicationCompleted;
+        
+        /// <remarks/>
         public event RemoveItemCompletedEventHandler RemoveItemCompleted;
+        
+        /// <remarks/>
+        public event RemoveFacilityCompletedEventHandler RemoveFacilityCompleted;
+        
+        /// <remarks/>
+        public event RemoveGovernanceCompletedEventHandler RemoveGovernanceCompleted;
+        
+        /// <remarks/>
+        public event RemoveStaffCompletedEventHandler RemoveStaffCompleted;
+        
+        /// <remarks/>
+        public event RemoveActivityCompletedEventHandler RemoveActivityCompleted;
+        
+        /// <remarks/>
+        public event EditPhysicalLocationCompletedEventHandler EditPhysicalLocationCompleted;
+        
+        /// <remarks/>
+        public event EditStaffProfileCompletedEventHandler EditStaffProfileCompleted;
+        
+        /// <remarks/>
+        public event EditGovernanceComplianceCompletedEventHandler EditGovernanceComplianceCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnRegistration", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnRegistration_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -360,30 +410,30 @@ namespace HRPortal.LicencingPortal {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertAgentFacilities", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnInsertAgentFacilities_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
-        public string FnInsertAgentFacilities(string tapplicationNo, string tActivityCode, int tquantity, string tFacilityCode) {
+        public string FnInsertAgentFacilities(string tapplicationNo, string tFacilityCode, int tquantity, string tFacilitycategory) {
             object[] results = this.Invoke("FnInsertAgentFacilities", new object[] {
                         tapplicationNo,
-                        tActivityCode,
+                        tFacilityCode,
                         tquantity,
-                        tFacilityCode});
+                        tFacilitycategory});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void FnInsertAgentFacilitiesAsync(string tapplicationNo, string tActivityCode, int tquantity, string tFacilityCode) {
-            this.FnInsertAgentFacilitiesAsync(tapplicationNo, tActivityCode, tquantity, tFacilityCode, null);
+        public void FnInsertAgentFacilitiesAsync(string tapplicationNo, string tFacilityCode, int tquantity, string tFacilitycategory) {
+            this.FnInsertAgentFacilitiesAsync(tapplicationNo, tFacilityCode, tquantity, tFacilitycategory, null);
         }
         
         /// <remarks/>
-        public void FnInsertAgentFacilitiesAsync(string tapplicationNo, string tActivityCode, int tquantity, string tFacilityCode, object userState) {
+        public void FnInsertAgentFacilitiesAsync(string tapplicationNo, string tFacilityCode, int tquantity, string tFacilitycategory, object userState) {
             if ((this.FnInsertAgentFacilitiesOperationCompleted == null)) {
                 this.FnInsertAgentFacilitiesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertAgentFacilitiesOperationCompleted);
             }
             this.InvokeAsync("FnInsertAgentFacilities", new object[] {
                         tapplicationNo,
-                        tActivityCode,
+                        tFacilityCode,
                         tquantity,
-                        tFacilityCode}, this.FnInsertAgentFacilitiesOperationCompleted, userState);
+                        tFacilitycategory}, this.FnInsertAgentFacilitiesOperationCompleted, userState);
         }
         
         private void OnFnInsertAgentFacilitiesOperationCompleted(object arg) {
@@ -535,6 +585,108 @@ namespace HRPortal.LicencingPortal {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertResponse", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnInsertResponse_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertResponse(string tapplicationNo, string tQuestionCategory, string tquestionCode, string tresponse) {
+            object[] results = this.Invoke("FnInsertResponse", new object[] {
+                        tapplicationNo,
+                        tQuestionCategory,
+                        tquestionCode,
+                        tresponse});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertResponseAsync(string tapplicationNo, string tQuestionCategory, string tquestionCode, string tresponse) {
+            this.FnInsertResponseAsync(tapplicationNo, tQuestionCategory, tquestionCode, tresponse, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertResponseAsync(string tapplicationNo, string tQuestionCategory, string tquestionCode, string tresponse, object userState) {
+            if ((this.FnInsertResponseOperationCompleted == null)) {
+                this.FnInsertResponseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertResponseOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertResponse", new object[] {
+                        tapplicationNo,
+                        tQuestionCategory,
+                        tquestionCode,
+                        tresponse}, this.FnInsertResponseOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertResponseOperationCompleted(object arg) {
+            if ((this.FnInsertResponseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertResponseCompleted(this, new FnInsertResponseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnAddDocumentsLinks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnAddDocumentsLinks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnAddDocumentsLinks(string tapplicationNo, string documentCode, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime issueDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime expiryDate) {
+            object[] results = this.Invoke("FnAddDocumentsLinks", new object[] {
+                        tapplicationNo,
+                        documentCode,
+                        issueDate,
+                        expiryDate});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode, System.DateTime issueDate, System.DateTime expiryDate) {
+            this.FnAddDocumentsLinksAsync(tapplicationNo, documentCode, issueDate, expiryDate, null);
+        }
+        
+        /// <remarks/>
+        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode, System.DateTime issueDate, System.DateTime expiryDate, object userState) {
+            if ((this.FnAddDocumentsLinksOperationCompleted == null)) {
+                this.FnAddDocumentsLinksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnAddDocumentsLinksOperationCompleted);
+            }
+            this.InvokeAsync("FnAddDocumentsLinks", new object[] {
+                        tapplicationNo,
+                        documentCode,
+                        issueDate,
+                        expiryDate}, this.FnAddDocumentsLinksOperationCompleted, userState);
+        }
+        
+        private void OnFnAddDocumentsLinksOperationCompleted(object arg) {
+            if ((this.FnAddDocumentsLinksCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnAddDocumentsLinksCompleted(this, new FnAddDocumentsLinksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnSubmitApplication", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnSubmitApplication_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnSubmitApplication(string applicationNo) {
+            object[] results = this.Invoke("FnSubmitApplication", new object[] {
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnSubmitApplicationAsync(string applicationNo) {
+            this.FnSubmitApplicationAsync(applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnSubmitApplicationAsync(string applicationNo, object userState) {
+            if ((this.FnSubmitApplicationOperationCompleted == null)) {
+                this.FnSubmitApplicationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnSubmitApplicationOperationCompleted);
+            }
+            this.InvokeAsync("FnSubmitApplication", new object[] {
+                        applicationNo}, this.FnSubmitApplicationOperationCompleted, userState);
+        }
+        
+        private void OnFnSubmitApplicationOperationCompleted(object arg) {
+            if ((this.FnSubmitApplicationCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnSubmitApplicationCompleted(this, new FnSubmitApplicationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveItem", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveItem_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
         public string RemoveItem(int entryNo, string applicationNo) {
@@ -563,6 +715,252 @@ namespace HRPortal.LicencingPortal {
             if ((this.RemoveItemCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.RemoveItemCompleted(this, new RemoveItemCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveFacility", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveFacility_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string RemoveFacility(int entryNo, string applicationNo) {
+            object[] results = this.Invoke("RemoveFacility", new object[] {
+                        entryNo,
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RemoveFacilityAsync(int entryNo, string applicationNo) {
+            this.RemoveFacilityAsync(entryNo, applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void RemoveFacilityAsync(int entryNo, string applicationNo, object userState) {
+            if ((this.RemoveFacilityOperationCompleted == null)) {
+                this.RemoveFacilityOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveFacilityOperationCompleted);
+            }
+            this.InvokeAsync("RemoveFacility", new object[] {
+                        entryNo,
+                        applicationNo}, this.RemoveFacilityOperationCompleted, userState);
+        }
+        
+        private void OnRemoveFacilityOperationCompleted(object arg) {
+            if ((this.RemoveFacilityCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RemoveFacilityCompleted(this, new RemoveFacilityCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveGovernance", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveGovernance_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string RemoveGovernance(int entryNo, string applicationNo) {
+            object[] results = this.Invoke("RemoveGovernance", new object[] {
+                        entryNo,
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RemoveGovernanceAsync(int entryNo, string applicationNo) {
+            this.RemoveGovernanceAsync(entryNo, applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void RemoveGovernanceAsync(int entryNo, string applicationNo, object userState) {
+            if ((this.RemoveGovernanceOperationCompleted == null)) {
+                this.RemoveGovernanceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveGovernanceOperationCompleted);
+            }
+            this.InvokeAsync("RemoveGovernance", new object[] {
+                        entryNo,
+                        applicationNo}, this.RemoveGovernanceOperationCompleted, userState);
+        }
+        
+        private void OnRemoveGovernanceOperationCompleted(object arg) {
+            if ((this.RemoveGovernanceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RemoveGovernanceCompleted(this, new RemoveGovernanceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveStaff", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveStaff_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string RemoveStaff(int entryNo, string applicationNo) {
+            object[] results = this.Invoke("RemoveStaff", new object[] {
+                        entryNo,
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RemoveStaffAsync(int entryNo, string applicationNo) {
+            this.RemoveStaffAsync(entryNo, applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void RemoveStaffAsync(int entryNo, string applicationNo, object userState) {
+            if ((this.RemoveStaffOperationCompleted == null)) {
+                this.RemoveStaffOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveStaffOperationCompleted);
+            }
+            this.InvokeAsync("RemoveStaff", new object[] {
+                        entryNo,
+                        applicationNo}, this.RemoveStaffOperationCompleted, userState);
+        }
+        
+        private void OnRemoveStaffOperationCompleted(object arg) {
+            if ((this.RemoveStaffCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RemoveStaffCompleted(this, new RemoveStaffCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveActivity", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="RemoveActivity_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string RemoveActivity(int entryNo, string applicationNo) {
+            object[] results = this.Invoke("RemoveActivity", new object[] {
+                        entryNo,
+                        applicationNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RemoveActivityAsync(int entryNo, string applicationNo) {
+            this.RemoveActivityAsync(entryNo, applicationNo, null);
+        }
+        
+        /// <remarks/>
+        public void RemoveActivityAsync(int entryNo, string applicationNo, object userState) {
+            if ((this.RemoveActivityOperationCompleted == null)) {
+                this.RemoveActivityOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRemoveActivityOperationCompleted);
+            }
+            this.InvokeAsync("RemoveActivity", new object[] {
+                        entryNo,
+                        applicationNo}, this.RemoveActivityOperationCompleted, userState);
+        }
+        
+        private void OnRemoveActivityOperationCompleted(object arg) {
+            if ((this.RemoveActivityCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RemoveActivityCompleted(this, new RemoveActivityCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:EditPhysicalLocation", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="EditPhysicalLocation_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string EditPhysicalLocation(string tapplicationNo, int tentryNo, string tAddress, string tPhysicalLocation) {
+            object[] results = this.Invoke("EditPhysicalLocation", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tAddress,
+                        tPhysicalLocation});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void EditPhysicalLocationAsync(string tapplicationNo, int tentryNo, string tAddress, string tPhysicalLocation) {
+            this.EditPhysicalLocationAsync(tapplicationNo, tentryNo, tAddress, tPhysicalLocation, null);
+        }
+        
+        /// <remarks/>
+        public void EditPhysicalLocationAsync(string tapplicationNo, int tentryNo, string tAddress, string tPhysicalLocation, object userState) {
+            if ((this.EditPhysicalLocationOperationCompleted == null)) {
+                this.EditPhysicalLocationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnEditPhysicalLocationOperationCompleted);
+            }
+            this.InvokeAsync("EditPhysicalLocation", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tAddress,
+                        tPhysicalLocation}, this.EditPhysicalLocationOperationCompleted, userState);
+        }
+        
+        private void OnEditPhysicalLocationOperationCompleted(object arg) {
+            if ((this.EditPhysicalLocationCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.EditPhysicalLocationCompleted(this, new EditPhysicalLocationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:EditStaffProfile", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="EditStaffProfile_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string EditStaffProfile(string tapplicationNo, int tentryNo, string tname, string tNationality, string tIDno, string tworkPermit, string tGoodConduct) {
+            object[] results = this.Invoke("EditStaffProfile", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tname,
+                        tNationality,
+                        tIDno,
+                        tworkPermit,
+                        tGoodConduct});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void EditStaffProfileAsync(string tapplicationNo, int tentryNo, string tname, string tNationality, string tIDno, string tworkPermit, string tGoodConduct) {
+            this.EditStaffProfileAsync(tapplicationNo, tentryNo, tname, tNationality, tIDno, tworkPermit, tGoodConduct, null);
+        }
+        
+        /// <remarks/>
+        public void EditStaffProfileAsync(string tapplicationNo, int tentryNo, string tname, string tNationality, string tIDno, string tworkPermit, string tGoodConduct, object userState) {
+            if ((this.EditStaffProfileOperationCompleted == null)) {
+                this.EditStaffProfileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnEditStaffProfileOperationCompleted);
+            }
+            this.InvokeAsync("EditStaffProfile", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tname,
+                        tNationality,
+                        tIDno,
+                        tworkPermit,
+                        tGoodConduct}, this.EditStaffProfileOperationCompleted, userState);
+        }
+        
+        private void OnEditStaffProfileOperationCompleted(object arg) {
+            if ((this.EditStaffProfileCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.EditStaffProfileCompleted(this, new EditStaffProfileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:EditGovernanceCompliance", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="EditGovernanceCompliance_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string EditGovernanceCompliance(string tapplicationNo, int tentryNo, string tAuth, string tCertNo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime tIssueDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime tExpiryDate) {
+            object[] results = this.Invoke("EditGovernanceCompliance", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tAuth,
+                        tCertNo,
+                        tIssueDate,
+                        tExpiryDate});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void EditGovernanceComplianceAsync(string tapplicationNo, int tentryNo, string tAuth, string tCertNo, System.DateTime tIssueDate, System.DateTime tExpiryDate) {
+            this.EditGovernanceComplianceAsync(tapplicationNo, tentryNo, tAuth, tCertNo, tIssueDate, tExpiryDate, null);
+        }
+        
+        /// <remarks/>
+        public void EditGovernanceComplianceAsync(string tapplicationNo, int tentryNo, string tAuth, string tCertNo, System.DateTime tIssueDate, System.DateTime tExpiryDate, object userState) {
+            if ((this.EditGovernanceComplianceOperationCompleted == null)) {
+                this.EditGovernanceComplianceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnEditGovernanceComplianceOperationCompleted);
+            }
+            this.InvokeAsync("EditGovernanceCompliance", new object[] {
+                        tapplicationNo,
+                        tentryNo,
+                        tAuth,
+                        tCertNo,
+                        tIssueDate,
+                        tExpiryDate}, this.EditGovernanceComplianceOperationCompleted, userState);
+        }
+        
+        private void OnEditGovernanceComplianceOperationCompleted(object arg) {
+            if ((this.EditGovernanceComplianceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.EditGovernanceComplianceCompleted(this, new EditGovernanceComplianceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -847,6 +1245,84 @@ namespace HRPortal.LicencingPortal {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void FnInsertResponseCompletedEventHandler(object sender, FnInsertResponseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertResponseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertResponseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void FnAddDocumentsLinksCompletedEventHandler(object sender, FnAddDocumentsLinksCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnAddDocumentsLinksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnAddDocumentsLinksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void FnSubmitApplicationCompletedEventHandler(object sender, FnSubmitApplicationCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnSubmitApplicationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnSubmitApplicationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void RemoveItemCompletedEventHandler(object sender, RemoveItemCompletedEventArgs e);
     
     /// <remarks/>
@@ -858,6 +1334,188 @@ namespace HRPortal.LicencingPortal {
         private object[] results;
         
         internal RemoveItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void RemoveFacilityCompletedEventHandler(object sender, RemoveFacilityCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RemoveFacilityCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RemoveFacilityCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void RemoveGovernanceCompletedEventHandler(object sender, RemoveGovernanceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RemoveGovernanceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RemoveGovernanceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void RemoveStaffCompletedEventHandler(object sender, RemoveStaffCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RemoveStaffCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RemoveStaffCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void RemoveActivityCompletedEventHandler(object sender, RemoveActivityCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RemoveActivityCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RemoveActivityCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void EditPhysicalLocationCompletedEventHandler(object sender, EditPhysicalLocationCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EditPhysicalLocationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal EditPhysicalLocationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void EditStaffProfileCompletedEventHandler(object sender, EditStaffProfileCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EditStaffProfileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal EditStaffProfileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void EditGovernanceComplianceCompletedEventHandler(object sender, EditGovernanceComplianceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EditGovernanceComplianceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal EditGovernanceComplianceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -52,13 +53,13 @@ namespace HRPortal
                 county.DataBind();
                 county.Items.Insert(0, new ListItem("--select--", ""));
 
-
-                //var Facilities = nav.AgencyFacilitiesCategories.ToList();
-                //facilityDescription.DataSource = Facilities;
-                //facilityDescription.DataTextField = "Description";
-                //facilityDescription.DataValueField = "Code";
-                //facilityDescription.DataBind();
-                //facilityDescription.Items.Insert(0, new ListItem("--select--", ""));
+                
+                var Qualifications = nav.Qualification.ToList();
+                academic.DataSource = Qualifications;
+                academic.DataTextField = "Description";
+                academic.DataValueField = "Code";
+                academic.DataBind();
+                academic.Items.Insert(0, new ListItem("--select--", ""));
 
 
                 //var Activities = nav.AgencyActivitiesSetup.ToList();
@@ -406,7 +407,7 @@ namespace HRPortal
                     string InitiativeNumber = target.TargetNumber;
                     var nav1 = new Config().ReturnNav();
 
-                    var status = Config.ObjNav.FnInsertAgentFacilities(target.ApplicationNo, target.TargetNumber, target.quantity, "");
+                    var status = Config.ObjNav.FnInsertAgentFacilities(target.ApplicationNo, target.TargetNumber, target.quantity, target.category);
                     string[] info = status.Split('*');
                     if (info[0] == "success")
                     {
@@ -484,6 +485,51 @@ namespace HRPortal
                 results = ex.Message;
             }
             return results;
+        }
+
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static string InsertResponse(List<QuestionsModel> cmpitems)
+        {
+            string  tqnCode = "",  tresponse = "", tapplicationNo = "", tqnCategory = "";
+           
+
+            string results_0 = (dynamic)null;
+           
+
+            try
+            {
+
+                //Check for NULL.
+                if (cmpitems == null)
+                    cmpitems = new List<QuestionsModel>();
+
+                //Loop and insert records.
+                foreach (QuestionsModel oneitem in cmpitems)
+                {
+                    tqnCode = oneitem.QuestionCode;
+                    tresponse = oneitem.response;
+                    tapplicationNo = oneitem.applicationNo;
+                    tqnCategory = oneitem.qnCategory;
+
+                    if (string.IsNullOrWhiteSpace(tapplicationNo))
+                    {
+                        results_0 = "strengthnull";
+                        return results_0;
+                    }
+
+                    string status = Config.ObjNav.FnInsertResponse(tapplicationNo, tqnCategory,tqnCode, tresponse);
+
+                     string[] info = status.Split('*');
+                    results_0 = info[0];                  
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                results_0 = ex.Message;
+            }
+            return results_0;
         }
 
         protected void backtostep1_Click(object sender, EventArgs e)
@@ -824,21 +870,21 @@ namespace HRPortal
                 if (error)
                 {
 
-                    physicalLocations.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
 
                 }
                 else
                 {
-                    String status = Config.ObjNav.RemoveItem(mLineNo, ApplicationNo);
+                    String status = Config.ObjNav.RemoveFacility(mLineNo, ApplicationNo);
                     String[] info = status.Split('*');
-                    physicalLocations.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    AgencyFacilities.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
 
                 }
 
             }
             catch (Exception m)
             {
-                physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
 
             }
         }
@@ -857,7 +903,7 @@ namespace HRPortal
                 string tworkPermit = workPermit.Text.Trim();
                 DateTime texpiryDate = Convert.ToDateTime(workExpiryDate.Text.Trim());
                 string tgoodconduct = goodConduct.Text.Trim();
-                string tAcademic = academics.Text.Trim();
+                string tAcademic = academic.SelectedValue.Trim();
                 int tTerms = Convert.ToInt32(termsOfService.SelectedValue.Trim());
 
 
@@ -944,6 +990,410 @@ namespace HRPortal
             {
                 
                 city2.Text = myCity.City;
+            }
+        }
+
+        protected void uploadDoc_Click(object sender, EventArgs e)
+        {
+
+            String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "License Application/";
+
+            if (uploadfile.HasFile)
+            {
+                try
+                {
+                    if (Directory.Exists(filesFolder))
+                    {
+                        String extension = System.IO.Path.GetExtension(uploadfile.FileName);
+                        if (new Config().IsAllowedExtension(extension))
+                        {
+                            string tDocCode = DocCode.Text.Trim();
+                            DateTime tissueDate = Convert.ToDateTime(txtDate.Text.Trim());
+                            DateTime tExpiryDate = Convert.ToDateTime(txtexpiry.Text.Trim());
+                            String ApplicationNo = Request.QueryString["ApplicationNo"];
+                            ApplicationNo = ApplicationNo.Replace('/', '_');
+                            ApplicationNo = ApplicationNo.Replace(':', '_');
+                            String documentDirectory = filesFolder + ApplicationNo + "/";
+                            Boolean createDirectory = true;
+                            try
+                            {
+                                if (!Directory.Exists(documentDirectory))
+                                {
+                                    Directory.CreateDirectory(documentDirectory);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                createDirectory = false;
+                                documentsfeedback.InnerHtml =
+                                                                "<div class='alert alert-danger'>We could not create a directory for your documents. Please try again" +
+                                                                "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                            }
+                            if (createDirectory)
+                            {
+                                string filename = documentDirectory + uploadfile.FileName;
+                                if (File.Exists(filename))
+                                {
+                                    documentsfeedback.InnerHtml =
+                                                                       "<div class='alert alert-danger'>A document with the given name already exists. Please delete it before uploading the new document or rename the new document<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                                }
+                                else
+                                {
+                                    uploadfile.SaveAs(filename);
+                                    if (File.Exists(filename))
+                                    {
+
+                                        Config.navExtender.AddLinkToRecord("License_Application_Header", ApplicationNo, filename, "");
+                                        var status =Config.ObjNav.FnAddDocumentsLinks(ApplicationNo, tDocCode,tissueDate,tExpiryDate);
+                                        String[] info = status.Split('*');
+                                        if (info[0] == "success")
+                                        {
+                                            documentsfeedback.InnerHtml =
+                                            "<div class='alert alert-success'>The document was successfully uploaded. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                        }
+                                        else
+                                        {
+                                            documentsfeedback.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        documentsfeedback.InnerHtml =
+                                            "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document's file extension is not allowed. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        }
+
+                    }
+                    else
+                    {
+                        documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document's root folder defined does not exist in the server. Please contact support. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+            }
+            else
+            {
+                documentsfeedback.InnerHtml = "<div class='alert alert-danger'>Please select the document to upload. (or the document is empty) <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+
+            }
+        }
+
+        protected void submitApplication_Click(object sender, EventArgs e)
+        {
+
+            if (declaration.Checked == true)
+            {
+
+                try
+                {
+                    String tapplicationNo = Request.QueryString["ApplicationNo"];
+
+                    Boolean error = false;
+                    String message = "";
+
+                    if (string.IsNullOrEmpty(tapplicationNo))
+                    {
+                        error = true;
+                        message = "An application with the given applcationNo does not exist";
+                    }
+
+                    String status = Config.ObjNav.FnSubmitApplication(tapplicationNo);
+                    String[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+
+                        submitApplication.Visible = false;
+                        previousSteps.Visible = false;
+                        Payment.Visible = true;
+                        submit.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                    else
+                    {
+                        submitApplication.Visible = true;
+                        previousSteps.Visible = true;
+                        Payment.Visible = false;
+                        submit.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                }
+                catch (Exception t)
+                {
+                    submit.InnerHtml = "<div class='alert alert-danger'>" + t.Message + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+
+
+            }
+            else if (declaration.Checked == false)
+            {
+
+                var message = "Please accept our Terms and Conditions";
+                submit.InnerHtml = "<div class='alert alert-danger'>" + message + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+
+        }
+        protected void deleteFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String tFileName = fileName.Text.Trim();
+                String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "License Application/";
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                ApplicationNo = ApplicationNo.Replace('/', '_');
+                ApplicationNo = ApplicationNo.Replace(':', '_');
+                String documentDirectory = filesFolder + ApplicationNo + "/";
+                String myFile = documentDirectory + tFileName;
+                if (File.Exists(myFile))
+                {
+                    File.Delete(myFile);
+                    if (File.Exists(myFile))
+                    {
+                        documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The file could not be deleted <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                    else
+                    {
+                        documentsfeedback.InnerHtml = "<div class='alert alert-success'>The file was successfully deleted <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                }
+                else
+                {
+                    documentsfeedback.InnerHtml = "<div class='alert alert-danger'>A file with the given name does not exist in the server <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+
+
+
+            }
+            catch (Exception m)
+            {
+                documentsfeedback.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }        
+
+
+        }
+
+        protected void Payment_Click(object sender, EventArgs e)
+        {
+            string docNo = Request.QueryString["ApplicationNo"];
+            Response.Redirect("Home_Payments.aspx?ApplicationNo=" + docNo);
+        }
+
+        protected void removeActivity_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(entryNoRemove.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveActivity(mLineNo, ApplicationNo);
+                    String[] info = status.Split('*');
+                    AgencyActivitys.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                AgencyActivitys.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }
+        }
+
+        protected void EditG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string tAuth = Auth.Text.Trim();
+                string tcertNo = cerNo.Text;
+                int tenrtyNo = Convert.ToInt32(govEntryNo.Text);
+                DateTime tIssueDate = Convert.ToDateTime(issueDateG.Text);
+                DateTime tExpiry = Convert.ToDateTime(ExpDate.Text);
+                String applicationNo = Request.QueryString["ApplicationNo"];
+
+                String status = Config.ObjNav.EditGovernanceCompliance(applicationNo, tenrtyNo, tAuth, tcertNo, tIssueDate, tExpiry);
+                String[] info = status.Split('*');
+                if (info[0] == "success")
+                {
+                    governemt.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+                    governemt.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+
+            }
+            catch (Exception m)
+            {
+                governemt.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void EditDetails_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string taddres = modalAddress.Text.Trim();             
+                string tphysical = modalPhysicalLoc.Text;
+                int tenrtyNo = Convert.ToInt32(originalItemNo.Text);
+                String applicationNo = Request.QueryString["ApplicationNo"];
+
+                String status = Config.ObjNav.EditPhysicalLocation(applicationNo, tenrtyNo, taddres, tphysical);
+                String[] info = status.Split('*');
+                if (info[0] == "success")
+                {
+                    physicalLocations.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+                    physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+
+            }
+            catch (Exception m)
+            {
+                physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void removeG_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(governEntry.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    governemt.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveGovernance(mLineNo, ApplicationNo);
+                    String[] info = status.Split('*');
+                    governemt.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                governemt.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }
+        }
+
+        protected void EditstaffProf_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string tname = modalstaffName.Text.Trim();
+                string tnationality = modalStaffNationality.Text;
+                string tIdNo = modalIDPassp.Text;
+                string tWorkPermit = modalWorkP.Text;
+                string tgoodConduct = modalGoodCond.Text;
+                int tenrtyNo = Convert.ToInt32(staffProfEntryNo.Text);
+                String applicationNo = Request.QueryString["ApplicationNo"];
+
+                String status = Config.ObjNav.EditStaffProfile(applicationNo, tenrtyNo, tname, tnationality, tIdNo, tWorkPermit, tgoodConduct);
+                String[] info = status.Split('*');
+                if (info[0] == "success")
+                {
+                    keyStaff.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+                    keyStaff.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+
+            }
+            catch (Exception m)
+            {
+                keyStaff.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void removestaff_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(StaffEntry.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    keyStaff.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveStaff(mLineNo, ApplicationNo);
+                    String[] info = status.Split('*');
+                    keyStaff.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                keyStaff.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
             }
         }
     }

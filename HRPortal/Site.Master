@@ -118,9 +118,10 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="NewApplication.aspx"><i class="fa fa-circle-o"></i>New Application</a></li>
-                                <li><a href="OpenApplications.aspx"><i class="fa fa-circle-o"></i>Open Applications</a></li>
-                                <li><a href="StatusOfApplication.aspx"><i class="fa fa-circle-o"></i>Status of Applications</a></li>
-                                <li><a href="ApprovedApplications.aspx"><i class="fa fa-circle-o"></i>Approved Applications</a></li>
+                                <li><a href="OpenApplications.aspx"><i class="fa fa-circle-o"></i>Draft Applications</a></li>
+                                <li><a href="ApprovedApplications.aspx"><i class="fa fa-circle-o"></i>Pending Payments</a></li>
+                                <li><a href="StatusOfApplication.aspx"><i class="fa fa-circle-o"></i>Status of Applications</a></li>  
+                                  <li><a href="Home_Payments.aspx"><i class="fa fa-circle-o"></i>Payment Options</a></li>                              
                                 <li><a href="ReSubmission.aspx"><i class="fa fa-circle-o"></i>Request For Re-Submission</a></li>
                                 <li><a href="ApplicationAppeal.aspx"><i class="fa fa-circle-o"></i>Application Appeals</a></li>
                             </ul>

@@ -248,6 +248,7 @@
                 var Targets = {};
                 Targets.quantity = ($(this).find("TD input").eq(1).val());
                 Targets.targetNumber = ($(this).find('td').eq(1).text());
+                Targets.category = ($(this).find('td').eq(2).text());
                 Targets.ApplicationNo = $("#txtAppNo").val();
                 PrimaryInitiative.push(Targets);
             });

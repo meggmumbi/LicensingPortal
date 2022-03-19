@@ -11,6 +11,18 @@
         <Property Name="No_Series" Type="Edm.String" />
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
       </EntityType>
+      <EntityType Name="AgencyQuestionList">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Question_Category" Type="Edm.String" />
+        <Property Name="Question_Category_Description" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Question_Type" Type="Edm.String" />
+        <Property Name="Blocked" Type="Edm.Boolean" />
+        <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
+      </EntityType>
       <EntityType Name="Countries">
         <Key>
           <PropertyRef Name="Code" />
@@ -559,9 +571,10 @@
       <EntityType Name="AgencyActivities">
         <Key>
           <PropertyRef Name="Application_No" />
+          <PropertyRef Name="Code" />
         </Key>
         <Property Name="Application_No" Type="Edm.String" Nullable="false" />
-        <Property Name="Code" Type="Edm.String" />
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
       </EntityType>
       <EntityType Name="AgencyActivitiesSetup">
@@ -591,11 +604,30 @@
         <Property Name="Description" Type="Edm.String" />
         <Property Name="Mandatory" Type="Edm.Boolean" />
       </EntityType>
+      <EntityType Name="AgencyDocuments">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Blocked" Type="Edm.Boolean" />
+        <Property Name="Application_Type" Type="Edm.String" />
+      </EntityType>
       <EntityType Name="AgencyFacilitiesCategories">
         <Key>
           <PropertyRef Name="Code" />
         </Key>
         <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Blocked" Type="Edm.Boolean" />
+      </EntityType>
+      <EntityType Name="AgencyFacilitiesSetup">
+        <Key>
+          <PropertyRef Name="Category" />
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Category" Type="Edm.String" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="Blocked" Type="Edm.Boolean" />
       </EntityType>
@@ -612,6 +644,24 @@
         <Property Name="Date_of_expiry" Type="Edm.DateTime" />
         <Property Name="Authority_issuing_certificate" Type="Edm.String" />
         <Property Name="Entry_No" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AgencyQuestionCategories">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="No_of_Questions" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="AgencyQuestions">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Question_Category" Type="Edm.String" />
+        <Property Name="Question_Category_Description" Type="Edm.String" />
+        <Property Name="Question_Type" Type="Edm.String" />
+        <Property Name="Blocked" Type="Edm.Boolean" />
       </EntityType>
       <EntityType Name="AgencyRecruitingUniversities">
         <Key>
@@ -8949,6 +8999,7 @@
         </Key>
         <Property Name="Name" Type="Edm.String" Nullable="false" />
         <NavigationProperty Name="AccreditationCategories" Relationship="NAV.Company_AccreditationCategories" ToRole="AccreditationCategories" FromRole="Company" />
+        <NavigationProperty Name="AgencyQuestionList" Relationship="NAV.Company_AgencyQuestionList" ToRole="AgencyQuestionList" FromRole="Company" />
         <NavigationProperty Name="Countries" Relationship="NAV.Company_Countries" ToRole="Countries" FromRole="Company" />
         <NavigationProperty Name="CSPStrategies" Relationship="NAV.Company_CSPStrategies" ToRole="CSPStrategies" FromRole="Company" />
         <NavigationProperty Name="CurrentProcurementPlan" Relationship="NAV.Company_CurrentProcurementPlan" ToRole="CurrentProcurementPlan" FromRole="Company" />
@@ -8979,8 +9030,12 @@
         <NavigationProperty Name="AgencyActivitiesSetup" Relationship="NAV.Company_AgencyActivitiesSetup" ToRole="AgencyActivitiesSetup" FromRole="Company" />
         <NavigationProperty Name="AgencyApplicationFacilities" Relationship="NAV.Company_AgencyApplicationFacilities" ToRole="AgencyApplicationFacilities" FromRole="Company" />
         <NavigationProperty Name="AgencyComplianceSetup" Relationship="NAV.Company_AgencyComplianceSetup" ToRole="AgencyComplianceSetup" FromRole="Company" />
+        <NavigationProperty Name="AgencyDocuments" Relationship="NAV.Company_AgencyDocuments" ToRole="AgencyDocuments" FromRole="Company" />
         <NavigationProperty Name="AgencyFacilitiesCategories" Relationship="NAV.Company_AgencyFacilitiesCategories" ToRole="AgencyFacilitiesCategories" FromRole="Company" />
+        <NavigationProperty Name="AgencyFacilitiesSetup" Relationship="NAV.Company_AgencyFacilitiesSetup" ToRole="AgencyFacilitiesSetup" FromRole="Company" />
         <NavigationProperty Name="AgencyGovernmentCompliance" Relationship="NAV.Company_AgencyGovernmentCompliance" ToRole="AgencyGovernmentCompliance" FromRole="Company" />
+        <NavigationProperty Name="AgencyQuestionCategories" Relationship="NAV.Company_AgencyQuestionCategories" ToRole="AgencyQuestionCategories" FromRole="Company" />
+        <NavigationProperty Name="AgencyQuestions" Relationship="NAV.Company_AgencyQuestions" ToRole="AgencyQuestions" FromRole="Company" />
         <NavigationProperty Name="AgencyRecruitingUniversities" Relationship="NAV.Company_AgencyRecruitingUniversities" ToRole="AgencyRecruitingUniversities" FromRole="Company" />
         <NavigationProperty Name="AgencyStaffProfile" Relationship="NAV.Company_AgencyStaffProfile" ToRole="AgencyStaffProfile" FromRole="Company" />
         <NavigationProperty Name="allstudentsenrolled" Relationship="NAV.Company_allstudentsenrolled" ToRole="allstudentsenrolled" FromRole="Company" />
@@ -9419,6 +9474,10 @@
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AccreditationCategories" Role="AccreditationCategories" Multiplicity="*" />
       </Association>
+      <Association Name="Company_AgencyQuestionList">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyQuestionList" Role="AgencyQuestionList" Multiplicity="*" />
+      </Association>
       <Association Name="Company_Countries">
         <End Type="NAV.Countries" Role="Countries" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
@@ -9539,13 +9598,29 @@
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AgencyComplianceSetup" Role="AgencyComplianceSetup" Multiplicity="*" />
       </Association>
+      <Association Name="Company_AgencyDocuments">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyDocuments" Role="AgencyDocuments" Multiplicity="*" />
+      </Association>
       <Association Name="Company_AgencyFacilitiesCategories">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AgencyFacilitiesCategories" Role="AgencyFacilitiesCategories" Multiplicity="*" />
       </Association>
+      <Association Name="Company_AgencyFacilitiesSetup">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyFacilitiesSetup" Role="AgencyFacilitiesSetup" Multiplicity="*" />
+      </Association>
       <Association Name="Company_AgencyGovernmentCompliance">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AgencyGovernmentCompliance" Role="AgencyGovernmentCompliance" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_AgencyQuestionCategories">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyQuestionCategories" Role="AgencyQuestionCategories" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_AgencyQuestions">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.AgencyQuestions" Role="AgencyQuestions" Multiplicity="*" />
       </Association>
       <Association Name="Company_AgencyRecruitingUniversities">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
@@ -11057,6 +11132,7 @@
       </Association>
       <EntityContainer Name="NAV" m:IsDefaultEntityContainer="true">
         <EntitySet Name="AccreditationCategories" EntityType="NAV.AccreditationCategories" />
+        <EntitySet Name="AgencyQuestionList" EntityType="NAV.AgencyQuestionList" />
         <EntitySet Name="Countries" EntityType="NAV.Countries" />
         <EntitySet Name="CSPStrategies" EntityType="NAV.CSPStrategies" />
         <EntitySet Name="CurrentProcurementPlan" EntityType="NAV.CurrentProcurementPlan" />
@@ -11087,8 +11163,12 @@
         <EntitySet Name="AgencyActivitiesSetup" EntityType="NAV.AgencyActivitiesSetup" />
         <EntitySet Name="AgencyApplicationFacilities" EntityType="NAV.AgencyApplicationFacilities" />
         <EntitySet Name="AgencyComplianceSetup" EntityType="NAV.AgencyComplianceSetup" />
+        <EntitySet Name="AgencyDocuments" EntityType="NAV.AgencyDocuments" />
         <EntitySet Name="AgencyFacilitiesCategories" EntityType="NAV.AgencyFacilitiesCategories" />
+        <EntitySet Name="AgencyFacilitiesSetup" EntityType="NAV.AgencyFacilitiesSetup" />
         <EntitySet Name="AgencyGovernmentCompliance" EntityType="NAV.AgencyGovernmentCompliance" />
+        <EntitySet Name="AgencyQuestionCategories" EntityType="NAV.AgencyQuestionCategories" />
+        <EntitySet Name="AgencyQuestions" EntityType="NAV.AgencyQuestions" />
         <EntitySet Name="AgencyRecruitingUniversities" EntityType="NAV.AgencyRecruitingUniversities" />
         <EntitySet Name="AgencyStaffProfile" EntityType="NAV.AgencyStaffProfile" />
         <EntitySet Name="allstudentsenrolled" EntityType="NAV.allstudentsenrolled" />
@@ -11527,6 +11607,10 @@
           <End Role="Company" EntitySet="Company" />
           <End Role="AccreditationCategories" EntitySet="AccreditationCategories" />
         </AssociationSet>
+        <AssociationSet Name="Company_AgencyQuestionList_AgencyQuestionList" Association="NAV.Company_AgencyQuestionList">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyQuestionList" EntitySet="AgencyQuestionList" />
+        </AssociationSet>
         <AssociationSet Name="Company_Countries_Countries" Association="NAV.Company_Countries">
           <End Role="Company" EntitySet="Company" />
           <End Role="Countries" EntitySet="Countries" />
@@ -11647,13 +11731,29 @@
           <End Role="Company" EntitySet="Company" />
           <End Role="AgencyComplianceSetup" EntitySet="AgencyComplianceSetup" />
         </AssociationSet>
+        <AssociationSet Name="Company_AgencyDocuments_AgencyDocuments" Association="NAV.Company_AgencyDocuments">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyDocuments" EntitySet="AgencyDocuments" />
+        </AssociationSet>
         <AssociationSet Name="Company_AgencyFacilitiesCategories_AgencyFacilitiesCategories" Association="NAV.Company_AgencyFacilitiesCategories">
           <End Role="Company" EntitySet="Company" />
           <End Role="AgencyFacilitiesCategories" EntitySet="AgencyFacilitiesCategories" />
         </AssociationSet>
+        <AssociationSet Name="Company_AgencyFacilitiesSetup_AgencyFacilitiesSetup" Association="NAV.Company_AgencyFacilitiesSetup">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyFacilitiesSetup" EntitySet="AgencyFacilitiesSetup" />
+        </AssociationSet>
         <AssociationSet Name="Company_AgencyGovernmentCompliance_AgencyGovernmentCompliance" Association="NAV.Company_AgencyGovernmentCompliance">
           <End Role="Company" EntitySet="Company" />
           <End Role="AgencyGovernmentCompliance" EntitySet="AgencyGovernmentCompliance" />
+        </AssociationSet>
+        <AssociationSet Name="Company_AgencyQuestionCategories_AgencyQuestionCategories" Association="NAV.Company_AgencyQuestionCategories">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyQuestionCategories" EntitySet="AgencyQuestionCategories" />
+        </AssociationSet>
+        <AssociationSet Name="Company_AgencyQuestions_AgencyQuestions" Association="NAV.Company_AgencyQuestions">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="AgencyQuestions" EntitySet="AgencyQuestions" />
         </AssociationSet>
         <AssociationSet Name="Company_AgencyRecruitingUniversities_AgencyRecruitingUniversities" Association="NAV.Company_AgencyRecruitingUniversities">
           <End Role="Company" EntitySet="Company" />

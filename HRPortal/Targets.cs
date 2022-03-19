@@ -12,6 +12,7 @@ namespace HRPortal
         public string ApplicationNo { get; set; }
         public int quantity { get; set; }
         public string comment { get; set; }
+        public string category { get; set; }
 
     }
 }

@@ -41,7 +41,7 @@
                     <%
                         var nav = new Config().ReturnNav();
                        string institutionNo = Convert.ToString(Session["InstitutionNo"]);
-                        var data = nav.LicenceApplicationHeader.Where(x=> x.Institution_No == institutionNo && x.Application_Status=="Draft").ToList();
+                        var data = nav.LicenceApplicationHeader.Where(x=> x.Institution_No == institutionNo && x.Application_Status=="Draft" && x.Submitted==false).ToList();
                         int counter = 0;
                         foreach (var item in data)
                         {

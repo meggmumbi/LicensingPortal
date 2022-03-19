@@ -11,7 +11,7 @@
         try
         {
             step = Convert.ToInt32(Request.QueryString["step"]);
-            if (step>10||step<1)
+            if (step>11||step<1)
             { 
                step = 1;  
             }
@@ -33,7 +33,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Create A New Application (<i style="color: yellow">Kindly note that all fields marked with asterisk (<span style="color: red">*</span>) are mandatory</i>)
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
         </div>
         <div class="panel-body">
             <div runat="server" id="linesfeedback"></div>
@@ -196,7 +196,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Physical Location Details <i><strong> (Note: indicate all the proposed agency office locations/towns in Kenya. )</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 2 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 2 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
             </div>
             <div class="panel-body">
                 <div runat="server" id="physicalLocations"></div>
@@ -293,7 +293,7 @@
                              <label class="btn btn-success" onclick="editItem('<%=item.Entry_No%>','<%=item.Application_No %>','<%=item.Address %>','<%=item.Physical_Location %>','<%=item.Post_Code %>','<%=item.County %>','<%=item.City%>');"><i class="fa fa-edit">Edit</i></label></td>
                           
                         <td>
-                              <label class="btn btn-danger" onclick="remove('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label>
+                              <label class="btn btn-danger" onclick="remove('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
                            
                         <%
                                 }
@@ -330,7 +330,7 @@
         <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Activities <i><strong>(Type of activities to be undertaken by the agent.) Select Activity/Service to be offered</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="AgencyActivitys"></div>
@@ -415,9 +415,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-
-                        <th>Activity</th>
-                        <th>Edit</th>
+                        <th>Activity</th>                      
                         <th>Remove</th>
                     </tr>
                 </thead>
@@ -440,12 +438,8 @@
                     <tr>
                         <td><%=counter %></td>
                         <td><% =item.Description%></td>
-
-
-                        <td>
-                            <label class="btn btn-success" onclick="moredetails('<%=item.Application_No%>');"><i class="fa fa-pencil"></i>Edit</label></td>
-                        <td>
-                            <label class="btn btn-danger" onclick="sendApprovalRequest('<%=item.Application_No%>');"><i class="fa fa-trash"></i>Remove</label></td>
+                       <td><label class="btn btn-danger" onclick="removeAgencyActivity('<%=item.Code %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label>
+                    
                         <%
                                         }
                                     }
@@ -481,7 +475,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Governement Compliance <i><strong>(Compliance with national and County Government’s regulations governing public and health safety including fire safety)</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="governemt"></div>
@@ -568,10 +562,14 @@
                         <td><% = Convert.ToDateTime(item.Date_of_issue).ToString("d/MM/yyyy") %></td>
                         <td><% = Convert.ToDateTime(item.Date_of_expiry).ToString("d/MM/yyyy") %></td>
                         <td><% =item.Authority_issuing_certificate %></td>
+
+
+                          <td>
+                             <label class="btn btn-success" onclick="editGovernance('<%=item.Entry_No%>','<%=item.Application_No %>','<%=item.Certificate_No %>','<%=item.Date_of_issue %>','<%=item.Date_of_expiry %>','<%=item.Authority_issuing_certificate %>');"><i class="fa fa-edit">Edit</i></label></td>
+                          
                         <td>
-                            <label class="btn btn-success" onclick="moredetails('<%=item.Entry_No%>');"><i class="fa fa-pencil"></i>Edit</label></td>
-                        <td>
-                            <label class="btn btn-danger" onclick="sendApprovalRequest('<%=item.Entry_No%>');"><i class="fa fa-trash"></i>Remove</label></td>
+                              <label class="btn btn-danger" onclick="removeGovernance('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
+                      
                         <%
                             }
                         %>
@@ -604,7 +602,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Facilities <i><strong>(Office Space and Facilities) Note: A Student Recruitment Agency shall have appropriate and adequate office space</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="AgencyFacilities"></div>
@@ -638,6 +636,7 @@
 
                                 <th>#</th>
                                 <th>Code</th>
+                                <th>Category</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
                             </tr>
@@ -646,7 +645,7 @@
 
                             <% 
                                 var nav = new Config().ReturnNav();
-                                var Activities = nav.AgencyFacilitiesCategories.ToList();
+                                var Activities = nav.AgencyFacilitiesSetup.ToList();
 
                                 foreach (var activity in Activities)
 
@@ -656,6 +655,7 @@
                                 <td>
                                 <input type="checkbox" id="FacilitySelected" name="FacilitySelected" class="checkboxes" value="<% =activity.Code %>" /></td>
                                 <td><%=activity.Code %></td>
+                                   <td><%=activity.Category %></td>
                                 <td><%=activity.Description %></td>
                                 <td><input type="number" class="form-control" autocomplete="off" id="Tquantity"  min="0" /></td> 
 
@@ -745,7 +745,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Staff Profile <i><strong>(At least two staff members shall have a minimum of a Bachelor’s degree). Agency to fill following information for key members of staff:</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="keyStaff"></div>
@@ -808,10 +808,10 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <strong>Highest Academic Qualification and Specialization:</strong> <span class="asterisk" style="color: red">*</span>
-                          <asp:TextBox runat="server" ID="academics" CssClass="form-control" placeholder="Please Enter Highest Academic Qualification of the staff" />
-                        <%--<asp:DropDownList runat="server" ID="academic" CssClass="form-control select2">
-                        </asp:DropDownList>--%>
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="academics" InitialValue="--Select--" ErrorMessage="Please enter highest academic Qualification of the staff, it cannot be empty!" ForeColor="Red" />
+                       <%--   <asp:TextBox runat="server" ID="academics" CssClass="form-control" placeholder="Please Enter Highest Academic Qualification of the staff" />--%>
+                        <asp:DropDownList runat="server" ID="academic" CssClass="form-control select2">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="academic" InitialValue="--Select--" ErrorMessage="Please enter highest academic Qualification of the staff, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
@@ -878,10 +878,12 @@
                         <td><% =item.Highest_academic_qualification %></td>
                         <td><% =item.Terms_of_Service %></td>                     
                         
+                       
+                          <td>
+                             <label class="btn btn-success" onclick="editStaffProfile('<%=item.Entry_No%>','<%=item.Name_of_staff %>','<%=item.Nationality %>','<%=item.ID_No_Passport_No %>','<%=item.Work_permit_No %>','<%=item.Good_Conduct_No %>');"><i class="fa fa-edit">Edit</i></label></td>
+                          
                         <td>
-                            <label class="btn btn-success" onclick="moredetails('<%=item.Entry_No%>');"><i class="fa fa-pencil"></i>Edit</label></td>
-                        <td>
-                            <label class="btn btn-danger" onclick="sendApprovalRequest('<%=item.Entry_No%>');"><i class="fa fa-trash"></i>Remove</label></td>
+                              <label class="btn btn-danger" onclick="removeStaff('<%=item.Entry_No %>','<%=item.Name_of_staff %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
                         <%
                             }
                         %>
@@ -917,7 +919,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Agency Recruiting Institutions/ Universities <strong> (Only recruit students for admission into the universities and institutions approved by the Commission)</strong>
-                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
             </div>
             <div class="panel-body">
                 <div runat="server" id="recruitingInst"></div>
@@ -963,7 +965,8 @@
 
                         </div>
                     </div>
-                      <div class="col-md-6 col-lg-6">
+                      <div class="col-md-\
+                          6 col-lg-6">
                     <div class="form-group">
                         <label class="span2">Country<span style="color: red">*</span> <%--<i style="color: blue">(Where you obtained programme)</i>--%></label>
                         <asp:DropDownList runat="server" ID="countryRecruit" AppendDataBoundItems="true" CssClass="form-control select2">
@@ -974,7 +977,7 @@
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>Email Address.</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="emailAddress" Placeholder="Enter Email Address" TextMode="Email" required />
+                            <asp:TextBox CssClass="form-control" runat="server" ID="emailAddress" Placeholder="Enter Email Address" TextMode="Email"  />
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -990,7 +993,7 @@
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>Accrediting Body.</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="AccreditingBody" Placeholder="AccreditingBody"  required  />
+                            <asp:TextBox CssClass="form-control" runat="server" ID="AccreditingBody" Placeholder="AccreditingBody"   />
                         </div>
                     </div>
                 </div>
@@ -1079,7 +1082,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
            Services Offered to Students <i><strong>(The services rendered to students before and after they join the universities and institutions they are recruited for)</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 8 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 8 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="studentsServices"></div>
@@ -1174,7 +1177,7 @@
             </table>
         </div>
     </div>
-    <div class="panel-footer">        
+    <div class="panel-footer">      
       
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
        
@@ -1185,29 +1188,270 @@
         <%
         }
 
-            else if (step==9){
+              else if (step==9){
               %>
+
+
+            <div class="panel panel-default" style="width: 80%; margin: 0 auto">
+                <div class="panel-heading" id="institutional">
+                    <%
+                        var nav = new Config().ReturnNav();
+                        var Qcategory = nav.AgencyQuestionCategories.Where(r => r.Code == "HR");
+                        var chapter1 = "";
+                        foreach (var header in Qcategory)
+                        {
+                            chapter1 = header.Description;
+                        }
+                    %>
+                    <p><i><strong>Provide for ‘Yes’ or ‘No’ answer</strong></i></p>
+                    <label class="pull-right">Step 9 of 11</label>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="Div1" runat="server"></div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <p><i>
+                                <label>Human Resources(A Student Recruitment Agency shall have adequate and competent human resources to execute its mandate in accordance with its human resource policy).</label>
+                            </i></p>
+                        </div>
+                        <%
+                            var Questions = nav.AgencyQuestionList.Where(r => r.Question_Category == "HR" && r.Question_Type == "Yes/No");
+                            int NumberofQuestions = 0;
+                            var TopicDescription = "";
+                            var TopicNumber = "";
+                            var qnCategoryDescription = "";
+                            foreach (var topic in Questions)
+                            {
+                                TopicDescription = topic.Description;
+                                TopicNumber = topic.Code;
+                                qnCategoryDescription = topic.Question_Category;
+                        %>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <div class="txtstep1">
+                                    <p id="topicdescription">
+                                        <%=TopicDescription %>
+                                    </p>
+
+                                    <% 
+
+                                        NumberofQuestions += 1;
+                                    %>
+
+                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
+                                    
+                                      <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
+
+                                    <%
+                                        if (topic.Question_Type == "Yes/No")
+                                        { %>
+
+
+                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="DropDownList8">
+                                        <asp:ListItem Text="--select--"></asp:ListItem>
+                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                    </asp:DropDownList>
+
+
+                                    <%}
+
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <%
+                            }
+
+
+
+                            var Questions1 = nav.AgencyQuestionList.Where(r => r.Question_Category == "QOS" && r.Question_Type == "Yes/No");
+                        %>
+                        <div class="col-md-12 col-lg-12">
+                            <p>
+                                <label><i>Quality of Service. (A Student Recruitment Agency shall promote the highest standards of student recruitment, advertising, exhibiting and marketing for universities/institutions. The agency shall adhere to the following quality requirements:)</i></label></p>
+                        </div>
+                        <%
+                            foreach (var topic in Questions1)
+                            {
+                                TopicDescription = topic.Description;
+                                TopicNumber = topic.Code;
+                                qnCategoryDescription = topic.Question_Category;
+                        %>
+
+                        <div class="col-md-6 col-lg-6">
+
+                            <div class="form-group">
+                                <div class="txtstep1">
+                                    <p id="topicdescription">
+                                        <%=TopicDescription %>
+                                    </p>
+
+                                    <% 
+
+                                        NumberofQuestions += 1;
+                                    %>
+
+                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
+                                     <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
+
+                                    <%
+                                        if (topic.Question_Type == "Yes/No")
+                                        { %>
+
+
+                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="qosDrop">
+                                        <asp:ListItem Text="--select--"></asp:ListItem>
+                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                    </asp:DropDownList>
+
+
+                                    <%}
+
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%
+                            }
+                        %>
+                        <div class="col-md-12 col-lg-12">
+                            <p>
+                                <label><i>Obligations and Commitments of a Licensed Student Recruitment Agency. (A Student Recruitment Agency shall recruit qualified students for admission into universities/institutions that are accredited and recognized in their countries of origin in line with the following guidelines each of which the applying Agency to indicate whether or not it is committed to adhere to: )</i></label></p>
+                        </div>
+                        <%
+
+
+
+                            var Question2 = nav.AgencyQuestionList.Where(r => r.Question_Category == "OBLIGATION" && r.Question_Type == "Yes/No");
+
+                            foreach (var topic in Question2)
+                            {
+                                TopicDescription = topic.Description;
+                                TopicNumber = topic.Code;
+                                qnCategoryDescription = topic.Question_Category;
+                        %>
+
+                        <div class="col-md-6 col-lg-6">
+
+                            <div class="form-group">
+                                <div class="txtstep1">
+                                    <p id="topicdescription">
+                                        <%=TopicDescription %>
+                                    </p>
+
+                                    <% 
+
+                                        NumberofQuestions += 1;
+                                    %>
+
+                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
+                                     <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
+
+                                    <%
+                                        if (topic.Question_Type == "Yes/No")
+                                        { %>
+
+
+                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="ObligationDrop">
+                                        <asp:ListItem Text="--select--"></asp:ListItem>
+                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                    </asp:DropDownList>
+
+
+                                    <%}
+
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%
+                            }
+
+
+                        %>
+                    </div>
+                </div>
+           
+            </div>
+
+            <center> <button type="submit" class="btn btn-success saveresponce" aria-required="true">Save Response</button> </center>
+
+
+            <div class="panel-footer">
+
+                <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
+
+                <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    <%
+        }
+
+              else if (step==10){
+              %>
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             Supporting Documents
-              <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 9 of 10 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+              <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 9 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="documentsfeedback"></div>
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="form-group">
-                        <strong>Select file to upload:</strong>
-                        <asp:FileUpload runat="server" ID="document" CssClass="form-control" Style="padding-top: 0px;" />
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="form-group">
-                        <br />
-                        <asp:Button runat="server" CssClass="btn btn-success" Text="Upload Document" ID="uploadDocument" />
-                    </div>
-                </div>
+                <div class="col-md-12 col-lg-12">
+                <div class="table-responsive">
+                                <table class="table table-striped custom-table datatable" id="example9">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Code</th>
+                                            <th>Description</th>                                           
+                                            <th>Attach Document</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <% 
+                                            var nav = new Config().ReturnNav();
+                                            var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked==false).ToList();
+                                            int programesCounter = 0;
+                                            int counter = 0;
+                                            foreach (var detail in details)
+                                            {
+
+                                                counter++;
+                                                programesCounter++;
+                                        %>
+                                        <tr>
+                                            <td><%=programesCounter %></td>
+                                            <td><%=detail.Code %></td>
+                                            <td><%=detail.Description %></td>
+                                            
+                                            <td>
+                                               <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.Code %>');">Attach Document</label>
+                                            </td>
+                                        </tr>
+                                        <%  
+                                            } %>
+                                    </tbody>
+                                </table>
+                            </div>
             </div>
+                </div>
              <div class="table-responsive">
             <table id="mytable" class="table table-bordered table-striped">
                 <thead>
@@ -1222,8 +1466,8 @@
                         try
                         {
                             String fileFolderApplication = ConfigurationManager.AppSettings["FileFolderApplication"];
-                            String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "Imprest Memo/";
-                            String imprestNo = Request.QueryString["imprestNo"];
+                            String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "License Application/";
+                            String imprestNo = Request.QueryString["ApplicationNo"];
                             imprestNo = imprestNo.Replace('/', '_');
                             imprestNo = imprestNo.Replace(':', '_');
                             String documentDirectory = filesFolder + imprestNo + "/";
@@ -1254,28 +1498,229 @@
             </table>
                  </div>
         </div>
-        <center>
+<%--        <center>
             <asp:Button runat="server" CssClass="btn btn-warning" Text="Preview/Print Application" ID="print" CausesValidation="false" OnClick="printreport_Click"/>
-        </center>
+        </center>--%>
         <div class="panel-footer">
-            <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="backtostep2" CausesValidation="false" OnClick="previousstep_Click"/>
-            <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Submit Application To CUE" ID="submitapplicationtocue" CausesValidation="false" OnClick="submitapplicationtocue_Click" />
+                <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
+             <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
             <div class="clearfix"></div>
         </div>
     </div>
         <%
         }
+
+
+    else if (step==11){
+              %>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Declaration<div class="pull-right"><i class="fa fa-angle-left"></i>Step 11 of 11<i class="fa fa-angle-right"></i></div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="submit" runat="server"></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="Dashboard.aspx">Dashboard </a></li>
+                        <li class="breadcrumb-item active">Declarations</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <h5>I <b><% =Session["name"] %></b>  confirm and declare that I have read and understood the requirements and agree that; .</h5>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <ol>
+                                <li>I will adhere to the Standards and Guidelines for this service issued by the Commission;</li>
+                                <li>Payments done for services that are not offered by the Commission will not be refunded.</li>
+                            </ol>
+                            <asp:CheckBox runat="server" ID="declaration" />
+                            <label class="font-noraml" for="acceptTerms">I agree with the Terms and Conditions.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center padding-15">
+                    <center>
+                     
+                        <asp:Button runat="server" Text="Submit Application" ID="submitApplication" OnClick="submitApplication_Click" CssClass="btn btn-primary" Visible="true" />
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+          <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="previousSteps" CausesValidation="false" OnClick="previousstep_Click" />
+            <asp:Button runat="server" CssClass="btn btn-success pull-right" Visible="false" Text="Proceed to Payment" ID="Payment" OnClick="Payment_Click" />
+            <div class="clearfix"></div>
+        </div>
+    </div>
+<%}
+
+
+
          %>
+         <script>
+
+
+        $("body").delegate(" .saveresponce", "click", function (event) {
+            //To prevent form submit after ajax call
+
+            event.preventDefault();
+
+           
+            //Loop through the Table rows and build a JSON array.
+            var allrfqitems = new Array();
+            //declare an array
+            var i = 0;
+
+
+            $(".txtstep1").each(function () {
+                var row = $(this);
+                var onerfqitem = {};
+                i++;
+
+                onerfqitem.applicationNo = row.attr("id", "txtapplicationNo" + i).find(".txtapplicationNo").val();
+                onerfqitem.qnCategory = row.attr("id", "txtqnCategory" + i).find(".txtqnCategory").val();
+
+                onerfqitem.questionCode = row.attr("id", "qncd" + i).find(".qncd").val();
+
+                onerfqitem.response = row.attr("id", "respn" + i).find(".respn").val();
+
+              
+
+                allrfqitems.push(onerfqitem);
+
+            });
+
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "NewApplication.aspx/InsertResponse",
+                data: '{cmpitems: ' + JSON.stringify(allrfqitems) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (status) {
+                    switch (status.d) {
+                        case "success":
+                            Swal.fire
+                            ({
+                                title: "Response Added!",
+                                text: "Response saved successfully!",
+                                type: "success"
+
+                            }).then(() => {
+                                $("#feedback").css("display", "block");
+                                $("#feedback").css("color", "green");
+                                $('#feedback').attr("class", "alert alert-success");
+                                $("#feedback").html("Response saved successfully!");
+                                document.querySelector('.btn2').style.display = 'block';
+                            });
+                            break;
+
+                        case "componentnull":
+                            Swal.fire
+                            ({
+                                title: "Component not filled!",
+                                text: "Component field empty!",
+                                type: "danger"
+                            }).then(() => {
+                                $("#feedback").css("display", "block");
+                                $("#feedback").css("color", "red");
+                                $('#feedback').attr("class", "alert alert-danger");
+                                $("#feedback").html("Component field empty!");
+                            });
+                            break;
+                        default:
+                            Swal.fire
+                            ({
+                                title: "Error!!!",
+                                text: "Error Occured",
+                                type: "error"
+                            }).then(() => {
+                                $("#feedback").css("display", "block");
+                                $("#feedback").css("color", "red");
+                                $('#feedback').addClass('alert alert-danger');
+                                $("#feedback").html(status.d);
+                            });
+
+                            break;
+                    }
+                    
+                    e.preventDefault();
+                },
+                error: function (err) {
+                    console.log(err.statusText);
+                    console.log(status.d);
+                }
+
+            });
+
+           
+
+          
+                
+
+                console.log(allrfqitems);
+
+        });
+
+         </script>
+        <script type="text/javascript">
+            function agentattachdocuments(entryNo) {
+                document.getElementById("ContentPlaceHolder1_DocCode").value = entryNo;
+                $("#DocumentsAttach").modal();
+            }
+        </script>
+        <script>
+            function deleteFile(fileName) {
+                document.getElementById("filetoDeleteName").innerText = fileName;
+                document.getElementById("ContentPlaceHolder1_fileName").value = fileName;
+                $("#deleteFileModal").modal();
+            }
+        </script>
 
       <script>
           function editItem(entryNO, No, address, physicalLoc) {
               document.getElementById("ContentPlaceHolder1_originalItemNo").value = entryNO;
               document.getElementById("ContentPlaceHolder1_modalAppNo").value = No;
             document.getElementById("ContentPlaceHolder1_modalAddress").value = address;
-            document.getElementById("ContentPlaceHolder1_modalPhysicalLoc").value = physicalLoc;      
-         
-
+            document.getElementById("ContentPlaceHolder1_modalPhysicalLoc").value = physicalLoc;    
             $("#editItemModel").modal();
+        }
+    </script>
+        
+      <script>
+          function editGovernance(entryNO, No, certNo, issueDate, Expirydate, Authority) {
+              document.getElementById("ContentPlaceHolder1_govEntryNo").value = entryNO;
+              document.getElementById("ContentPlaceHolder1_ApplicationNoG").value = No;
+              document.getElementById("ContentPlaceHolder1_cerNo").value = certNo;
+              document.getElementById("ContentPlaceHolder1_issueDateG").value = issueDate;
+              document.getElementById("ContentPlaceHolder1_ExpDate").value = Expirydate;
+              document.getElementById("ContentPlaceHolder1_Auth").value = Authority;
+            $("#editGovernanceModel").modal();
+        }
+    </script>
+           
+      <script>
+          function editStaffProfile(entryNO, Name, nationality, IdNo, workPermitNo, goodConduct) {
+              document.getElementById("ContentPlaceHolder1_staffProfEntryNo").value = entryNO;
+              document.getElementById("ContentPlaceHolder1_modalstaffName").value = Name;
+              document.getElementById("ContentPlaceHolder1_modalStaffNationality").value = nationality;
+              document.getElementById("ContentPlaceHolder1_modalIDPassp").value = IdNo;
+              document.getElementById("ContentPlaceHolder1_modalWorkP").value = workPermitNo;
+              document.getElementById("ContentPlaceHolder1_modalGoodCond").value = goodConduct;
+              $("#editStaffProfileModel").modal();
         }
     </script>
     <script>
@@ -1283,8 +1728,29 @@
               document.getElementById("applicationToRemove").innerText = No;
               document.getElementById("ContentPlaceHolder1_entryNoRemove").value = entryNo;
               $("#removeDetailsModal").modal();
-          }
+     } 
       </script> 
+        <script>
+            function removeAgencyActivity(entryNo, No) {
+                document.getElementById("activityToRemove").innerText = No;
+                document.getElementById("ContentPlaceHolder1_activityEntry").value = entryNo;
+                $("#removeActivityModal").modal();
+            }
+        </script>
+         <script>
+             function removeGovernance(entryNo, No) {
+                 document.getElementById("GovernanceToRemove").innerText = No;
+                 document.getElementById("ContentPlaceHolder1_governEntry").value = entryNo;
+                $("#removeGovernanceModal").modal();
+            }
+        </script>
+                 <script>
+                     function removeStaff(entryNo, Name) {
+                         document.getElementById("staffToRemove").innerText = Name;
+                 document.getElementById("ContentPlaceHolder1_StaffEntry").value = entryNo;
+                $("#removeStaffModal").modal();
+            }
+        </script>
        <script>
            function removeFacilities(entryNo, No) {
               document.getElementById("applicationToRemove").innerText = No;
@@ -1292,7 +1758,61 @@
               $("#removeFacilitiesModal").modal();
           }
       </script> 
-     
+      <div id="DocumentsAttach" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Attach the Document</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <strong>Document Type</strong><span class="text-danger" style="font-size: 25px">*</span>
+                        <asp:TextBox runat="server" ID="DocCode" CssClass="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Issue Date:</label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="txtDate" TextMode="Date" />
+
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date:</label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="txtexpiry" TextMode="Date" />
+
+                    </div>
+                    <div class="form-group">
+                        <strong>Upload Document</strong><span class="text-danger" style="font-size: 25px">*</span>
+                        <asp:FileUpload runat="server" CssClass="form-control" ID="uploadfile" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-success" Text="Upload Document" ID="uploadDoc" OnClick="uploadDoc_Click" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+            <div id="deleteFileModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Deleting File</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the file <strong id="filetoDeleteName"></strong>?</p>
+                    <asp:TextBox runat="server" ID="fileName" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete File" OnClick="deleteFile_Click" />
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div id="editItemModel" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -1328,7 +1848,102 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <asp:Button runat="server" CssClass="btn btn-success" ID="EditDetails" Text="Edit Details" />
+                    <asp:Button runat="server" CssClass="btn btn-success" ID="EditDetails" OnClick="EditDetails_Click" Text="Edit Details" />
+
+                </div>
+                </div>
+            </div>
+            </div>
+         <div id="editGovernanceModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div runat="server" id="Div5"></div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Location Details</h4>
+                </div>
+                <div class="modal-body">
+                    <asp:TextBox runat="server" ID="govEntryNo" type="hidden" />
+
+
+
+
+                    <div class="form-group">
+                        <strong>ApplicationNo:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="ApplicationNoG" CssClass="form-control" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <strong>Certificate Number:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="cerNo" CssClass="form-control" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <strong>Issue Date:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="issueDateG" CssClass="form-control" TextMode="Date"/>
+                    </div>
+                     <div class="form-group">
+                        <strong>Expiry Date:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="ExpDate" CssClass="form-control" TextMode="Date" />
+                    </div>
+                    <div class="form-group">
+                        <strong>Authority Issuing Certificate:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="Auth" CssClass="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-success" ID="Button1" OnClick="EditDetails_Click" Text="Edit Details" />
+
+                </div>
+                </div>
+            </div>
+            </div>
+         
+           <div id="editStaffProfileModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div runat="server" id="Div3"></div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Agency Staff Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <asp:TextBox runat="server" ID="staffProfEntryNo" type="hidden" />
+
+
+                    <div class="form-group">
+                        <strong>Name of the staff:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="modalstaffName" CssClass="form-control" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <strong>Staff Nationality:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="modalStaffNationality" CssClass="form-control" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <strong>Id/Passport Number:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="modalIDPassp" CssClass="form-control" />
+                    </div>
+                         <div class="form-group">
+                        <strong>Work Permit Number:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="modalWorkP" CssClass="form-control" />
+                    </div>
+
+                         <div class="form-group">
+                        <strong>Certificate of Good Conduct Number:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="modalGoodCond" CssClass="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-success" ID="EditstaffProf" OnClick="EditstaffProf_Click" Text="Edit Details" />
 
                 </div>
                 </div>
@@ -1350,6 +1965,69 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" OnClick="Unnamed_Click"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+         <div id="removeGovernanceModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove the details of  <strong id="GovernanceToRemove"></strong>?</p>
+                    <asp:TextBox runat="server" ID="governEntry" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" id="removeG" OnClick="removeG_Click"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+         <div id="removeStaffModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove the details of  <strong id="staffToRemove"></strong>?</p>
+                    <asp:TextBox runat="server" ID="StaffEntry" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" id="removestaff" OnClick="removestaff_Click"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+          <div id="removeActivityModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove the details of  <strong id="activityToRemove"></strong>?</p>
+                    <asp:TextBox runat="server" ID="activityEntry" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" ID="removeActivity" OnClick="removeActivity_Click"/>
                 </div>
             </div>
 

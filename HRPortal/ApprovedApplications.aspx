@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ApprovedApplications.aspx.cs" Inherits="HRPortal.ApprovedApplications" %>
+<%@ Import Namespace="HRPortal" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -14,32 +15,31 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            My Approved Applications
+            Applications Pending Payments
         </div>
         <div class="panel-body">
-            <div runat="server" id="Div1"></div>
-            <table id="example1" class="table table-striped table-bordered">
-                <thead>
+                     <table id="example1" class="table table-striped table-bordered">
+                  <thead>
                     <tr>
                         <th>#</th>
-                        <th>Level</th>
-                        <th>Domain</th>
-                        <th>Title</th>
-                        <th>University</th>
-                        <th>Country</th>
-                        <th>Purpose</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Application Status</th>
+                        <th>Application Category</th>
+                        <th>Applicant Type</th>
+                        <th>Institution Name</th>
+                        <th>Registration Certificate</th>
+                        <th>-Physical Address Status</th>
+                        <th>Licence Type</th>
+                        <th>Registration Date</th>
                         <th>Amount</th>
                         <th>Edit</th>
-                        <th>Remove</th>
+                     
                     </tr>
                 </thead>
                 <tbody>
-<%--                    <%
+                    <%
                         var nav = new Config().ReturnNav();
-                        string docNo = Convert.ToString(Session["ApplicationNo"]);
-                        var data = nav.Student_Qualification.Where(x => x.Application_No == docNo).ToList();
+                       string institutionNo = Convert.ToString(Session["InstitutionNo"]);
+                        var data = nav.LicenceApplicationHeader.Where(x=> x.Institution_No == institutionNo && x.Application_Status=="Open" && x.Submitted==true).ToList();
                         int counter = 0;
                         foreach (var item in data)
                         {
@@ -47,23 +47,22 @@
                     %>
                     <tr>
                         <td><%=counter %></td>
-                        <td><% =item.Program_Level%></td>
-                        <td><% =item.Domain %></td>
-                        <td><% =item.Title %></td>
-                        <td><% =item.Institution %></td>
-                        <td><% =item.Country_Code %></td>
-                        <td><% =item.Purpose %></td>
-                        <td><% = Convert.ToDateTime(item.From_Date).ToString("d/MM/yyyy") %></td>
-                        <td><% = Convert.ToDateTime(item.To_Date).ToString("d/MM/yyyy") %></td>
-                        <td><% =item.Amount %></td>
+                        <td><% =item.Application_Status%></td>
+                        <td><% =item.Application_Category %></td>
+                        <td><% =item.Applicant_Type %></td>
+                        <td><% =item.Institution_Name %></td>
+                        <td><% =item.Registration_Certificate %></td>
+                        <td><% =item.Physical_Address_Status %></td>
+                        <td><% = item.Licence_Type_Description%></td>
+                        <td><% = Convert.ToDateTime(item.Registration_Date).ToString("d/MM/yyyy") %></td>
+                        <td><% =item.Application_Amount %></td>
                         <td>
-                            <label class="btn btn-success" onclick="moredetails('<%=item.Entry_No%>');"><i class="fa fa-pencil"></i>Edit</label></td>
-                        <td>
-                            <label class="btn btn-danger" onclick="sendApprovalRequest('<%=item.Entry_No%>');"><i class="fa fa-trash"></i>Remove</label></td>
+                            <a href="Payments.aspx?ApplicationNo=<%=item.Application_No%>" class="btn btn-success"><i class="fa fa-edit"></i>Edit</a>                          
+                        
                         <%
                             }
                         %>
-                    </tr>--%>
+                    </tr>
                 </tbody>
             </table>
         </div>

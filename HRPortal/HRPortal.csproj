@@ -6954,14 +6954,14 @@
     <Content Include="kuddos\scss\bootstrap\_utilities.scss" />
     <Content Include="kuddos\scss\bootstrap\_variables.scss" />
     <Content Include="kuddos\scss\style.scss" />
-    <None Include="Service References\Nav\Reference.datasvcmap">
-      <Generator>DataServicesCoreClientGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Register.aspx" />
     <Content Include="RequestAccountCreation.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="ReSubmission.aspx" />
+    <None Include="Service References\Nav\Reference.datasvcmap">
+      <Generator>DataServicesCoreClientGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Settings.aspx" />
     <Content Include="Site.Master" />
     <Content Include="font\fontawesome-webfont.eot" />
@@ -7499,8 +7499,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\Nav\service.edmx" />
     <Content Include="Site.Mobile.Master" />
+    <None Include="Service References\Nav\service.edmx" />
     <None Include="Web References\LicencingPortal\LicencingPortal.wsdl" />
     <None Include="Web References\LicencingPortal\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -7694,6 +7694,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="QuestionsModel.cs" />
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7774,7 +7775,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ServiceReferenceMetadataStorage Include="Service References\Nav\">
+      <Type>datasvcmap</Type>
+    </ServiceReferenceMetadataStorage>
+  </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
@@ -7804,11 +7809,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>HRPortal_NavExtender_NavXtender</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\Nav\">
-      <Type>datasvcmap</Type>
-    </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="bower_components\moment\moment.d.ts" />

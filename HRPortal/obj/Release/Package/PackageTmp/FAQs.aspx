@@ -47,7 +47,7 @@
 <div class="panel panel-primary">
  <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        This section contains a wealth of information, related to <strong>Recognition And Equation of Qualifications</strong>. If you cannot find an answer to your question, 
+        This section contains a wealth of information, related to <strong>Licensing of Student Recruitment Agencies</strong>. If you cannot find an answer to your question, 
         make sure to contact us. 
     </div>
 

@@ -98,8 +98,13 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="Home_Guidelines.aspx">
-                                <i class="fa fa-arrow-circle-right"></i><span>Guidelines</span>
+                            <a href="https://www.cue.or.ke/index.php?option=com_phocadownload&view=category&id=16:standards-and-guidelines&Itemid=187">
+                                <i class="fa fa-arrow-circle-right"></i><span>Standards and Guidelines</span>
+                            </a>
+                        </li>
+                               <li class="active">
+                            <a href="Downloads/Automation_Requirements_Licensing_Student_Recruitment_Agencies_Nov2021v4.pdf">
+                                <i class="fa fa-download"></i><span>Download Portal User Manual</span>
                             </a>
                         </li>
                         <li class="active">

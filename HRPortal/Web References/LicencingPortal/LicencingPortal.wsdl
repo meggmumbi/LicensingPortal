@@ -14,8 +14,6 @@
             <element minOccurs="1" maxOccurs="1" name="tAlternativeNumber" type="string" />
             <element minOccurs="1" maxOccurs="1" name="twhatsappNumber" type="string" />
             <element minOccurs="1" maxOccurs="1" name="twebsite" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="tcertificateNumber" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="tDate" type="dateTime" />
             <element minOccurs="1" maxOccurs="1" name="temailAddress" type="string" />
           </sequence>
         </complexType>
@@ -63,12 +61,21 @@
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="temail" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="tapplicationCategory" type="int" />
-            <element minOccurs="1" maxOccurs="1" name="tApplicantType" type="int" />
             <element minOccurs="1" maxOccurs="1" name="tPhysicalLocation" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tPhysicalAddressStatus" type="int" />
             <element minOccurs="1" maxOccurs="1" name="tLicenseType" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tCustomerNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcertNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tdate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="headName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headcountry" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headform" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="headID" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headPassport" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headDesignation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headTelephone" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headWhatsapp" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="headEmail" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -320,6 +327,21 @@
           </sequence>
         </complexType>
       </element>
+      <element name="RemoveUniversity">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="entryNo" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="applicationNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RemoveUniversity_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
       <element name="EditPhysicalLocation">
         <complexType>
           <sequence>
@@ -370,6 +392,37 @@
         </complexType>
       </element>
       <element name="EditGovernanceCompliance_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnConfirmPayment">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="applicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="paymentRef" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnConfirmPayment_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgentServices">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tActivityCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcomment" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertAgentServices_Result">
         <complexType>
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
@@ -486,6 +539,12 @@
   <message name="RemoveActivity_Result">
     <part name="parameters" element="tns:RemoveActivity_Result" />
   </message>
+  <message name="RemoveUniversity">
+    <part name="parameters" element="tns:RemoveUniversity" />
+  </message>
+  <message name="RemoveUniversity_Result">
+    <part name="parameters" element="tns:RemoveUniversity_Result" />
+  </message>
   <message name="EditPhysicalLocation">
     <part name="parameters" element="tns:EditPhysicalLocation" />
   </message>
@@ -503,6 +562,18 @@
   </message>
   <message name="EditGovernanceCompliance_Result">
     <part name="parameters" element="tns:EditGovernanceCompliance_Result" />
+  </message>
+  <message name="FnConfirmPayment">
+    <part name="parameters" element="tns:FnConfirmPayment" />
+  </message>
+  <message name="FnConfirmPayment_Result">
+    <part name="parameters" element="tns:FnConfirmPayment_Result" />
+  </message>
+  <message name="FnInsertAgentServices">
+    <part name="parameters" element="tns:FnInsertAgentServices" />
+  </message>
+  <message name="FnInsertAgentServices_Result">
+    <part name="parameters" element="tns:FnInsertAgentServices_Result" />
   </message>
   <portType name="LicencingPortal_Port">
     <operation name="FnRegistration">
@@ -577,6 +648,10 @@
       <input name="RemoveActivity" message="tns:RemoveActivity" />
       <output name="RemoveActivity_Result" message="tns:RemoveActivity_Result" />
     </operation>
+    <operation name="RemoveUniversity">
+      <input name="RemoveUniversity" message="tns:RemoveUniversity" />
+      <output name="RemoveUniversity_Result" message="tns:RemoveUniversity_Result" />
+    </operation>
     <operation name="EditPhysicalLocation">
       <input name="EditPhysicalLocation" message="tns:EditPhysicalLocation" />
       <output name="EditPhysicalLocation_Result" message="tns:EditPhysicalLocation_Result" />
@@ -588,6 +663,14 @@
     <operation name="EditGovernanceCompliance">
       <input name="EditGovernanceCompliance" message="tns:EditGovernanceCompliance" />
       <output name="EditGovernanceCompliance_Result" message="tns:EditGovernanceCompliance_Result" />
+    </operation>
+    <operation name="FnConfirmPayment">
+      <input name="FnConfirmPayment" message="tns:FnConfirmPayment" />
+      <output name="FnConfirmPayment_Result" message="tns:FnConfirmPayment_Result" />
+    </operation>
+    <operation name="FnInsertAgentServices">
+      <input name="FnInsertAgentServices" message="tns:FnInsertAgentServices" />
+      <output name="FnInsertAgentServices_Result" message="tns:FnInsertAgentServices_Result" />
     </operation>
   </portType>
   <binding name="LicencingPortal_Binding" type="tns:LicencingPortal_Port">
@@ -754,6 +837,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
+    <operation name="RemoveUniversity">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:RemoveUniversity" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="RemoveUniversity">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="RemoveUniversity_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
     <operation name="EditPhysicalLocation">
       <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:EditPhysicalLocation" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="EditPhysicalLocation">
@@ -778,6 +870,24 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="EditGovernanceCompliance_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnConfirmPayment">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnConfirmPayment" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnConfirmPayment">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnConfirmPayment_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertAgentServices">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertAgentServices" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertAgentServices">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertAgentServices_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

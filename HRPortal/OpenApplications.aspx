@@ -15,7 +15,7 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            My Open Applications
+            My Draft Applications
         </div>
         <div class="panel-body">
             <div runat="server" id="Div1"></div>

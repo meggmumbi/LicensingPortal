@@ -26,6 +26,9 @@
                 <li>All copies of Certificates and Academic Transcripts presented as proof of attainment of entry requirements for a particular qualification must be certified by an Advocate and Commissioner for Oaths (for Kenyan citizens), an Advocate and Notary Public (for foreigners) OR the issuing University/Institution.</li>
             </ol>
         </div>
+        <div class="col-md-12 col-lg-12">
+            <a href="https://www.cue.or.ke/index.php?option=com_content&view=article&id=10&Itemid=135">Click Here To View Full Details</a>
+        </div>
     </div>
 </div>
 </asp:Content>

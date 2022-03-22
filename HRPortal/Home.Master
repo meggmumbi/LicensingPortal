@@ -79,7 +79,7 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MAIN NAVIGATION</li>
                         <li class="active">
-                            <a href="Home.aspx">
+                            <a href="Index.aspx">
                                 <i class="fa fa-home"></i><span>Home</span>
                             </a>
                         </li>
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="Register.aspx">
+                            <a href="RequestAccountCreation.aspx">
                                 <i class="fa fa-user-plus"></i><span>Register</span>
                             </a>
                         </li>
@@ -109,7 +109,7 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="ResetPassword.aspx">
+                            <a href="ForgotPass.aspx">
                                 <i class="fa fa-key"></i><span>Forgot Password?</span>
                             </a>
                         </li>

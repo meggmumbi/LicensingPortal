@@ -14,17 +14,28 @@
 </div>
 <div class="panel panel-primary">
     <div class="panel-heading">
-        GUIDELINES FOR RECOGNITION AND EQUATION (<i style="color: yellow">Kindly read the guidelines clearly before making an application</i>)
+        GUIDELINES Licensing of student recruitment agencies(<i style="color: yellow">Kindly read the guidelines clearly before making an application</i>)
     </div>
     <div class="panel-body">
         <div runat="server" id="feedback"></div>
         <div class="col-md-12 col-lg-12">
-            <ol>
-                <li>The qualification must be Accredited and Recognized.</li>
-                <li>The qualification must have been obtained from an accredited and recognized University or Institution.</li>
-                <li>The holder of the Award must have met the Minimum Entry Requirements for an Academic Programme leading to an equivalent qualification in Kenya.</li>
-                <li>All copies of Certificates and Academic Transcripts presented as proof of attainment of entry requirements for a particular qualification must be certified by an Advocate and Commissioner for Oaths (for Kenyan citizens), an Advocate and Notary Public (for foreigners) OR the issuing University/Institution.</li>
-            </ol>
+                  <ol type="a">
+                    <li>Agencies registered in Kenya (direct recruitment)
+                        <ol type="i">
+                            <li>Agencies for student recruitment into universities/institutions</li>
+                            <li>Agencies for advertising, exhibiting and marketing universities/institutions;</li>
+                            <li>Foreign universities or institutions directly advertising, exhibiting or recruiting students;</li>
+                            <li>Confederations of agencies for student recruitment into universities/institutions;</li>
+                            <li>Confederations of agencies for advertising, exhibiting and marketing universities/ institutions</li>
+                        </ol>
+                    </li>
+                    <li>Local universities as agencies of foreign universities or institutions. i.e. Foreign 
+universities or institutions offering academic programmes in collaboration with Local 
+universities or institutions (Indirect recruitment/Collaboration);</li>
+                </ol>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <a href="https://www.cue.or.ke/index.php?option=com_content&view=article&id=10&Itemid=135">Click Here To View Full Details</a>
         </div>
     </div>
 </div>

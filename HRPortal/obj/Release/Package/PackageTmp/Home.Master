@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> CUE - REQ </title>
+    <title> CUE </title>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -61,7 +61,7 @@
             <header class="main-header">
                 <a href="Default.aspx" class="logo">
                     <span class="logo-mini">
-                        <img src="images/logo.png" class="img-responsive" style="width: 40px; height: 40px;"></span>
+                        <img src="images/logo.png" class="img-responsive" style="width: 50px; height: 40px;"></span>
                     <span class="logo-lg">
                         <img src="images/cueLogo.png" class="img-responsive" style="width: 240px; height: 47px;"></span>
                 </a>
@@ -70,7 +70,7 @@
                         <span class="sr-only">Toggle navigation</span>
                     </a>
                     <div class="page-title-box" style="margin-left:30px">
-                        <h4 style="color:white">Welcome To Commission For University Education (CUE) - Recognition And Equation of Qualifications Portal </h4>
+                        <h4 style="color:white">WELCOME TO COMMISSION FOR UNIVERSITY EDUCATION (CUE) - LICENSING OF STUDENT RECRUITMENT AGENCIES PORTAL </h4>
                     </div>
                 </nav>
             </header>
@@ -79,22 +79,27 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MAIN NAVIGATION</li>
                         <li class="active">
-                            <a href="Home.aspx">
+                            <a href="Index.aspx">
                                 <i class="fa fa-home"></i><span>Home</span>
                             </a>
                         </li>
                         <li class="active">
+                            <a href="Downloads/Automation_Requirements_Licensing_Student_Recruitment_Agencies_Nov2021v4.pdf">
+                                <i class="fa fa-download"></i><span>Download Portal User Manual</span>
+                            </a>
+                        </li>
+                        <li class="active">
                             <a href="Guidelines.aspx">
-                                <i class="fa fa-arrow-circle-right"></i><span>Guidelines</span>
+                                <i class="fa fa-arrow-circle-right"></i><span>Guidelines for Application</span>
                             </a>
                         </li>
                         <li class="active">
                             <a href="Payments.aspx">
-                                <i class="fa fa-money"></i><span>Payments</span>
+                                <i class="fa fa-money"></i><span>Payments Options</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="Register.aspx">
+                            <a href="RequestAccountCreation.aspx">
                                 <i class="fa fa-user-plus"></i><span>Register</span>
                             </a>
                         </li>
@@ -104,7 +109,7 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="ResetPassword.aspx">
+                            <a href="ForgotPass.aspx">
                                 <i class="fa fa-key"></i><span>Forgot Password?</span>
                             </a>
                         </li>

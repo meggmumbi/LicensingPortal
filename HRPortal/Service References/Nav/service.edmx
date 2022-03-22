@@ -11,6 +11,18 @@
         <Property Name="No_Series" Type="Edm.String" />
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
       </EntityType>
+      <EntityType Name="Agency_ActivitiesPage">
+        <Key>
+          <PropertyRef Name="Application_No" />
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Application_No" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="Comments" Type="Edm.String" />
+        <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
+      </EntityType>
       <EntityType Name="AgencyQuestionList">
         <Key>
           <PropertyRef Name="Code" />
@@ -19,7 +31,9 @@
         <Property Name="Question_Category" Type="Edm.String" />
         <Property Name="Question_Category_Description" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
-        <Property Name="Question_Type" Type="Edm.String" />
+        <Property Name="Question_Types" Type="Edm.String" />
+        <Property Name="Answer_Code" Type="Edm.String" />
+        <Property Name="Answer_Option" Type="Edm.String" />
         <Property Name="Blocked" Type="Edm.Boolean" />
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
       </EntityType>
@@ -576,6 +590,9 @@
         <Property Name="Application_No" Type="Edm.String" Nullable="false" />
         <Property Name="Code" Type="Edm.String" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
+        <Property Name="Entry_No" Type="Edm.Int32" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="Comments" Type="Edm.String" />
       </EntityType>
       <EntityType Name="AgencyActivitiesSetup">
         <Key>
@@ -4228,6 +4245,41 @@
         <Property Name="Submitted" Type="Edm.Boolean" />
         <Property Name="Accreditation_Status" Type="Edm.String" />
         <Property Name="Accrediting_Body" Type="Edm.String" />
+        <Property Name="No_Series" Type="Edm.String" />
+        <Property Name="paymentReference" Type="Edm.String" />
+        <Property Name="paymentAttachment" Type="Edm.Boolean" />
+        <Property Name="Status" Type="Edm.String" />
+        <Property Name="Completeness_Status" Type="Edm.String" />
+        <Property Name="Currency_Code" Type="Edm.String" />
+        <Property Name="Completeness_Voucher_No" Type="Edm.String" />
+        <Property Name="Completeness_Checks_Date" Type="Edm.DateTime" />
+        <Property Name="Verification_Voucher_No" Type="Edm.String" />
+        <Property Name="Verification_Checks_Date" Type="Edm.DateTime" />
+        <Property Name="Resubmission_Requested" Type="Edm.Boolean" />
+        <Property Name="Re_Submission_Requested_By" Type="Edm.String" />
+        <Property Name="Resubmission_Requested_On" Type="Edm.DateTime" />
+        <Property Name="Appealed" Type="Edm.Boolean" />
+        <Property Name="Appeal_Date" Type="Edm.DateTime" />
+        <Property Name="Appeal_Reason" Type="Edm.String" />
+        <Property Name="Reason_for_Appeal" Type="Edm.String" />
+        <Property Name="Receipted_By" Type="Edm.String" />
+        <Property Name="Receipted_On" Type="Edm.DateTime" />
+        <Property Name="Verification_Status" Type="Edm.String" />
+        <Property Name="Closed_on" Type="Edm.DateTime" />
+        <Property Name="Closed_By" Type="Edm.String" />
+        <Property Name="Issued_License_No" Type="Edm.String" />
+        <Property Name="Preliminary_Verdict" Type="Edm.String" />
+        <Property Name="HOA_Name" Type="Edm.String" />
+        <Property Name="HOA_Country" Type="Edm.String" />
+        <Property Name="HOA_Form_of_Citizenship" Type="Edm.String" />
+        <Property Name="HOA_ID_NO" Type="Edm.String" />
+        <Property Name="HOA_Passport_No" Type="Edm.String" />
+        <Property Name="HOA_Designation" Type="Edm.String" />
+        <Property Name="HOA_Telephone_No" Type="Edm.String" />
+        <Property Name="HOA_Whatsapp_No" Type="Edm.String" />
+        <Property Name="HOA_Email_Address" Type="Edm.String" />
+        <Property Name="License_Type" Type="Edm.String" />
+        <Property Name="Renewed_License" Type="Edm.String" />
       </EntityType>
       <EntityType Name="LicenceType">
         <Key>
@@ -8999,6 +9051,7 @@
         </Key>
         <Property Name="Name" Type="Edm.String" Nullable="false" />
         <NavigationProperty Name="AccreditationCategories" Relationship="NAV.Company_AccreditationCategories" ToRole="AccreditationCategories" FromRole="Company" />
+        <NavigationProperty Name="Agency_ActivitiesPage" Relationship="NAV.Company_Agency_ActivitiesPage" ToRole="Agency_ActivitiesPage" FromRole="Company" />
         <NavigationProperty Name="AgencyQuestionList" Relationship="NAV.Company_AgencyQuestionList" ToRole="AgencyQuestionList" FromRole="Company" />
         <NavigationProperty Name="Countries" Relationship="NAV.Company_Countries" ToRole="Countries" FromRole="Company" />
         <NavigationProperty Name="CSPStrategies" Relationship="NAV.Company_CSPStrategies" ToRole="CSPStrategies" FromRole="Company" />
@@ -9473,6 +9526,10 @@
       <Association Name="Company_AccreditationCategories">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AccreditationCategories" Role="AccreditationCategories" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_Agency_ActivitiesPage">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.Agency_ActivitiesPage" Role="Agency_ActivitiesPage" Multiplicity="*" />
       </Association>
       <Association Name="Company_AgencyQuestionList">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
@@ -11132,6 +11189,7 @@
       </Association>
       <EntityContainer Name="NAV" m:IsDefaultEntityContainer="true">
         <EntitySet Name="AccreditationCategories" EntityType="NAV.AccreditationCategories" />
+        <EntitySet Name="Agency_ActivitiesPage" EntityType="NAV.Agency_ActivitiesPage" />
         <EntitySet Name="AgencyQuestionList" EntityType="NAV.AgencyQuestionList" />
         <EntitySet Name="Countries" EntityType="NAV.Countries" />
         <EntitySet Name="CSPStrategies" EntityType="NAV.CSPStrategies" />
@@ -11606,6 +11664,10 @@
         <AssociationSet Name="Company_AccreditationCategories_AccreditationCategories" Association="NAV.Company_AccreditationCategories">
           <End Role="Company" EntitySet="Company" />
           <End Role="AccreditationCategories" EntitySet="AccreditationCategories" />
+        </AssociationSet>
+        <AssociationSet Name="Company_Agency_ActivitiesPage_Agency_ActivitiesPage" Association="NAV.Company_Agency_ActivitiesPage">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="Agency_ActivitiesPage" EntitySet="Agency_ActivitiesPage" />
         </AssociationSet>
         <AssociationSet Name="Company_AgencyQuestionList_AgencyQuestionList" Association="NAV.Company_AgencyQuestionList">
           <End Role="Company" EntitySet="Company" />

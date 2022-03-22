@@ -30,6 +30,14 @@ namespace HRPortal
                 countryRecruit.DataValueField = "Code";
                 countryRecruit.DataBind();
                 countryRecruit.Items.Insert(0, new ListItem("--select--", ""));
+
+                HOAC.DataSource = countries;
+                HOAC.DataTextField = "Name";
+                HOAC.DataValueField = "Code";
+                HOAC.DataBind();
+                HOAC.Items.Insert(0, new ListItem("--select--", ""));
+
+                HOAC.SelectedValue = "KE";
                 
 
 
@@ -83,6 +91,8 @@ namespace HRPortal
                 licenseType.DataBind();
                 licenseType.Items.Insert(0, new ListItem("--select--", ""));
 
+                email.Text = Convert.ToString(Session["email"]);
+
 
                 string docNo = Request.QueryString["ApplicationNo"];
                 if (docNo != null)
@@ -99,14 +109,22 @@ namespace HRPortal
                             licenseType.SelectedValue = item.Licence_Type;
                             string addresTyp = item.Physical_Address_Status;
                             string AppCategory = item.Application_Category;
-                            string appType = item.Applicant_Type;
-                            // addrresstype.SelectedValue = item.Physical_Address_Status;
-                            // category.SelectedValue = item.Application_Category;
-                            country.SelectedValue = item.Country_Region_Code;
-                            // ApplicantType.SelectedValue = item.Applicant_Type;
-                            Institutionuniversity.Text = item.Institution_Name;
+                            string appType = item.Applicant_Type;                            
+                            country.SelectedValue = item.Country_Region_Code;                           
                             PhysicalLocation.Text = item.Physical_Location;
+                            certNo.Text = item.Registration_Certificate;
+                            txtDateInc.Text = Convert.ToString(item.Registration_Date);
                             email.Text = item.Email;
+
+                            hoaName.Text = item.HOA_Name;
+                            HOAC.SelectedValue = item.HOA_Country;
+                            string formCizizen = item.HOA_Form_of_Citizenship;
+                            hoaId.Text = item.HOA_ID_NO;
+                            hoaPass.Text = item.HOA_Passport_No;
+                            HoaDesignation.Text = item.HOA_Designation;
+                            HeadPhone.Text = item.HOA_Telephone_No;
+                            hoaWhatsapp.Text = item.HOA_Whatsapp_No;
+                            headEmail.Text = item.HOA_Email_Address;
 
                             if (addresTyp == "Owned")
                             {
@@ -117,22 +135,21 @@ namespace HRPortal
                                 addrresstype.SelectedValue = "2";
                             }
 
-                            if (AppCategory == "New")
+                            if (formCizizen == "Birth")
                             {
-                                category.SelectedValue = "0";
+                                hoacitizen.SelectedValue = "1";
                             }
-                            else
+                            else if (formCizizen == "Naturalization")
                             {
-                                category.SelectedValue = "1";
+                                hoacitizen.SelectedValue = "2";
                             }
-                            if (appType == "Agency")
-                            {
-                                ApplicantType.SelectedValue = "1";
-                            }
-                            else if (appType == "Collaboration")
-                            {
-                                ApplicantType.SelectedValue = "2";
-                            }
+
+
+                            Session["ApplicationNo"] = item.Application_No;
+
+
+
+
 
 
 
@@ -156,40 +173,28 @@ namespace HRPortal
 
                 string tLicenceType = licenseType.SelectedValue.Trim();
                 int tPhysicalAddressStatus = Convert.ToInt32(addrresstype.SelectedValue.Trim());
-                int tApplicationCategory = Convert.ToInt32(category.SelectedValue.Trim());
-                int tapplicantType = Convert.ToInt32(ApplicantType.SelectedValue.Trim());
-                string tInstitutionuniversity = Institutionuniversity.Text.Trim();
+              
                 string temail = email.Text.Trim();
                 string txtcountry = country.SelectedValue;
                 string ttPhysicalLocation = PhysicalLocation.Text.Trim();
-                string tCustomerNumber = Convert.ToString(Session[""]);
+                string tcertNo = certNo.Text.Trim();
+                DateTime tIncorpDate = Convert.ToDateTime(txtDateInc.Text.Trim());
+                string tCustomerNumber = Convert.ToString(Session["InstitutionNo"]);
+                string thoaName = hoaName.Text.Trim();
+                string tcountryCitizen = HOAC.SelectedValue.Trim();
+                int tformCitizen = Convert.ToInt32(hoacitizen.SelectedValue.Trim());
+                string thoaId = hoaId.Text.Trim();
+                string thoaPass = hoaPass.Text.Trim();
+                string tHoaDesignation = HoaDesignation.Text.Trim();
+                string tHeadPhone = HeadPhone.Text.Trim();
+                string thoaWhatsapp = hoaWhatsapp.Text.Trim();
+                string theadEmail = headEmail.Text.Trim();
 
 
 
                 DateTime txtstartdate = new DateTime();
-                //try
-                //{
-                //    txtstartdate = DateTime.ParseExact(nstartdate, "d/M/yyyy", CultureInfo.InvariantCulture);
-                //}
-               // catch (Exception)
-                //{
-                //    error = true;
-                //    msg += msg.Length > 0 ? "<br/>" : "";
-                //    msg += "Please provide a valid start date";
-                //}
                
-                //DateTime txtenddate = new DateTime();
-                //try
-                //{
-                //    txtenddate = DateTime.ParseExact(nenddate, "d/M/yyyy", CultureInfo.InvariantCulture);
-                //}
-                //catch (Exception)
-                //{
-                //    error = true;
-                //    msg += msg.Length > 0 ? "<br/>" : "";
-                //    msg += "Please provide a valid end date";
-                //}
-              
+
                 decimal txtfees = 0;
 
 
@@ -200,10 +205,12 @@ namespace HRPortal
                 else
                 {
                     string docNo = Convert.ToString(Session["ApplicationNo"]);
-                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, tApplicationCategory, tapplicantType, ttPhysicalLocation, tPhysicalAddressStatus, tLicenceType, tCustomerNumber);
+                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, ttPhysicalLocation, tPhysicalAddressStatus, tLicenceType, tCustomerNumber,tcertNo, 
+                        tIncorpDate, thoaName, tcountryCitizen, tformCitizen, thoaId, thoaPass, tHoaDesignation, tHeadPhone, thoaWhatsapp, theadEmail);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
+                        Session["ApplicationNo"] = info[2];
                         Nexttostep2.Visible = true;
                         linesfeedback.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
@@ -221,7 +228,7 @@ namespace HRPortal
 
         protected void Nexttostep2_Click(object sender, EventArgs e)
         {
-            string docNo = Request.QueryString["ApplicationNo"];
+            string docNo = Convert.ToString(Session["ApplicationNo"]);
             Response.Redirect("NewApplication.aspx?step=2&&ApplicationNo="+docNo);
         }
 
@@ -458,7 +465,7 @@ namespace HRPortal
                     string InitiativeNumber = target.TargetNumber;
                     var nav1 = new Config().ReturnNav();
 
-                    var status = ""; /*Config.ObjNav.FnInsertAgentServices(target.ApplicationNo, target.TargetNumber, target.comment);*/
+                    var status = Config.ObjNav.FnInsertAgentServices(target.ApplicationNo, target.TargetNumber, target.comment);
                     string[] info = status.Split('*');
                     if (info[0] == "success")
                     {
@@ -1197,7 +1204,7 @@ namespace HRPortal
 
             {
 
-                int mLineNo = Convert.ToInt32(entryNoRemove.Text.Trim());
+                int mLineNo = Convert.ToInt32(activityEntry.Text.Trim());
                 String ApplicationNo = Request.QueryString["ApplicationNo"];
                 int mNo = 0;
                 Boolean error = false;
@@ -1395,6 +1402,57 @@ namespace HRPortal
                 keyStaff.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
 
             }
+        }
+
+        protected void unidelete_Click(object sender, EventArgs e)
+        {
+            try
+
+            {
+
+                int mLineNo = Convert.ToInt32(uniEntryDelete.Text.Trim());
+                String ApplicationNo = Request.QueryString["ApplicationNo"];
+                int mNo = 0;
+                Boolean error = false;
+                try
+                {
+                    mNo = Convert.ToInt32(mLineNo);
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+                if (error)
+                {
+
+                    recruitingInst.InnerHtml = "<div class='alert alert-danger'>The line no could not be found<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+                else
+                {
+                    String status = Config.ObjNav.RemoveUniversity(mLineNo, ApplicationNo);
+                    String[] info = status.Split('*');
+                    recruitingInst.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+
+            }
+            catch (Exception m)
+            {
+                recruitingInst.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+            }
+        }
+
+        protected void HOAC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string country = HOAC.SelectedValue.Trim();
+            if (country != "KE")
+            {
+                local.Visible = false;
+                foreign.Visible = true;
+            }
+
         }
     }
 }

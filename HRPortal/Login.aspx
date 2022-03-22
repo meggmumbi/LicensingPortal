@@ -71,7 +71,7 @@
 	        	<li class="nav-item active"><a href="Index.aspx" class="nav-link pl-0">Home</a></li>
 	        	<li class="nav-item"><a href="Login.aspx" class="nav-link">Login</a></li>
 	        	<li class="nav-item"><a href="RequestAccountCreation" class="nav-link">Register</a></li>
-	        	<li class="nav-item"><a href="courses.html" class="nav-link">Guidelines for Application</a></li>
+	        		<li class="nav-item"><a href="https://www.cue.or.ke/index.php?option=com_phocadownload&view=category&id=16:standards-and-guidelines&Itemid=187" class="nav-link">Universities Standards and Guidelines</a></li>
 	        	<li class="nav-item"><a href="pricing.html" class="nav-link">FAQs</a></li>	        	
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 	        </ul>
@@ -85,7 +85,7 @@
                 <div class="row ">
                     <div style="width:100%">
                         <img src="images/cue-header.jpg" width="100%" height="100px" />
-                        <h3 style="width: 100%; text-align: center;">WELCOME TO COMMISSION FOR UNIVERSITY EDUCATION (CUE) - LICENSING OF STUDENT RECRUITMENT AGENCIES PORTAL</h3>
+                        <h3 style="width: 100%; text-align: center;">LICENSING OF STUDENT RECRUITMENT AGENCIES PORTAL</h3>
                         <hr />
                     </div>
 

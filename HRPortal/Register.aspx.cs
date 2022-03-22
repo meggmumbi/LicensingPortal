@@ -15,11 +15,11 @@ namespace HRPortal
             if (!IsPostBack)
             {
                 var nav = new Config().ReturnNav();
-                //var countries = nav.Countries.ToList();
-                //country.DataSource = countries;
-                //country.DataTextField = "Name";
-                //country.DataValueField = "Code";
-                //country.DataBind();
+                var countries = nav.Countries.ToList();
+                country.DataSource = countries;
+                country.DataTextField = "Name";
+                country.DataValueField = "Code";
+                country.DataBind();
 
                 //var counties = nav.Counties.ToList();
                 //county.DataSource = counties;

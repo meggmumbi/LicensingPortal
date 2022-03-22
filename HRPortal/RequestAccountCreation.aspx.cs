@@ -32,7 +32,7 @@ namespace HRPortal
             }
         }
         [System.Web.Services.WebMethod(EnableSession = true)]
-        public static string RequesttoCreateAccount(string tagencyName, string tresidenctialAddress, string tpostalAddress, string ttelephoneNumber, string talternativePhoneNumber, string twhatsAppNo, string temailAddress, string twebsite, string tcertificateNumber, DateTime tDate)
+        public static string RequesttoCreateAccount(string tagencyName, string tresidenctialAddress, string tpostalAddress, string ttelephoneNumber, string talternativePhoneNumber, string twhatsAppNo, string temailAddress, string twebsite)
         {
             var results = (dynamic)null;
             try
@@ -100,7 +100,7 @@ namespace HRPortal
                 {
 
 
-                    string status = Config.ObjNav.FnRegistration(firstName, middliN, lastName, ttelephoneNumber, tresidenctialAddress, tpostalAddress, talternativePhoneNumber, twhatsAppNo, twebsite, tcertificateNumber, tDate, AuthenticationEmail);
+                    string status = Config.ObjNav.FnRegistration(firstName, middliN, lastName, ttelephoneNumber, tresidenctialAddress, tpostalAddress, talternativePhoneNumber, twhatsAppNo, twebsite, AuthenticationEmail);
                     string[] info = status.Split('*');
                     if (info[0] == "success")
                     {
@@ -126,5 +126,17 @@ namespace HRPortal
             return results;
         }
 
+        protected void agencyType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String kenyaCountry = DropDownList1.SelectedValue.Trim();
+            if (kenyaCountry == "KE")
+            {
+                LocalAddress.Visible = true;
+            }
+            else
+            {
+                LocalAddress.Visible = false;
+            }
+        }
     }
 }

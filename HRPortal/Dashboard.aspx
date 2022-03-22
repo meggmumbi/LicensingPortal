@@ -169,7 +169,7 @@ Agencies operating in Kenya and any activities by foreign universities and insti
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="Payments.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="Home_Payments.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -184,7 +184,7 @@ Agencies operating in Kenya and any activities by foreign universities and insti
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="Payments.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="ApprovedApplications.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

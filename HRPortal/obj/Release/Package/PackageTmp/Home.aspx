@@ -7,8 +7,8 @@
 <div class="row">
     <div class="col-sm-12">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><h5 style="color:blue"><i>CUE undertakes recognition and equation of Diplomas,
-                Degrees, Post-graduate Diplomas and Post-graduate Certificates conferred or awarded by Foreign Universities and Institutions</i></h5></li>
+            <li class="breadcrumb-item"><h5 style="color:blue"><i>The Commission for University Education is mandated to License any Student Recruitment 
+Agencies operating in Kenya and any activities by foreign universities and institutions.</i></h5></li>
         </ol>
     </div>
 </div>
@@ -23,9 +23,9 @@
 
               <p>Guidelines For Recognition and Qualification</p>
             </div>
-            <div class="icon">
+<%--            <div class="icon">
               <i class="ion ion-bag"></i>
-            </div>
+            </div>--%>
             <a href="Guidelines.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
@@ -38,9 +38,9 @@
 
               <p>Check The Different Payment Options</p>
             </div>
-            <div class="icon">
+<%--            <div class="icon">
               <i class="ion ion-stats-bars"></i>
-            </div>
+            </div>--%>
             <a href="Payments.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
@@ -53,10 +53,10 @@
 
               <p>Click on More Info to access CUE Website</p>
             </div>
-            <div class="icon">
+<%--            <div class="icon">
               <i class="ion ion-person-add"></i>
-            </div>
-            <a href="https://www.cue.or.ke/" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>--%>
+            <a href="https://www.cue.or.ke/" class="small-box-footer">Visit Website <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -64,14 +64,14 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h4>HELB Portal</h4>
+              <h4>Universities Standards and Guidelines Website</h4>
 
-              <p>Click To Access HELB Portal services</p>
+              <p>View services</p>
             </div>
-            <div class="icon">
+<%--            <div class="icon">
               <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="https://www.helb.co.ke/" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>--%>
+            <a href="#" class="small-box-footer">Visit Website <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -79,14 +79,26 @@
    
     <div class="panel panel-primary">
         <div class="panel-heading">
-            The Commission for University Education (CUE) Recognition and Equation of Qualification Quick Overview
+            The Commission for University Education (CUE) Licensing of Student Recruitment Agencies Quick Overview
         </div>
         <div class="panel-body">
-            <p><b>The Commission for University Education (CUE) undertakes recognition and equation of Diplomas,<br />
-                Degrees, Post-graduate Diplomas and Post-graduate Certificates conferred or awarded by Foreign Universities and Institutions<br />
-                in accordance with Section 5 (1) (g) of The Universities Act No. 42 of 2012; Section 5A (2) of The Universities Act No. 42 of 2012, Revised Edition 2016 [2015];
-                <br />
-                Part XI of The Universities Regulations, 2014 and The Universities Standards and Guidelines, 2014.</b></p>
+            <p>The Commission for University Education is mandated to License any Student Recruitment
+                Agencies operating in Kenya and any activities by foreign universities and institutions. This
+                process is applicable to:</p>
+                <ol type="a">
+                    <li>Agencies registered in Kenya (direct recruitment)
+                        <ol type="i">
+                            <li>Agencies for student recruitment into universities/institutions</li>
+                            <li>Agencies for advertising, exhibiting and marketing universities/institutions;</li>
+                            <li>Foreign universities or institutions directly advertising, exhibiting or recruiting students;</li>
+                            <li>Confederations of agencies for student recruitment into universities/institutions;</li>
+                            <li>Confederations of agencies for advertising, exhibiting and marketing universities/ institutions</li>
+                        </ol>
+                    </li>
+                    <li>Local universities as agencies of foreign universities or institutions. i.e. Foreign 
+universities or institutions offering academic programmes in collaboration with Local 
+universities or institutions (Indirect recruitment/Collaboration);</li>
+                </ol>
         </div>
     </div>
   </section>

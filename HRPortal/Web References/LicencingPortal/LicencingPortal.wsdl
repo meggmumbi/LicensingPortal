@@ -5,9 +5,7 @@
       <element name="FnRegistration">
         <complexType>
           <sequence>
-            <element minOccurs="1" maxOccurs="1" name="firstname" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="middlename" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="lastname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tAgentName" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tphoneNumber" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tResidentialsAddress" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tpostalAddress" type="string" />
@@ -15,6 +13,9 @@
             <element minOccurs="1" maxOccurs="1" name="twhatsappNumber" type="string" />
             <element minOccurs="1" maxOccurs="1" name="twebsite" type="string" />
             <element minOccurs="1" maxOccurs="1" name="temailAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcontactName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tCity" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tpostaLAddressPoBox" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -76,6 +77,7 @@
             <element minOccurs="1" maxOccurs="1" name="headTelephone" type="string" />
             <element minOccurs="1" maxOccurs="1" name="headWhatsapp" type="string" />
             <element minOccurs="1" maxOccurs="1" name="headEmail" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcertificateType" type="int" />
           </sequence>
         </complexType>
       </element>
@@ -95,6 +97,7 @@
             <element minOccurs="1" maxOccurs="1" name="tpostcode" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tcounty" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tcity" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tLocationType" type="int" />
           </sequence>
         </complexType>
       </element>
@@ -127,6 +130,7 @@
             <element minOccurs="1" maxOccurs="1" name="tFacilityCode" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tquantity" type="int" />
             <element minOccurs="1" maxOccurs="1" name="tFacilitycategory" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="description" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -226,8 +230,6 @@
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
             <element minOccurs="1" maxOccurs="1" name="documentCode" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="issueDate" type="date" />
-            <element minOccurs="1" maxOccurs="1" name="expiryDate" type="date" />
           </sequence>
         </complexType>
       </element>
@@ -342,6 +344,21 @@
           </sequence>
         </complexType>
       </element>
+      <element name="Removedoc">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="entryNo" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="applicationNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Removedoc_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
       <element name="EditPhysicalLocation">
         <complexType>
           <sequence>
@@ -403,6 +420,7 @@
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="applicationNo" type="string" />
             <element minOccurs="1" maxOccurs="1" name="paymentRef" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="paymentModes" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -423,6 +441,140 @@
         </complexType>
       </element>
       <element name="FnInsertAgentServices_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGenerateApplicationReport">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="docNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGenerateApplicationReport_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnUserHelpEmaiRequest">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="usercode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="password" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="email" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="useremailsubject" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="messagebody" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnUserHelpEmaiRequest_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnLicenceVoucher">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="licenseNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="institutionNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnLicenceVoucher_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRenewalacilities">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tFacilityCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tquantity" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="tFacilitycategory" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tAdequacy" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRenewalacilities_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStudentStatistics">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tcoursetype" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="coursename" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="malenumber" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="femalenumber" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="county" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="totals" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStudentStatistics_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertUniversity">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="country" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="tCHARTER" type="boolean" />
+            <element minOccurs="1" maxOccurs="1" name="tMOU" type="boolean" />
+            <element minOccurs="1" maxOccurs="1" name="tMOA" type="boolean" />
+            <element minOccurs="1" maxOccurs="1" name="tMOF" type="boolean" />
+            <element minOccurs="1" maxOccurs="1" name="universityName" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertUniversity_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmitAppealReason">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="institutionNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="appealReason" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmitAppealReason_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGenerateLicenseReport">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="docNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGenerateLicenseReport_Result">
         <complexType>
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
@@ -545,6 +697,12 @@
   <message name="RemoveUniversity_Result">
     <part name="parameters" element="tns:RemoveUniversity_Result" />
   </message>
+  <message name="Removedoc">
+    <part name="parameters" element="tns:Removedoc" />
+  </message>
+  <message name="Removedoc_Result">
+    <part name="parameters" element="tns:Removedoc_Result" />
+  </message>
   <message name="EditPhysicalLocation">
     <part name="parameters" element="tns:EditPhysicalLocation" />
   </message>
@@ -574,6 +732,54 @@
   </message>
   <message name="FnInsertAgentServices_Result">
     <part name="parameters" element="tns:FnInsertAgentServices_Result" />
+  </message>
+  <message name="FnGenerateApplicationReport">
+    <part name="parameters" element="tns:FnGenerateApplicationReport" />
+  </message>
+  <message name="FnGenerateApplicationReport_Result">
+    <part name="parameters" element="tns:FnGenerateApplicationReport_Result" />
+  </message>
+  <message name="FnUserHelpEmaiRequest">
+    <part name="parameters" element="tns:FnUserHelpEmaiRequest" />
+  </message>
+  <message name="FnUserHelpEmaiRequest_Result">
+    <part name="parameters" element="tns:FnUserHelpEmaiRequest_Result" />
+  </message>
+  <message name="FnLicenceVoucher">
+    <part name="parameters" element="tns:FnLicenceVoucher" />
+  </message>
+  <message name="FnLicenceVoucher_Result">
+    <part name="parameters" element="tns:FnLicenceVoucher_Result" />
+  </message>
+  <message name="FnInsertRenewalacilities">
+    <part name="parameters" element="tns:FnInsertRenewalacilities" />
+  </message>
+  <message name="FnInsertRenewalacilities_Result">
+    <part name="parameters" element="tns:FnInsertRenewalacilities_Result" />
+  </message>
+  <message name="FnInsertStudentStatistics">
+    <part name="parameters" element="tns:FnInsertStudentStatistics" />
+  </message>
+  <message name="FnInsertStudentStatistics_Result">
+    <part name="parameters" element="tns:FnInsertStudentStatistics_Result" />
+  </message>
+  <message name="FnInsertUniversity">
+    <part name="parameters" element="tns:FnInsertUniversity" />
+  </message>
+  <message name="FnInsertUniversity_Result">
+    <part name="parameters" element="tns:FnInsertUniversity_Result" />
+  </message>
+  <message name="FnSubmitAppealReason">
+    <part name="parameters" element="tns:FnSubmitAppealReason" />
+  </message>
+  <message name="FnSubmitAppealReason_Result">
+    <part name="parameters" element="tns:FnSubmitAppealReason_Result" />
+  </message>
+  <message name="FnGenerateLicenseReport">
+    <part name="parameters" element="tns:FnGenerateLicenseReport" />
+  </message>
+  <message name="FnGenerateLicenseReport_Result">
+    <part name="parameters" element="tns:FnGenerateLicenseReport_Result" />
   </message>
   <portType name="LicencingPortal_Port">
     <operation name="FnRegistration">
@@ -652,6 +858,10 @@
       <input name="RemoveUniversity" message="tns:RemoveUniversity" />
       <output name="RemoveUniversity_Result" message="tns:RemoveUniversity_Result" />
     </operation>
+    <operation name="Removedoc">
+      <input name="Removedoc" message="tns:Removedoc" />
+      <output name="Removedoc_Result" message="tns:Removedoc_Result" />
+    </operation>
     <operation name="EditPhysicalLocation">
       <input name="EditPhysicalLocation" message="tns:EditPhysicalLocation" />
       <output name="EditPhysicalLocation_Result" message="tns:EditPhysicalLocation_Result" />
@@ -671,6 +881,38 @@
     <operation name="FnInsertAgentServices">
       <input name="FnInsertAgentServices" message="tns:FnInsertAgentServices" />
       <output name="FnInsertAgentServices_Result" message="tns:FnInsertAgentServices_Result" />
+    </operation>
+    <operation name="FnGenerateApplicationReport">
+      <input name="FnGenerateApplicationReport" message="tns:FnGenerateApplicationReport" />
+      <output name="FnGenerateApplicationReport_Result" message="tns:FnGenerateApplicationReport_Result" />
+    </operation>
+    <operation name="FnUserHelpEmaiRequest">
+      <input name="FnUserHelpEmaiRequest" message="tns:FnUserHelpEmaiRequest" />
+      <output name="FnUserHelpEmaiRequest_Result" message="tns:FnUserHelpEmaiRequest_Result" />
+    </operation>
+    <operation name="FnLicenceVoucher">
+      <input name="FnLicenceVoucher" message="tns:FnLicenceVoucher" />
+      <output name="FnLicenceVoucher_Result" message="tns:FnLicenceVoucher_Result" />
+    </operation>
+    <operation name="FnInsertRenewalacilities">
+      <input name="FnInsertRenewalacilities" message="tns:FnInsertRenewalacilities" />
+      <output name="FnInsertRenewalacilities_Result" message="tns:FnInsertRenewalacilities_Result" />
+    </operation>
+    <operation name="FnInsertStudentStatistics">
+      <input name="FnInsertStudentStatistics" message="tns:FnInsertStudentStatistics" />
+      <output name="FnInsertStudentStatistics_Result" message="tns:FnInsertStudentStatistics_Result" />
+    </operation>
+    <operation name="FnInsertUniversity">
+      <input name="FnInsertUniversity" message="tns:FnInsertUniversity" />
+      <output name="FnInsertUniversity_Result" message="tns:FnInsertUniversity_Result" />
+    </operation>
+    <operation name="FnSubmitAppealReason">
+      <input name="FnSubmitAppealReason" message="tns:FnSubmitAppealReason" />
+      <output name="FnSubmitAppealReason_Result" message="tns:FnSubmitAppealReason_Result" />
+    </operation>
+    <operation name="FnGenerateLicenseReport">
+      <input name="FnGenerateLicenseReport" message="tns:FnGenerateLicenseReport" />
+      <output name="FnGenerateLicenseReport_Result" message="tns:FnGenerateLicenseReport_Result" />
     </operation>
   </portType>
   <binding name="LicencingPortal_Binding" type="tns:LicencingPortal_Port">
@@ -846,6 +1088,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
+    <operation name="Removedoc">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:Removedoc" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="Removedoc">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="Removedoc_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
     <operation name="EditPhysicalLocation">
       <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:EditPhysicalLocation" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="EditPhysicalLocation">
@@ -888,6 +1139,78 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnInsertAgentServices_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnGenerateApplicationReport">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnGenerateApplicationReport" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnGenerateApplicationReport">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnGenerateApplicationReport_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnUserHelpEmaiRequest">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnUserHelpEmaiRequest" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnUserHelpEmaiRequest">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnUserHelpEmaiRequest_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnLicenceVoucher">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnLicenceVoucher" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnLicenceVoucher">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnLicenceVoucher_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertRenewalacilities">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertRenewalacilities" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertRenewalacilities">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertRenewalacilities_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertStudentStatistics">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertStudentStatistics" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertStudentStatistics">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertStudentStatistics_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertUniversity">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertUniversity" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertUniversity">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertUniversity_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSubmitAppealReason">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnSubmitAppealReason" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSubmitAppealReason">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSubmitAppealReason_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnGenerateLicenseReport">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnGenerateLicenseReport" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnGenerateLicenseReport">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnGenerateLicenseReport_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

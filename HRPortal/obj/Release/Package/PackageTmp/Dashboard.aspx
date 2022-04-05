@@ -169,7 +169,7 @@ Agencies operating in Kenya and any activities by foreign universities and insti
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="Home_Payments.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="ApprovedApplications.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -216,11 +216,34 @@ Agencies operating in Kenya and any activities by foreign universities and insti
             The Commission for University Education (CUE) Licensing of Student Recruitment Agencies Quick Overview
         </div>
         <div class="panel-body">
-            <p>The Commission for University Education is mandated to License any Student Recruitment
+
+
+              <div class="panel-body">
+
+        <ul class="nav nav-tabs">
+            <li class="active" style="background-color:#D3D3D3">
+                <a href="#tab_general_details" data-toggle="tab"><p style="color:black"><strong>General Details</strong> </p></a>
+            </li>
+            <li style="background-color:#D3D3D3">
+                <a href="#tab_procurement_categories" data-toggle="tab"><p style="color:black"><strong>Required Mandatory Documents</strong></p> </a>
+            </li>
+                </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="tab_general_details">               
+                <div class="row">
+                    <div class="panel panel-heading" style="background-color:#D3D3D3">
+                        <h6 class="panel-title"> <strong><u>General Information</u></strong></h6>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                           
+            <p>
+                The Commission for University Education is mandated to License any Student Recruitment
                 Agencies operating in Kenya and any activities by foreign universities and institutions. This
-                process is applicable to:</p>
-                <ol type="a">
-                    <li>Agencies registered in Kenya (direct recruitment)
+                process is applicable to:
+            </p>
+            <ol type="a">
+                <li>Agencies registered in Kenya (direct recruitment)
                         <ol type="i">
                             <li>Agencies for student recruitment into universities/institutions</li>
                             <li>Agencies for advertising, exhibiting and marketing universities/institutions;</li>
@@ -228,11 +251,70 @@ Agencies operating in Kenya and any activities by foreign universities and insti
                             <li>Confederations of agencies for student recruitment into universities/institutions;</li>
                             <li>Confederations of agencies for advertising, exhibiting and marketing universities/ institutions</li>
                         </ol>
-                    </li>
-                    <li>Local universities as agencies of foreign universities or institutions. i.e. Foreign 
+                </li>
+                <li>Local universities as agencies of foreign universities or institutions. i.e. Foreign 
 universities or institutions offering academic programmes in collaboration with Local 
 universities or institutions (Indirect recruitment/Collaboration);</li>
                 </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                  <div class="tab-pane fade" id="tab_procurement_categories">
+                      <div class="row">
+                          <div class="row">
+                              <div class="panel panel-heading" style="background-color: #D3D3D3">
+                                  <h6 class="panel-title"><strong><u>Mandatory Documents</u></strong></h6>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-12 col-lg-12">
+                                      <div class="table-responsive">
+                                          <table class="table table-striped custom-table datatable" id="example9">
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>Code</th>
+                                                      <th>Description</th>
+                                                     
+                                                  </tr>
+
+                                              </thead>
+                                              <tbody>
+                                                  <% 
+                                                      
+                                                      var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false).ToList();
+                                                      int programesCounter = 0;
+                                                      int counter = 0;
+                                                      foreach (var detail in details)
+                                                      {
+
+                                                          counter++;
+                                                          programesCounter++;
+                                                  %>
+                                                  <tr>
+                                                      <td><%=programesCounter %></td>
+                                                      <td><%=detail.Code %></td>
+                                                      <td><%=detail.Description %></td>
+
+                                                     
+                                                  </tr>
+                                                  <%  
+                                                      } %>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+
+
+
         </div>
     </div>
   </section>

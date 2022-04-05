@@ -1,4 +1,4 @@
-﻿$('#btn_accountcreation').click(function (event) {
+﻿$('#').click(function (event) {
     //To prevent form submit after ajax call
     event.preventDefault();
     var tagencyName = $("#agencyName").val();
@@ -9,8 +9,11 @@
     var twhatsAppNo = $('#whatsAppNo').val();
     var temailAddress = $('#emailAddress').val();
     var twebsite = $('#website').val();
-   // var tcertificateNumber = $('#certificateNumber').val();
-   // var tDate = $('#txtDate').val();
+    var tcontactName = $('#contactName').val();
+    var browsedFile =  document.getElementById('FileUpload');
+    var tCity = $('#city').val();
+    var tpostaLAddressPoBox = $('#postaLAddressPoBox').val();
+  
     
     if (tagencyName != ''  && ttelephoneNumber != '' && tresidenctialAddress != '' && temailAddress != '' ) {
         //Swal Message
@@ -33,7 +36,7 @@
                        async: false,
                        data: "{'tagencyName':'" + tagencyName + "','tresidenctialAddress':'" + tresidenctialAddress + "','tpostalAddress':'" + tpostalAddress + "','ttelephoneNumber':'" + ttelephoneNumber
                            + "','talternativePhoneNumber':'" + talternativePhoneNumber + "','twhatsAppNo':'" + twhatsAppNo + "','temailAddress':'" + temailAddress
-                           + "','twebsite':'" + twebsite  + "'}",
+                           + "','twebsite':'" + twebsite + "','tcontactName':'" + tcontactName + "','browsedFile':'" + browsedFile + "','tCity':'" + tCity + "','tpostaLAddressPoBox':'" + tpostaLAddressPoBox + "'}",
                        contentType: 'application/json; charset =utf-8',
                        success: function (status) {
                            var obj = status.d;

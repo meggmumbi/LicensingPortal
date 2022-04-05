@@ -59,7 +59,7 @@
                         <td><% = Convert.ToDateTime(item.Registration_Date).ToString("d/MM/yyyy") %></td>
                         <td><% =item.Application_Amount %></td>
                         <td>
-                            <a href="NewApplication.aspx?ApplicationNo=<%=item.Application_No%>" class="btn btn-success"><i class="fa fa-edit"></i>Edit</a>                          
+                            <a href="NewApplication.aspx?ApplicationNo=<%=item.Application_No%>" class="btn btn-success"><i class="fa fa-edit"></i>Edit</a>  </td>                        
                         
                         <%
                             }

@@ -80,7 +80,7 @@
         }
     </script>
 
-       <div id="MakepaymentsModal" class="modal fade" role="dialog">
+    <div id="MakepaymentsModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -90,7 +90,7 @@
                 <div class="modal-body">
                     <asp:TextBox runat="server" ID="editRationaleCode" type="hidden" />
                     <div class="form-group">
-                        <strong>Accreditation Number:</strong>
+                        <strong>Licensing Number:</strong>
                         <asp:TextBox runat="server" CssClass="form-control" ID="accreditationnumber" placeholder="Institution Application Number" />
 
                     </div>
@@ -99,12 +99,18 @@
                         <asp:TextBox runat="server" CssClass="form-control" ID="programmeName" placeholder="Institution Name" ReadOnly="true" />
                     </div>
                     <div class="form-group">
-                        <strong>Payment Document:</strong>
-                        <asp:FileUpload runat="server" ID="paymentdocument" CssClass="form-control" Style="padding-top: 0px;" />
-                        <asp:RequiredFieldValidator runat="server" ID="payments" ControlToValidate="paymentdocument" ErrorMessage="Please attach the Payment Document!" ForeColor="Red" />
+                        <strong>Select mode of payment</strong>
+                        <asp:DropDownList runat="server" CssClass="form-control" ID="PaymentModes" OnSelectedIndexChanged="PaymentModes_SelectedIndexChanged" AutoPostBack="true">  
+                        </asp:DropDownList>
+                    </div>
+                    <div class="form-group">
+                        <strong>Payment Reference Number:</strong>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="paymentsref" placeholder="Payment Reference Number" />
+
                         <div class="form-group">
-                            <strong>Payment Reference Number:</strong>
-                            <asp:TextBox runat="server" CssClass="form-control" ID="paymentsref" placeholder="Payment Reference Number" />
+                            <strong>Payment Document:</strong>
+                            <asp:FileUpload runat="server" ID="paymentdocument" CssClass="form-control" Style="padding-top: 0px;" />
+                            <asp:RequiredFieldValidator runat="server" ID="payments" ControlToValidate="paymentdocument" ErrorMessage="Please attach the Payment Document!" ForeColor="Red" />
                         </div>
                     </div>
                 </div>

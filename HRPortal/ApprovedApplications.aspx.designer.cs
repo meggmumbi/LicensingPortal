@@ -49,6 +49,24 @@ namespace HRPortal {
         protected global::System.Web.UI.WebControls.TextBox programmeName;
         
         /// <summary>
+        /// PaymentModes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PaymentModes;
+        
+        /// <summary>
+        /// paymentsref control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox paymentsref;
+        
+        /// <summary>
         /// paymentdocument control.
         /// </summary>
         /// <remarks>
@@ -65,15 +83,6 @@ namespace HRPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator payments;
-        
-        /// <summary>
-        /// paymentsref control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox paymentsref;
         
         /// <summary>
         /// makePayments control.

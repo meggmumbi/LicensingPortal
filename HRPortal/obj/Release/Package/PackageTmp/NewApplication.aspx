@@ -2,6 +2,8 @@
 <%@ Import Namespace="HRPortal" %>
 <%@ Import Namespace="System.IO" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 </asp:Content>
@@ -12,8 +14,8 @@
         {
             step = Convert.ToInt32(Request.QueryString["step"]);
             if (step>11||step<1)
-            { 
-               step = 1;  
+            {
+                step = 1;
             }
         }
         catch (Exception)
@@ -46,32 +48,38 @@
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validateresidence" ControlToValidate="licenseType" InitialValue="--Select--" ErrorMessage="Please select License Type, it cannot be empty!" ForeColor="Red" />
                     </div>
                     <div class="form-group">
-                        <label class="span2">Physical Address Status<span style="color: red">*</span></label>
+                        <label class="span2">Office Space Ownership<span style="color: red">*</span></label>
                         <asp:DropDownList runat="server" ID="addrresstype" AppendDataBoundItems="true" CssClass="form-control select2">
                             <asp:ListItem>--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Owned</asp:ListItem>
                             <asp:ListItem Value="2">Leased</asp:ListItem>
-
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validateapplicanttype" ControlToValidate="addrresstype" InitialValue="--Select--" ErrorMessage="Please select Physical Address Status, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6">
+               <div class="col-md-6 col-lg-6">
                     <div class="form-group">
-                        <label>Certificate of incorporation/ Registration No:</label>
-                        <asp:TextBox CssClass="form-control" runat="server" ID="certNo" Placeholder="Enter Certificate Number" required Style="height: 42px;" />
-
+                        <label class="span2">Type of Certification<span style="color: red">*</span></label>
+                        <asp:DropDownList runat="server" ID="certType" AppendDataBoundItems="true" CssClass="form-control select2">
+                            <asp:ListItem>--Select--</asp:ListItem>
+                            <asp:ListItem Value="1">Certificate of Incorporation</asp:ListItem>
+                            <asp:ListItem Value="2">Certificate of Registration</asp:ListItem>
+                        </asp:DropDownList>
+                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator17" ControlToValidate="certType" InitialValue="--Select--" ErrorMessage="Type of Certificate, it cannot be empty!" ForeColor="Red" />
                     </div>
-                    <%--       <div class="form-group">
-                    <label class="span2">Application Category<span style="color: red">*</span></label>
-                    <asp:DropDownList runat="server" ID="category" AppendDataBoundItems="true" CssClass="form-control select2">
-                        <asp:ListItem>--Select--</asp:ListItem>
-                        <asp:ListItem Value="0">New</asp:ListItem>
-                        <asp:ListItem Value="1">Appeal</asp:ListItem>
-                      
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validatelevel" ControlToValidate="category" InitialValue="--Select--" ErrorMessage="Please select Programme Level, it cannot be empty!" ForeColor="Red" />
-                </div>--%>
+                   <div class="form-group">
+                       <label>Certificate No<span class="text-danger">*</span></label>
+                       <asp:TextBox CssClass="form-control" runat="server" ID="certNo" Placeholder="Enter Certificate Number" />
+                         <asp:RequiredFieldValidator Display="dynamic"  ID="certNoValidator9"  runat="server" ControlToValidate="certNo"  ErrorMessage="Certificate No, it cannot be empty!" ForeColor="Red" />
+                   </div>
+               </div>
+                <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                       <label>Date of Incorporation/ Registration <i>(MM/dd/YYYY)</i></label>
+                       <asp:TextBox CssClass="form-control" runat="server" ID="txtDateInc" TextMode="Date" />
+                             <asp:RequiredFieldValidator Display="dynamic"  ID="RequiredFieldValidator18"  runat="server" ControlToValidate="txtDateInc"  ErrorMessage="Date of Incorporation/ Registration:, it cannot be empty!" ForeColor="Red" />
+
+                   </div>             
                     <div class="form-group">
                         <label class="span2">Country<span style="color: red">*</span> <%--<i style="color: blue">(Where you obtained programme)</i>--%></label>
                         <asp:DropDownList runat="server" ID="country" AppendDataBoundItems="true" CssClass="form-control select2">
@@ -79,52 +87,51 @@
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validatecountry" ControlToValidate="country" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
-
                 <div class="col-md-6 col-lg-6">
-
-
                     <div class="form-group">
-                        <label class="span2">Physical Location<span style="color: red">*</span></label>
+                        <label class="span2">Physical Location <i>(Building name,Street name,Floor number,Room number,Town)</i><span style="color: red">*</span></label>
                         <asp:TextBox runat="server" ID="PhysicalLocation" CssClass="form-control span3" placeholder="Please Enter Your Physical Location" />
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator1" ControlToValidate="PhysicalLocation" ErrorMessage="Please enter Your physical Location!" ForeColor="Red" />
                     </div>
-
-                    <div class="form-group">
-                        <label>Date of Incorporation/ Registration:</label>
-                        <asp:TextBox CssClass="form-control" runat="server" ID="txtDateInc" TextMode="DateTime" required Style="height: 42px;" />
-
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-
-
                     <div class="form-group">
                         <label class="span2">Email<span style="color: red">*</span></label>
                         <asp:TextBox runat="server" ID="email" TextMode="Email" CssClass="form-control span3" placeholder="Please Enter Your Email" />
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validateenddate" ControlToValidate="email" ErrorMessage="Please enter Email!" ForeColor="Red" />
-                    </div>
-
+                    </div>                  
+                </div>               
                 </div>
-                </div>
-                   <i><p><strong>--Head of Agency Details--</strong></p></i>
+                   <p style="align-content:center"><i></i><strong>--Head of Agency Details--</strong></p></i>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency Name<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">Name of the head of the Agency <span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="hoaName"></asp:TextBox>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency country if citizenship<span class="text-danger">*</span></label>
-                        <asp:DropDownList runat="server" ID="HOAC" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="HOAC_SelectedIndexChanged" AutoPostBack="true">
+                        <label for="exampleInputEmail1">Citizenship Type<span class="text-danger">*</span></label>
+                        <asp:DropDownList runat="server" ID="citizenshipType" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="citizenshipType_SelectedIndexChanged" AutoPostBack="true">
+                            <asp:ListItem>--Select--</asp:ListItem>
+                            <asp:ListItem Value="1">Local</asp:ListItem>
+                            <asp:ListItem Value="2">Foreign</asp:ListItem>
                         </asp:DropDownList>
-
                     </div>
                 </div>
+                <div id="foreignCitiz" runat="server" visible="false">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">country of citizenship<span class="text-danger">*</span></label>
+                            <asp:DropDownList runat="server" ID="HOAC" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="HOAC_SelectedIndexChanged" AutoPostBack="true">
+                            </asp:DropDownList>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency form of citizenship<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">Form of citizenship<span class="text-danger">*</span></label>
                         <asp:DropDownList runat="server" ID="hoacitizen" AppendDataBoundItems="true" CssClass="form-control select2">
                             <asp:ListItem>--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Birth</asp:ListItem>
@@ -135,7 +142,7 @@
                 <div id="local" runat="server">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency IdNumber<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">IdNumber<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="hoaId"  ></asp:TextBox>
                     </div>
                 </div>
@@ -143,37 +150,43 @@
                 <div id="foreign" runat="server" visible="false">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency Passport Number<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">Passport Number<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="hoaPass" ></asp:TextBox>
                     </div>
                 </div>
                     </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency Designation<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">Designation<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="HoaDesignation"></asp:TextBox>
                     </div>
                 </div>
-
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <label for="city">Head of Agency Telephone Number<span class="text-danger">*</span></label>
+                        <label>Country Codes<span class="text-danger">*</span></label>
+                        <asp:DropDownList CssClass="form-control" runat="server" ID="CountryTeleCodes" Placeholder="Please enter Country code +254" TextMode="Number" />
+                      <%--  <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator19" ControlToValidate="CountryTeleCodes" ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />--%>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="city">Telephone Number<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="HeadPhone" TextMode="Number"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="HeadPhone" ErrorMessage="Please Enter a valid Phone Number" ForeColor="Red" ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator>
+                       
                     </div>
 
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Head of Agency WhatsApp Number<span class="text-danger">*</span></label>
+                        <label for="exampleInputEmail1">WhatsApp Number<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="hoaWhatsapp" TextMode="Number"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="hoaWhatsapp" ErrorMessage="Please Enter a valid Phone Number" ForeColor="Red" ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator>
+                     
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="city">Head of Agency Email</label>
+                        <label for="city">Email Address</label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="headEmail" TextMode="Email"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="headEmail" ErrorMessage="Invalid Email Format" ForeColor="Red"></asp:RegularExpressionValidator>
                     </div>
@@ -183,84 +196,23 @@
 
 
 
-            
+          <%--  
             <div class="row" style="align-content:center">
-                <asp:Button runat="server" ID="addapplication" CssClass="btn btn-warning center-block" Text="Add Application" OnClick="addapplication_Click" Visible="true"/>
-                 <asp:Button runat="server" ID="editButton" CssClass="btn btn-warning center-block" Text="Edit Application" OnClick="addapplication_Click" Visible="false"/>
-            </div>
+                <asp:Button runat="server" ID="addapplication" CssClass="btn btn-warning center-block" Text="Add Application" OnClick="addapplication_Click" Visible="false"/>
+                 <asp:Button runat="server" ID="editButton" CssClass="btn btn-warning center-block" Text="Edit Application" OnClick="Nexttostep2_Click" Visible="false"/>
+            </div>--%>
         <div class="panel-footer">
             
-               <asp:Button runat="server" ID="Nexttostep2" CssClass="btn btn-success pull-right" Text="Next" CausesValidation="false" OnClick="Nexttostep2_Click" Visible="false"/>
+               <asp:Button runat="server" ID="Nexttostep2" CssClass="btn btn-success pull-right" Text="Next" CausesValidation="false" OnClick="addapplication_Click" />
             <div class="clearfix"></div>
         </div>
-   <%--     <div class="panel-heading">
-            My Applications
-        </div>--%>
-    <%--    <div class="panel-body">
-            <div runat="server" id="Div1"></div>
-              <div class="table-responsive">
-            <table id="example1" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Application Status</th>
-                        <th>Application Category</th>
-                        <th>Applicant Type</th>
-                        <th>Institution Name</th>
-                        <th>Registration Certificate</th>
-                        <th>-Physical Address Status</th>
-                        <th>Licence Type</th>
-                        <th>Registration Date</th>
-                        <th>Amount</th>
-                        <th>Edit</th>                     
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        var nav = new Config().ReturnNav();
-                        string docNo = Request.QueryString["ApplicationNo"];
-
-                        if (docNo == "")
-                        {
-                            docNo = Convert.ToString(Session["ApplicationNo"]);
-                        }
-                        if (docNo != "")
-                        {
-                            var data = nav.LicenceApplicationHeader.Where(x => x.Application_No == docNo).ToList();
-                            int counter = 0;
-                            foreach (var item in data)
-                            {
-                                counter++;
-                    %>
-                    <tr>
-                        <td><%=counter %></td>
-                        <td><% =item.Application_Status%></td>
-                        <td><% =item.Application_Category %></td>
-                        <td><% =item.Applicant_Type %></td>
-                        <td><% =item.Institution_Name %></td>
-                        <td><% =item.Registration_Certificate %></td>
-                        <td><% =item.Physical_Address_Status %></td>
-                        <td><% = item.Licence_Type_Description%></td>
-                        <td><% = Convert.ToDateTime(item.Registration_Date).ToString("d/MM/yyyy") %></td>
-                        <td><% =item.Application_Amount %></td>
-                        <td>
-                            <label class="btn btn-success" onclick="moredetails('<%=item.Application_No%>');"><i class="fa fa-pencil"></i>Edit</label></td>
-                     
-                        <%
-                            }
-                        }
-                        %>
-                    </tr>
-                </tbody>
-            </table>
-                  </div>
-        </div>--%>
-     
 
     </div>
         </div>
     <% 
-        }else if (step==2){
+        }
+        else if (step == 2)
+        {
             %>
     <div class="row">
         <div class="col-sm-12">
@@ -280,6 +232,16 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
+                            <strong>Location Type<span class="text-danger">*</span></strong>
+                            <asp:DropDownList runat="server" ID="locationType" AppendDataBoundItems="true" CssClass="form-control select2">
+                                <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                <asp:ListItem Value="1">Head Office</asp:ListItem>
+                                <asp:ListItem Value="2">Branch</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
                             <strong>Address:</strong> <span class="asterisk" style="color: red">*</span>
                             <asp:TextBox runat="server" ID="locationAddress" CssClass="form-control" />
                         </div>
@@ -293,32 +255,25 @@
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>Post Code:</strong> <span class="asterisk" style="color: red">*</span>
-                            <asp:DropDownList runat="server" ID="postCode" CssClass="form-control select2" OnSelectedIndexChanged="postCode_SelectedIndexChanged" AutoPostBack="true">
-                                <asp:ListItem>--Select--</asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:DropDownList runat="server" ID="postCode" CssClass="form-control select2" OnSelectedIndexChanged="postCode_SelectedIndexChanged" AutoPostBack="true" />                             
+                          
                             <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="postCode" InitialValue="--Select--" ErrorMessage="Please select Payment Type, it cannot be empty!" ForeColor="Red" />
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>County: </strong><span class="asterisk" style="color: red">*</span>
-                            <asp:DropDownList runat="server" ID="county" CssClass="form-control select2">
-                                <asp:ListItem>--Select--</asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="county" InitialValue="--Select--" ErrorMessage="Please select Payment Type, it cannot be empty!" ForeColor="Red" />
-
-
+                            <asp:DropDownList runat="server" ID="county" CssClass="form-control select2" />                   
+                           
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="county" ErrorMessage="Please select Payment Type, it cannot be empty!" ForeColor="Red" />
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>City: </strong><span class="asterisk" style="color: red">*</span>
                             <asp:TextBox runat="server" ID="city" CssClass="form-control" ReadOnly />
-                          
                         </div>
-                    </div>                
-                
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -387,63 +342,224 @@
             <div class="clearfix"></div>
         </div>
 
-    </div>
+   
        
 
                 <% 
-    }
-    else if (step == 3)
-    {
+                    }
+                    else if (step == 3)
+                    {
             %>
-       <div class="row">
+
+
+
+
+
+           <div class="row">
+            <div class="col-sm-12">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Recruiting Institutions</li>
+                </ol>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              Institutions/ Universities represented by the agency <strong> (Provide for a list of the universities for which they apply to recruit for.)</strong>
+                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            </div>
+            <div class="panel-body">
+                <div runat="server" id="recruitingInst"></div>
+                <p><i><strong>Details of the Institutions/universities which the proposed Agency will be recruiting students.</strong></i></p>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="span2">Name of Institution/University<span style="color: red">*</span></label>
+                            <asp:TextBox runat="server" ID="InstName" CssClass="form-control span3" placeholder="Name" />
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator" ControlToValidate="InstName" ErrorMessage="Please enter Issue Date!" ForeColor="Red" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="span2">Country of origin<span style="color: red">*</span></label>
+                            <asp:DropDownList runat="server" ID="countryRecruit" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="countryRecruit_SelectedIndexChanged" AutoPostBack="true"/>                          
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator9" ControlToValidate="countryRecruit" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                        </div>
+                    </div>
+
+                    <div runat="server" visible="false" id="postals">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Postal code:</label>
+                                <asp:DropDownList CssClass="form-control" runat="server" ID="postalAddress" OnSelectedIndexChanged="postalAddress_SelectedIndexChanged" AutoPostBack="true" />
+                                <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator12" ControlToValidate="postalAddress" InitialValue="--Select--" ErrorMessage="Please select postal code, it cannot be empty!" ForeColor="Red" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>City: </label><span class="asterisk" style="color: red">*</span>
+                                <asp:TextBox runat="server" ID="city2" CssClass="form-control" ReadOnly />
+                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator13" ControlToValidate="city2" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Physical Address.</label>
+                            <asp:TextBox CssClass="form-control" runat="server" ID="residentialAddress" Placeholder="Physical Address" type="text"  />
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator14" ControlToValidate="residentialAddress" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Physical Location</label>
+                            <asp:TextBox CssClass="form-control" runat="server" ID="locationPhysical" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <div class="form-group">
+                            <label>Country Codes. <span class="text-danger">*</span></label>
+                            <asp:DropDownList CssClass="form-control" runat="server" ID="AgencyCountryCode" Placeholder="Please enter Country code +254" TextMode="Number" />
+                            <%--  <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator19" ControlToValidate="CountryTeleCodes" ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />--%>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label>Telephone Number</label>
+                            <asp:TextBox CssClass="form-control" runat="server" ID="telephoneNo" Placeholder="Phone Number" TextMode="Number" />
+                             <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator19" ControlToValidate="telephoneNo" InitialValue="--Select--" ErrorMessage="Institution Telephone Number, it cannot be empty!" ForeColor="Red" />
+
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Email Address.</label>
+                            <asp:TextBox CssClass="form-control" runat="server" ID="emailAddress" Placeholder="Enter Email Address" TextMode="Email" />
+                             <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator15" ControlToValidate="emailAddress" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                        </div>
+                    </div>
+                       <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Accrediting Body.</label>
+                            <asp:TextBox CssClass="form-control" runat="server" ID="AccreditingBody" Placeholder="AccreditingBody"/>
+                             <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator16" ControlToValidate="AccreditingBody" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="span2">Accreditation Status<span style="color: red">*</span></label>
+                            <asp:DropDownList runat="server" ID="AccredStatus" AppendDataBoundItems="true" CssClass="form-control select2">
+                                <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                <asp:ListItem Value="1">Accredited</asp:ListItem>
+                            </asp:DropDownList>                           
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator10" ControlToValidate="AccredStatus" InitialValue="--Select--" ErrorMessage="Please select gender, it cannot be empty!" ForeColor="Red" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="align-content: center">
+                    <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add University/Institution" ID="recruitButton" OnClick="recruitButton_Click" />
+
+                </div>
+            </div>
+            </div>
+
+
+    <div class="panel-heading">
+        Recruiting Universities/Instituion
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="example7" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address </th>                      
+                        <th>City</th>
+                         <th>Phone Number</th>
+                         <th>Country</th>
+                        <th>Email</th>  
+                         <th>Accreditation Status</th> 
+                         <th>Accrediting Body</th>  
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        var nav = new Config().ReturnNav();
+                        string docNo = Request.QueryString["ApplicationNo"];
+                        var data = nav.AgencyRecruitingUniversities.Where(x => x.Application_No == docNo).ToList();
+                        int counter = 0;
+                        foreach (var item in data)
+                        {
+                            counter++;
+                    %>
+                    <tr>
+                        <td><%=counter %></td>
+                        <td><% =item.Name%></td>
+                        <td><% =item.Post_Code + " " + item.Address + " " + item.Physical_Location %></td>   
+                        <td><% =item.City %></td>  
+                        <td><% =item.Phone_No %></td> 
+                        <td><% =item.Country_Region_Code %></td>             
+                        <td><% =item.Email %></td>
+                        <td><% =item.Accreditation_Status %></td>
+                        <td><% =item.Accrediting_Body %></td>                  
+                   
+                    <td>
+                             <label class="btn btn-danger" onclick="removeRecruitingUniversitites('<%=item.Entry_No %>','<%=item.Name %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
+                        <%
+                            }
+                        %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="panel-footer">
+       
+               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+        <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
+        <div class="clearfix"></div>
+    </div>
+    
+           <% 
+               }
+               else if (step == 4)
+               {
+            %>
+
+
+
+        <div class="row">
         <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
-                <li class="breadcrumb-item active">Agency Activities</li>
+                <li class="breadcrumb-item active"> Services Offered to Students</li>
             </ol>
         </div>
     </div>
-
-        <div class="panel panel-primary">
+    <div class="panel panel-primary">
         <div class="panel-heading">
-            Agency Activities <i><strong>(Type of activities to be undertaken by the agent.) Select Activity/Service to be offered</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+         <i><strong>The services rendered to students before and after they join the universities and institutions they are recruited for</strong></i>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
-            <div runat="server" id="AgencyActivitys"></div>
-           <%-- <div class="row">
-
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <strong>Agency Activity:</strong> <span class="asterisk" style="color: red">*</span>
-                        <asp:DropDownList runat="server" ID="AgencyActivity" CssClass="form-control select2">
-                            <asp:ListItem>--Select--</asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="facilityDescription" InitialValue="--Select--" ErrorMessage="Please select Facility, it cannot be empty!" ForeColor="Red" />
-                    </div>
-
-                    <div class="form-group">
-                        <strong>Description: </strong><span class="asterisk" style="color: red">*</span>
-                        <asp:TextBox runat="server" ID="description" CssClass="form-control" TextMode="MultiLine" Rows="3" />
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="description" ErrorMessage="Please Enter Description of Agency activities, it cannot be empty!" ForeColor="Red" />
-                    </div>
-                </div>
-
-
-            </div>--%>
-
-
-            <div class="row" style="justify-content:center">
+            <div runat="server" id="studentsServices"></div>
+                <div class="row" style="justify-content:center">
                 <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
                 <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped selectedprequalificationsWorks" id="example3">
+                    <table class="table table-bordered table-striped tblselectedServices" id="example8">
                         <thead>
                             <tr>
 
-                                <th>#</th>
+                               
                                 <th>Code</th>
                                 <th>Description</th>
+                                 <th>Select(tick) service offered</th>
+                                <th>Comment</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -457,42 +573,55 @@
                                 {
                             %>
                             <tr>
-                                <td>
-                                    <input type="checkbox" id="worksselected" name="worksselected" class="checkboxes" value="<% =activity.Code %>" /></td>
+                               
+                               
                                 <td><%=activity.Code %></td>
                                 <td><%=activity.Description %></td>
+                                <td><input type="checkbox" id="servicesSelected" name="servicesSelected" class="checkboxes" value="<% =activity.Code %>" /></td>
+                                <td><input type="text" class="form-control" autocomplete="off" id="comment"  min="0" /></td>
 
                                 <%} %>
                             </tr>
                         </tbody>
                     </table>
-
-
                 </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <strong>Others (Describe):</strong> <span class="asterisk" style="color: red">*</span>
+                                <asp:TextBox runat="server" ID="Others" CssClass="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
                 <div class="col-md-12 col-lg-12">
-                    <input type="button" id="btn_apply_SubmitTargets" class="btn btn-success center-block btn_apply_SubmitTargets" name="btn_apply_SubmitTargets" value="Submit Selected Activities" />
+                    <input type="button" id="btn_apply_SubmitServices" class="btn btn-success center-block btn_apply_SubmitServices" name="btn_apply_SubmitServices" value="Submit Selected services" />
                 </div>
             </div>
-            </div>
+                  <div class="col-xs-8 text-right m-b-30">
+                    <a href="#" class="btn btn-primary pull-right rounded" data-toggle="modal" data-target="#add_banks"><i class="fa fa-plus"></i> Add Any other service</a>
+          </div>
 
-  <%--          <div class="panel-footer">
-        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Add Agency Activity" ID="activity" OnClick="activity_Click" Visible="false" />
-       
-        <div class="clearfix"></div>
-    </div>--%>
+            <%-- <div class="row" style="align-content:center">
+                 <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Agency Facilities" ID="Facility" OnClick="c" />
+            </div>--%>
         </div>
+    </div>
+
+   
     <div class="panel-heading">
-        Agency Activities
+       Services Offered 
     </div>
     <div class="panel-body">
-        <div runat="server" id="Div4"></div>
         <div class="table-responsive">
-            <table id="example1" class="table table-striped table-bordered">
+            <table id="example2" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Activity</th>                      
+
+                        <th>Service Offered</th>                      
+                        <th>Comment</th>                   
                         <th>Remove</th>
                     </tr>
                 </thead>
@@ -500,31 +629,19 @@
                     <%
 
                         string docNo = Request.QueryString["ApplicationNo"];
-                        if (docNo != null)
+                        var data = nav.AgencyActivities.Where(x => x.Application_No == docNo && x.Type == "Student Service").ToList();
+                        int counter = 0;
+                        foreach (var item in data)
                         {
-                            try
-                            {
-                                var data = nav.AgencyActivities.Where(x => x.Application_No == docNo && x.Type=="Agency Activity").ToList();
-                                int counter = 0;
-                                if (data.Count > 0)
-                                {
-                                    foreach (var item in data)
-                                    {
-                                        counter++;
+                            counter++;
                     %>
                     <tr>
                         <td><%=counter %></td>
                         <td><% =item.Description%></td>
-                       <td><label class="btn btn-danger" onclick="removeAgencyActivity('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label>
-                    
+                        <td><% =item.Comments %></td>                      
+                        <td>
+                             <label class="btn btn-danger" onclick="removeAgencyActivity('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
                         <%
-                                        }
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    throw ex;
-                                }
                             }
                         %>
                     </tr>
@@ -532,15 +649,22 @@
             </table>
         </div>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer">      
+      
+        <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
+       
         <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
-         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="backFacility" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
+   
     
-           <% 
-        }else if (step==4){
-            %>
+        <%
+            }
+
+            else if (step == 5)
+            {
+        %>
+   
      <div class="row">
         <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
@@ -552,7 +676,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Governement Compliance <i><strong>(Compliance with national and County Government’s regulations governing public and health safety including fire safety)</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="governemt"></div>
@@ -595,9 +719,17 @@
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="Authority" ErrorMessage="Please enter Authority Issuing Certificate, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
+         <%--       <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <strong>provide for upload of memorandum of Understanding; and  Finance Agreement between proposed Agency and each university.<i>(pdf only)  </i></strong>
+                        <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload1"></asp:FileUpload>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Only PDF files are allowed!" ValidationExpression="^.*\.(pdf|PDF)$" ControlToValidate="FileUpload1" CssClass="text-red"></asp:RegularExpressionValidator>
+                    </div>
+
+                </div>--%>
             </div>
                <div class="row" style="align-content:center">
-                    <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Agency Governement Compliance" ID="governement" OnClick="governement_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Agency Government Compliance" ID="governement" OnClick="governement_Click" />
                
             </div>
         </div>
@@ -624,13 +756,13 @@
                 </thead>
                 <tbody>
                     <%
-        var nav = new Config().ReturnNav();
-        string docNo =Request.QueryString["ApplicationNo"];
-        var data = nav.AgencyGovernmentCompliance.Where(x => x.Application_No == docNo).ToList();
-        int counter = 0;
-        foreach (var item in data)
-        {
-            counter++;
+                        var nav = new Config().ReturnNav();
+                        string docNo = Request.QueryString["ApplicationNo"];
+                        var data = nav.AgencyGovernmentCompliance.Where(x => x.Application_No == docNo).ToList();
+                        int counter = 0;
+                        foreach (var item in data)
+                        {
+                            counter++;
                     %>
                     <tr>
                         <td><%=counter %></td>
@@ -661,14 +793,17 @@
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="BackActivity" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
+   
+   
         <%
             }
 
-            else if (step == 5)
+
+            else if (step == 6)
             {
         %>
-   
-    <div class="row">
+    
+     <div class="row">
         <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
@@ -679,28 +814,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Facilities <i><strong>(Office Space and Facilities) Note: A Student Recruitment Agency shall have appropriate and adequate office space</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="AgencyFacilities"></div>
-<%--            <div class="row">
 
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <strong>Facility description:</strong> <span class="asterisk" style="color: red">*</span>
-                        <asp:DropDownList runat="server" ID="facilityDescription" CssClass="form-control select2">
-                            <asp:ListItem>--Select--</asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="facilityDescription" InitialValue="--Select--" ErrorMessage="Please select Facility, it cannot be empty!" ForeColor="Red" />
-                    </div>
-
-                    <div class="form-group">
-                        <strong>Quantity: </strong><span class="asterisk" style="color: red">*</span>
-                        <asp:TextBox runat="server" ID="quantity" CssClass="form-control" TextMode="Number" />
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="quantity" ErrorMessage="Please Enter Quantity of Facility, it cannot be empty!" ForeColor="Red" />
-                    </div>
-                </div>
-            </div>--%>
 
 
                 <div class="row" style="justify-content:center">
@@ -711,10 +829,11 @@
                         <thead>
                             <tr>
 
-                                <th>#</th>
+                               
                                 <th>Code</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                 <th>Select(tick) Available facility</th>
                                 <th>Quantity</th>
                             </tr>
                         </thead>
@@ -729,11 +848,12 @@
                                 {
                             %>
                             <tr>
-                                <td>
-                                <input type="checkbox" id="FacilitySelected" name="FacilitySelected" class="checkboxes" value="<% =activity.Code %>" /></td>
+                               
+                               
                                 <td><%=activity.Code %></td>
                                    <td><%=activity.Category %></td>
                                 <td><%=activity.Description %></td>
+                                <td><input type="checkbox" id="FacilitySelected" name="FacilitySelected" class="checkboxes" value="<% =activity.Code %>" /></td>
                                 <td><input type="number" class="form-control" autocomplete="off" id="Tquantity"  min="0" /></td> 
 
                                 <%} %>
@@ -774,7 +894,7 @@
                 </thead>
                 <tbody>
                     <%
-                       
+
                         string docNo = Request.QueryString["ApplicationNo"];
                         var data = nav.AgencyApplicationFacilities.Where(x => x.Application_No == docNo).ToList();
                         int counter = 0;
@@ -805,12 +925,11 @@
     </div>
    
         <%
-        }
-
-
-              else if (step == 6)
+            }
+            else if (step == 7)
             {
         %>
+        
     <div class="row">
         <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
@@ -822,7 +941,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Staff Profile <i><strong>(At least two staff members shall have a minimum of a Bachelor’s degree). Agency to fill following information for key members of staff:</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="keyStaff"></div>
@@ -839,7 +958,7 @@
                     <div class="form-group">
                         <label class="span2">Gender<span style="color: red">*</span></label>
                         <asp:DropDownList runat="server" ID="gender" AppendDataBoundItems="true" CssClass="form-control select2">
-                            <asp:ListItem>--Select--</asp:ListItem>
+                            <asp:ListItem value="0">--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Male</asp:ListItem>
                             <asp:ListItem Value="2">Female</asp:ListItem>
                             <asp:ListItem Value="3">Others</asp:ListItem>
@@ -847,20 +966,25 @@
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator5" ControlToValidate="gender" InitialValue="--Select--" ErrorMessage="Please select gender, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <strong>Nationality: </strong><span class="asterisk" style="color: red">*</span>
-                        <asp:TextBox runat="server" ID="nationality" CssClass="form-control" placeholder="Please Enter Nationality of the Staff" />
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="nationality" ErrorMessage="Please Enter nationality of the staff, it cannot be empty!" ForeColor="Red" />
+        
+                      <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="span2">Country of Origin<span style="color: red">*</span> <%--<i style="color: blue">(Where you obtained programme)</i>--%></label>
+                            <asp:DropDownList runat="server" ID="CountryNationality" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="CountryNationality_SelectedIndexChanged" AutoPostBack="true">
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator11" ControlToValidate="country" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
+                        </div>
                     </div>
-                </div>
+                 <div runat="server" id="IdNo" visible="true">
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
-                        <label class="span2">Identity/ Passport No<span style="color: red">*</span></label>
+                        <label class="span2">Identity No (ID)<span style="color: red">*</span></label>
                         <asp:TextBox runat="server" ID="idnumber" CssClass="form-control span3" placeholder="Please Enter Id Number / Passport Number" />
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator6" ControlToValidate="idnumber" ErrorMessage="Please enter Identity Number!" ForeColor="Red" />
                     </div>
                 </div>
+                     </div>
+                <div runat="server" id="workP" visible="false">
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <strong>Work Permit Number: </strong><span class="asterisk" style="color: red">*</span>
@@ -875,6 +999,14 @@
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator7" ControlToValidate="workExpiryDate" ErrorMessage="Please enter work permit Expiry Date!" ForeColor="Red" />
                     </div>
                 </div>
+                            <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <strong>Passport Number: </strong><span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="passportNo" CssClass="form-control" placeholder="Passport Number" />
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ControlToValidate="passportNo" ErrorMessage="Please Enter nationality of the staff, it cannot be empty!" ForeColor="Red" />
+                    </div>
+                </div>
+                    </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <strong>certificate of good conduct: </strong><span class="asterisk" style="color: red">*</span>
@@ -893,13 +1025,29 @@
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
-                        <label class="span2">Terms of Service<span style="color: red">*</span></label>
+                        <strong>Terms of Service<span style="color: red">*</span></strong>
                         <asp:DropDownList runat="server" ID="termsOfService" AppendDataBoundItems="true" CssClass="form-control select2">
-                            <asp:ListItem>--Select--</asp:ListItem>
+                            <asp:ListItem Value="0">--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Part-time</asp:ListItem>
                             <asp:ListItem Value="2">Full-time</asp:ListItem>
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator8" ControlToValidate="termsOfService" InitialValue="--Select--" ErrorMessage="Please select terms of service, it cannot be empty!" ForeColor="Red" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <strong>provide for upload of certificate of good conduct.<i>(pdf only)  </i><span style="color: red">*</span></strong>
+                        <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload1"></asp:FileUpload>
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator20" ControlToValidate="FileUpload1" ErrorMessage="Please Upload certificate of good conduct, it cannot be empty!" ForeColor="Red" />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Only PDF files are allowed!" ValidationExpression="^.*\.(pdf|PDF)$" ControlToValidate="FileUpload1" CssClass="text-red"></asp:RegularExpressionValidator>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <strong>provide for upload of Staff Academic certificate.<i>(pdf only)  </i><span style="color: red">*</span></strong>
+                        <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload2"></asp:FileUpload>
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator21" ControlToValidate="FileUpload2" ErrorMessage="Please Upload staff's academic certificate, it cannot be empty!" ForeColor="Red" />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Only PDF files are allowed!" ValidationExpression="^.*\.(pdf|PDF)$" ControlToValidate="FileUpload2" CssClass="text-red"></asp:RegularExpressionValidator>
                     </div>
                 </div>
             
@@ -936,7 +1084,7 @@
                 <tbody>
                     <%
                         var nav = new Config().ReturnNav();
-                        string docNo =Request.QueryString["ApplicationNo"];
+                        string docNo = Request.QueryString["ApplicationNo"];
                         var data = nav.AgencyStaffProfile.Where(x => x.Application_No == docNo).ToList();
                         int counter = 0;
                         foreach (var item in data)
@@ -975,438 +1123,161 @@
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
-
-   
-        <%
-        }
-
-
-            
-              else if (step == 7)
-            {
-        %>
-        <div class="row">
-            <div class="col-sm-12">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Recruiting Institutions</li>
-                </ol>
-            </div>
-        </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Agency Recruiting Institutions/ Universities <strong> (Only recruit students for admission into the universities and institutions approved by the Commission)</strong>
-                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
-            </div>
-            <div class="panel-body">
-                <div runat="server" id="recruitingInst"></div>
-                <p><i><strong>Provide for a list of the universities for which they apply to recruit for.</strong></i></p>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label class="span2">University/ Institution Name<span style="color: red">*</span></label>
-                            <asp:TextBox runat="server" ID="InstName" CssClass="form-control span3" placeholder="Name" />
-                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator" ControlToValidate="InstName" ErrorMessage="Please enter Issue Date!" ForeColor="Red" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Postal code:</label>
-                            <asp:DropDownList CssClass="form-control" runat="server" ID="postalAddress" OnSelectedIndexChanged="postalAddress_SelectedIndexChanged" AutoPostBack="true" Style="height: 42px;" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Physical Address.</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="residentialAddress" Placeholder="Physical Address" type="text" Style="height: 42px;" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Physical Location</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="locationPhysical"  Style="height: 42px;" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <strong>City: </strong><span class="asterisk" style="color: red">*</span>
-                            <asp:TextBox runat="server" ID="city2" CssClass="form-control" ReadOnly />
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Telephone Number</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="telephoneNo" Placeholder="Phone Number" TextMode="Number" />
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="telephoneNo" ErrorMessage="Please Enter a valid Phone Number" ForeColor="Red" ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator>
-
-                        </div>
-                    </div>
-                      <div class="col-md-\
-                          6 col-lg-6">
-                    <div class="form-group">
-                        <label class="span2">Country<span style="color: red">*</span> <%--<i style="color: blue">(Where you obtained programme)</i>--%></label>
-                        <asp:DropDownList runat="server" ID="countryRecruit" AppendDataBoundItems="true" CssClass="form-control select2">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator9" ControlToValidate="country" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
-                    </div>
-                          </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Email Address.</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="emailAddress" Placeholder="Enter Email Address" TextMode="Email"  />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label class="span2">Accreditation Status<span style="color: red">*</span></label>
-                            <asp:DropDownList runat="server" ID="AccredStatus" AppendDataBoundItems="true" CssClass="form-control select2">
-                                <asp:ListItem>--Select--</asp:ListItem>
-                                <asp:ListItem Value="1">Accredited</asp:ListItem>                              
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator10" ControlToValidate="AccredStatus" InitialValue="--Select--" ErrorMessage="Please select gender, it cannot be empty!" ForeColor="Red" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Accrediting Body.</label>
-                            <asp:TextBox CssClass="form-control" runat="server" ID="AccreditingBody" Placeholder="AccreditingBody"   />
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="align-content: center">
-                    <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Recruiting University/Institution" ID="recruitButton" OnClick="recruitButton_Click" />
-
-                </div>
-            </div>
-
-
-    <div class="panel-heading">
-        Recruiting Universities/Instituion
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive">
-            <table id="example7" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Address </th>                      
-                        <th>City</th>
-                         <th>Phone Number</th>
-                         <th>Country</th>
-                        <th>Email</th>  
-                         <th>Accreditation Status</th> 
-                         <th>Accrediting Body</th>  
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        var nav = new Config().ReturnNav();
-                        string docNo =Request.QueryString["ApplicationNo"];
-                        var data = nav.AgencyRecruitingUniversities.Where(x => x.Application_No == docNo).ToList();
-                        int counter = 0;
-                        foreach (var item in data)
-                        {
-                            counter++;
-                    %>
-                    <tr>
-                        <td><%=counter %></td>
-                        <td><% =item.Name%></td>
-                        <td><% =item.Post_Code +" "+ item.Address+ " "+ item.Physical_Location %></td>   
-                        <td><% =item.City %></td>  
-                        <td><% =item.Phone_No %></td> 
-                        <td><% =item.Country_Region_Code %></td>             
-                        <td><% =item.Email %></td>
-                        <td><% =item.Accreditation_Status %></td>
-                        <td><% =item.Accrediting_Body %></td>                  
-                   
-                    <td>
-                             <label class="btn btn-danger" onclick="removeRecruitingUniversitites('<%=item.Entry_No %>','<%=item.Name %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
-                        <%
-                            }
-                        %>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-        <div class="panel-footer">
-       
-               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
-        <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
-        <div class="clearfix"></div>
-    </div>
   <%
-        }
+      }
 
-        else if (step == 8)
-            {
-        %>
-   
-    <div class="row">
-        <div class="col-sm-12">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
-                <li class="breadcrumb-item active"> Services Offered to Students</li>
-            </ol>
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-           Services Offered to Students <i><strong>(The services rendered to students before and after they join the universities and institutions they are recruited for)</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 8 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
-        </div>
-        <div class="panel-body">
-            <div runat="server" id="studentsServices"></div>
-                <div class="row" style="justify-content:center">
-                <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
-                <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped tblselectedServices" id="example8">
-                        <thead>
-                            <tr>
+      else if (step == 8)
+      {
+  %>
 
-                                <th>#</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Comment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="panel panel-default" style="width: 80%; margin: 0 auto">
+            <div class="panel-heading" id="institutional">
+                <%
+                    var nav = new Config().ReturnNav();
+                    var Qcategory = nav.AgencyQuestionCategories.Where(r => r.Code == "HR");
+                    var chapter1 = "";
+                    foreach (var header in Qcategory)
+                    {
+                        chapter1 = header.Description;
+                    }
+                %>
+                <p><i><strong>Provide for ‘Yes’ or ‘No’ answer</strong></i></p>
+                <label class="pull-right">Step 8 of 11</label>
+                <div class="clearfix"></div>
+            </div>
+            <div id="Div1" runat="server"></div>
+            <div class="panel-body">
+                <div class="row">
+
+
+                    <div class="col-md-12 col-lg-12">
+                        <p>
+                            <i>
+                                <label>Human Resources(A Student Recruitment Agency shall have adequate and competent human resources to execute its mandate in accordance with its human resource policy).</label>
+                            </i>
+                        </p>
+                    </div>
+                    <%
+                        var Questions = nav.AgencyQuestionList.Where(r => r.Question_Category == "HR" && r.Question_Types != "Table").ToList();
+                        int NumberofQuestions = 0;
+                        var TopicDescription = "";
+                        var TopicNumber = "";
+                        var qnCategoryDescription = "";
+                        foreach (var topic in Questions)
+                        {
+                            TopicDescription = topic.Description;
+                            TopicNumber = topic.Code;
+                            qnCategoryDescription = topic.Question_Category;
+                    %>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+
+                            <p>
+                                <%=TopicDescription %>
+                            </p>
 
                             <% 
-                                var nav = new Config().ReturnNav();
-                                var Activities = nav.AgencyActivitiesSetup.ToList();
 
-                                foreach (var activity in Activities)
-
-                                {
+                                NumberofQuestions += 1;
                             %>
-                            <tr>
-                                <td>
-                                <input type="checkbox" id="servicesSelected" name="servicesSelected" class="checkboxes" value="<% =activity.Code %>" /></td>
-                                <td><%=activity.Code %></td>
-                                <td><%=activity.Description %></td>
-                                <td><input type="text" class="form-control" autocomplete="off" id="comment"  min="0" /></td> 
+                            <div class="txtstep1">
+                                <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
 
-                                <%} %>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                <input type="hidden" class="qncd" value="<%=TopicNumber%>" />
+
+                                <%
+                                    if (topic.Question_Types == "Closed-Ended")
+                                    { %>
 
 
-                </div>
+                                <asp:DropDownList runat="server" CssClass="form-control respn">
+                                    <asp:ListItem Text="--select--"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                </asp:DropDownList>
+
+                                <%}
+
+                                %>
+                            </div>
+                        </div>
                     </div>
-                <div class="col-md-12 col-lg-12">
-                    <input type="button" id="btn_apply_SubmitServices" class="btn btn-success center-block btn_apply_SubmitServices" name="btn_apply_SubmitServices" value="Submit Selected services" />
-                </div>
-            </div>
 
 
-            <%-- <div class="row" style="align-content:center">
-                 <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Agency Facilities" ID="Facility" OnClick="c" />
-            </div>--%>
-        </div>
-    </div>
 
-   
-    <div class="panel-heading">
-       Services Offered 
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive">
-            <table id="example2" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-
-                        <th>Service Offered</th>                      
-                        <th>Comment</th>                   
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
                     <%
-                       
-                        string docNo = Request.QueryString["ApplicationNo"];
-                        var data = nav.AgencyActivities.Where(x => x.Application_No == docNo && x.Type=="Student Service").ToList();
-                        int counter = 0;
-                        foreach (var item in data)
-                        {
-                            counter++;
-                    %>
-                    <tr>
-                        <td><%=counter %></td>
-                        <td><% =item.Description%></td>
-                        <td><% =item.Comments %></td>                      
-                        <td>
-                             <label class="btn btn-danger" onclick="removeAgencyActivity('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
-                        <%
-                            }
-                        %>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="panel-footer">      
-      
-        <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
-       
-        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
-        <div class="clearfix"></div>
-    </div>
-   
-        <%
-        }
-
-              else if (step==9){
-              %>
-
-
-            <div class="panel panel-default" style="width: 80%; margin: 0 auto">
-                <div class="panel-heading" id="institutional">
-                    <%
-                        var nav = new Config().ReturnNav();
-                        var Qcategory = nav.AgencyQuestionCategories.Where(r => r.Code == "HR");
-                        var chapter1 = "";
-                        foreach (var header in Qcategory)
-                        {
-                            chapter1 = header.Description;
                         }
                     %>
-                    <p><i><strong>Provide for ‘Yes’ or ‘No’ answer</strong></i></p>
-                    <label class="pull-right">Step 9 of 11</label>
-                    <div class="clearfix"></div>
+
+                    <%
+                        var Questions1 = nav.AgencyQuestionList.Where(r => r.Question_Category == "QOS" && r.Question_Types != "Table");
+                    %>
+                    <div class="col-md-12 col-lg-12">
+                        <p>
+                            <label><i>Quality of Service. (A Student Recruitment Agency shall promote the highest standards of student recruitment, advertising, exhibiting and marketing for universities/institutions. The agency shall adhere to the following quality requirements:)</i></label>
+                        </p>
+                    </div>
+                    <%
+                        foreach (var topic in Questions1)
+                        {
+                            TopicDescription = topic.Description;
+                            TopicNumber = topic.Code;
+                            qnCategoryDescription = topic.Question_Category;
+                    %>
+
+                    <div class="col-md-6 col-lg-6">
+
+                        <div class="form-group">
+
+                            <p>
+                                <%=TopicDescription %>
+                            </p>
+
+                            <% 
+
+                                NumberofQuestions += 1;
+                            %>
+                            <div class="txtstep1">
+                                <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
+                                <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                <input type="hidden" class="qncd" value="<%=topic.Code%>" />
+
+                                <%
+                                    if (topic.Question_Types == "Closed-Ended")
+                                    { %>
+
+
+                                <asp:DropDownList runat="server" CssClass="form-control respn">
+                                    <asp:ListItem Text="--select--"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                </asp:DropDownList>
+
+
+                                <%}
+
+                                %>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <%
+                        }
+                    %>
                 </div>
-                <div id="Div1" runat="server"></div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <p><i>
-                                <label>Human Resources(A Student Recruitment Agency shall have adequate and competent human resources to execute its mandate in accordance with its human resource policy).</label>
-                            </i></p>
-                        </div>
-                        <%
-                            var Questions = nav.AgencyQuestionList.Where(r => r.Question_Category == "HR" && r.Question_Types == "Yes/No");
-                            int NumberofQuestions = 0;
-                            var TopicDescription = "";
-                            var TopicNumber = "";
-                            var qnCategoryDescription = "";
-                            foreach (var topic in Questions)
-                            {
-                                TopicDescription = topic.Description;
-                                TopicNumber = topic.Code;
-                                qnCategoryDescription = topic.Question_Category;
-                        %>
-
-                        <div class="col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <div class="txtstep1">
-                                    <p id="topicdescription">
-                                        <%=TopicDescription %>
-                                    </p>
-
-                                    <% 
-
-                                        NumberofQuestions += 1;
-                                    %>
-
-                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
-                                    
-                                      <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
-                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
-
-                                    <%
-                                        if (topic.Question_Types == "Yes/No")
-                                        { %>
-
-
-                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="DropDownList8">
-                                        <asp:ListItem Text="--select--"></asp:ListItem>
-                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                    </asp:DropDownList>
-
-
-                                    <%}
-
-                                    %>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <%
-                            }
-
-
-
-                            var Questions1 = nav.AgencyQuestionList.Where(r => r.Question_Category == "QOS" && r.Question_Types == "Yes/No");
-                        %>
-                        <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12">
                             <p>
-                                <label><i>Quality of Service. (A Student Recruitment Agency shall promote the highest standards of student recruitment, advertising, exhibiting and marketing for universities/institutions. The agency shall adhere to the following quality requirements:)</i></label></p>
-                        </div>
-                        <%
-                            foreach (var topic in Questions1)
-                            {
-                                TopicDescription = topic.Description;
-                                TopicNumber = topic.Code;
-                                qnCategoryDescription = topic.Question_Category;
-                        %>
-
-                        <div class="col-md-6 col-lg-6">
-
-                            <div class="form-group">
-                                <div class="txtstep1">
-                                    <p id="topicdescription">
-                                        <%=TopicDescription %>
-                                    </p>
-
-                                    <% 
-
-                                        NumberofQuestions += 1;
-                                    %>
-
-                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
-                                     <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
-                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
-
-                                    <%
-                                        if (topic.Question_Types == "Yes/No")
-                                        { %>
-
-
-                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="qosDrop">
-                                        <asp:ListItem Text="--select--"></asp:ListItem>
-                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                    </asp:DropDownList>
-
-
-                                    <%}
-
-                                    %>
-                                </div>
-                            </div>
-                        </div>
-
-                        <%
-                            }
-                        %>
-                        <div class="col-md-12 col-lg-12">
-                            <p>
-                                <label><i>Obligations and Commitments of a Licensed Student Recruitment Agency. (A Student Recruitment Agency shall recruit qualified students for admission into universities/institutions that are accredited and recognized in their countries of origin in line with the following guidelines each of which the applying Agency to indicate whether or not it is committed to adhere to: )</i></label></p>
+                                <label><i>Obligations and Commitments of a Licensed Student Recruitment Agency. (A Student Recruitment Agency shall recruit qualified students for admission into universities/institutions that are accredited and recognized in their countries of origin in line with the following guidelines each of which the applying Agency to indicate whether or not it is committed to adhere to: )</i></label>
+                            </p>
                         </div>
                         <%
 
 
 
-                            var Question2 = nav.AgencyQuestionList.Where(r => r.Question_Category == "OBLIGATION" && r.Question_Types == "Yes/No");
+                            var Question2 = nav.AgencyQuestionList.Where(r => r.Question_Category == "OBLIGATION" && r.Question_Types != "Table").ToList();
 
                             foreach (var topic in Question2)
                             {
@@ -1414,41 +1285,41 @@
                                 TopicNumber = topic.Code;
                                 qnCategoryDescription = topic.Question_Category;
                         %>
-
+                     
                         <div class="col-md-6 col-lg-6">
 
                             <div class="form-group">
-                                <div class="txtstep1">
-                                    <p id="topicdescription">
-                                        <%=TopicDescription %>
-                                    </p>
 
-                                    <% 
+                                <p>
+                                    <%=TopicDescription %>
+                                </p>
 
-                                        NumberofQuestions += 1;
-                                    %>
+                                <% 
 
-                                    <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
-                                     <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
-                                    <input type="hidden" class="qncd" value="<%=topic.Code%>" />
+                                    NumberofQuestions += 1;
+                                %>
+                                 <div class="txtstep1">
+                                <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" class="txtapplicationNo" />
+                                <input type="hidden" value="<% =qnCategoryDescription %>" class="txtqnCategory" />
+                                <input type="hidden" class="qncd" value="<%=topic.Code%>" />
 
-                                    <%
-                                        if (topic.Question_Types == "Yes/No")
-                                        { %>
-
-
-                                    <asp:DropDownList runat="server" CssClass="form-control respn" ID="ObligationDrop">
-                                        <asp:ListItem Text="--select--"></asp:ListItem>
-                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                    </asp:DropDownList>
+                                <%
+                                    if (topic.Question_Types == "Closed-Ended")
+                                    { %>
 
 
-                                    <%}
+                                <asp:DropDownList runat="server" CssClass="form-control respn" >
+                                    <asp:ListItem Text="--select--"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                </asp:DropDownList>
 
-                                    %>
-                                </div>
+
+                                <%}
+
+                                %>
                             </div>
+                                </div>
                         </div>
 
                         <%
@@ -1456,87 +1327,181 @@
 
 
                         %>
+                          </div>
                     </div>
                 </div>
-           
-            </div>
-
-            <center> <button type="submit" class="btn btn-success saveresponce" aria-required="true">Save Response</button> </center>
-
-
-            <div class="panel-footer">
-
-                <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
-
-                <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
-                <div class="clearfix"></div>
             </div>
         </div>
-    <%
-        }
 
-              else if (step==10){
+        <center> <button type="submit" class="btn btn-success saveresponce" aria-required="true">Save Response</button> </center>
+
+
+        <div class="panel-footer">
+
+            <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
+
+            <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+            <div class="clearfix"></div>
+        </div>
+
+
+        <%
+            }
+
+            else if (step == 9)
+            {
               %>
 
-    <div class="panel panel-primary">
+     <div class="panel panel-primary">
         <div class="panel-heading">
             Supporting Documents
               <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 9 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
-        <div class="panel-body">
-            <div runat="server" id="documentsfeedback"></div>
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                <div class="table-responsive">
-                                <table class="table table-striped custom-table datatable" id="example9">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Code</th>
-                                            <th>Description</th>                                           
-                                            <th>Attach Document</th>
-                                        </tr>
+         <div class="panel-body">
+             <div runat="server" id="documentsfeedback"></div>
+             <div class="row">
+                 <div class="col-md-12 col-lg-12">
+                     <div class="table-responsive">
+                         <table class="table table-striped custom-table datatable" id="example9">
+                             <thead>
+                                 <tr>
+                                     <th>#</th>
+                                     <th>Code</th>
+                                     <th>Description</th>
+                                     <th>Attach Document</th>
+                                 </tr>
 
-                                    </thead>
-                                    <tbody>
-                                        <% 
-                                            var nav = new Config().ReturnNav();
-                                            var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked==false).ToList();
-                                            int programesCounter = 0;
-                                            int counter = 0;
-                                            foreach (var detail in details)
-                                            {
+                             </thead>
+                             <tbody>
+                                 <% 
+                                     var nav = new Config().ReturnNav();
+                                     int programesCounter = 0;
+                                     var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false).ToList();
 
-                                                counter++;
-                                                programesCounter++;
-                                        %>
-                                        <tr>
-                                            <td><%=programesCounter %></td>
-                                            <td><%=detail.Code %></td>
-                                            <td><%=detail.Description %></td>
-                                            
-                                            <td>
-                                               <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.Code %>');">Attach Document</label>
-                                            </td>
-                                        </tr>
-                                        <%  
-                                            } %>
-                                    </tbody>
-                                </table>
-                            </div>
-            </div>
-                </div>
+                                     var attacheddoc = nav.AgencyAttachedDocuments.Where(x => x.Application_No == Convert.ToString(Request.QueryString["ApplicationNo"])).ToList();
+
+
+
+
+
+
+                                     if (attacheddoc.Count > 0)
+                                     {
+                                         List<AttachedDoc> attachaedDocuments = new List<AttachedDoc>();
+
+                                         foreach (var exemptionEntrys in attacheddoc)
+                                         {
+
+                                             AttachedDoc list1 = new AttachedDoc();
+                                             list1.code = exemptionEntrys.Code;
+
+                                             attachaedDocuments.Add(list1);
+
+                                         }
+                                         List<NotAttachedDoc> studetnExemptEntries = new List<NotAttachedDoc>();
+                                         NotAttachedDoc[] exemptEntryArray = studetnExemptEntries.ToArray();
+
+
+
+                                         foreach (var subtopic in details)
+                                         {
+
+                                             NotAttachedDoc list = new NotAttachedDoc();
+                                             list.code = subtopic.Code;
+                                             list.description = subtopic.Description;
+                                             studetnExemptEntries.Add(list);
+                                         }
+
+                                         HashSet<string> diffidsz = new HashSet<string>(attachaedDocuments.Select(s => s.code));
+
+                                         var result = studetnExemptEntries.Where(m => !diffidsz.Contains(m.code)).ToList();
+
+
+
+
+                                         
+                                         int counter1 = 0;
+                                         foreach (var detail in result)
+                                         {
+
+                                             counter1++;
+                                             programesCounter++;
+                                 %>
+                                 <tr>
+                                     <td><%=programesCounter %></td>
+                                     <td><%=detail.code %></td>
+                                     <td><%=detail.description %></td>
+
+                                     <% %>
+
+
+                                     <td>
+                                         <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.code %>');">Attach Document</label>
+                                     </td>
+                                 </tr>
+                                 <%  
+                                     }
+                                 }
+                                 else
+                                 {
+                                     foreach (var detail in details)
+                                     {
+                                 %>
+                                 <tr>
+                                 <td><%=programesCounter %></td>
+                                 <td><%=detail.Code %></td>
+                                 <td><%=detail.Description %></td>
+                                      <td>
+                                         <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.Code %>');">Attach Document</label>
+                                     </td>
+                                 </tr>
+
+                                 <%}
+                                     }
+                                 %>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
              <div class="table-responsive">
             <table id="mytable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Document Title</th>
-                        <th>Download</th>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Description</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
+
+                   
                     <%
+                       
+                        string docNo = Request.QueryString["ApplicationNo"];
+                        var data = nav.AgencyAttachedDocuments.Where(x => x.Application_No == docNo && x.Attached==true).ToList();
+                        int counter = 0;
+                        foreach (var item in data)
+                        {
+                            counter++;
+                    %>
+                    <tr>
+                        <td><%=counter %></td>
+                        <td><% =item.Code%></td>
+                        <td><% =item.Description %></td>                                   
+                        
+                      
+                          
+                        <td>
+                              <label class="btn btn-danger" onclick="removeDoc('<%=item.Entry_No %>','<%=item.Code %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
+                        <%
+                            }
+                        %>
+                    </tr>
+                </tbody>
+
+<%--                    <%
                         try
                         {
                             String fileFolderApplication = ConfigurationManager.AppSettings["FileFolderApplication"];
@@ -1554,10 +1519,10 @@
                     %>
                     <tr>
                         <td><% =file.Replace(documentDirectory, "") %></td>
-                        <td><a href="<%=fileFolderApplication %>\Imprest Memo\<% =imprestNo+"\\"+file.Replace(documentDirectory, "") %>" class="btn btn-success" download>Download</a></td>
+                        <td><a href="<%=fileFolderApplication %>\Imprest Memo\<% =imprestNo + "\\" + file.Replace(documentDirectory, "") %>" class="btn btn-success" download>Download</a></td>
                         <td>
                             <label class="btn btn-danger" onclick="deleteFile('<%=file.Replace(documentDirectory, "")%>');"><i class="fa fa-trash-o"></i>Delete</label></td>
-                        <%-- <td><a href="imprest.aspx?&&myfile=<%=Request.QueryString["url"] %>"></a></td>  --%>
+                        <%-- <td><a href="imprest.aspx?&&myfile=<%=Request.QueryString["url"] %>"></a></td> 
                     </tr>
 
                     <%
@@ -1567,7 +1532,7 @@
                         catch (Exception)
                         {
 
-                        }%>
+                        }%>--%>
                 </tbody>
             </table>
                  </div>
@@ -1577,15 +1542,28 @@
         </center>--%>
         <div class="panel-footer">
                 <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
-             <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+             <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" id="previewReport" OnClick="previewReport_Click"  />
             <div class="clearfix"></div>
         </div>
     </div>
-        <%
+    <%
         }
 
+        else if (step == 10)
+        {
+              %>
 
-    else if (step==11){
+
+
+
+
+   
+        <%
+            }
+
+
+            else if (step == 11)
+            {
               %>
 
 
@@ -1632,17 +1610,19 @@
             </div>
         </div>
         <div class="panel-footer">
-          <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="previousSteps" CausesValidation="false" OnClick="previousstep_Click" />
+          <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="previousSteps" CausesValidation="false" OnClick="previousSteps_Click" />
             <asp:Button runat="server" CssClass="btn btn-success pull-right" Visible="false" Text="Proceed to Payment" ID="Payment" OnClick="Payment_Click" />
             <div class="clearfix"></div>
         </div>
     </div>
 <%}
+    
 
 
 
          %>
-         <script>
+
+        <script>
 
 
         $("body").delegate(" .saveresponce", "click", function (event) {
@@ -1661,26 +1641,20 @@
                 var row = $(this);
                 var onerfqitem = {};
                 i++;
-
                 onerfqitem.applicationNo = row.attr("id", "txtapplicationNo" + i).find(".txtapplicationNo").val();
                 onerfqitem.qnCategory = row.attr("id", "txtqnCategory" + i).find(".txtqnCategory").val();
 
-                onerfqitem.questionCode = row.attr("id", "qncd" + i).find(".qncd").val();
+                onerfqitem.QuestionCode = row.attr("id", "qncd" + i).find(".qncd").val();
 
                 onerfqitem.response = row.attr("id", "respn" + i).find(".respn").val();
-
-              
 
                 allrfqitems.push(onerfqitem);
 
             });
 
-
-
-
             $.ajax({
                 type: "POST",
-                url: "NewApplication.aspx/InsertResponse",
+                url: "NewApplication.aspx/InsertComponentItems",
                 data: '{cmpitems: ' + JSON.stringify(allrfqitems) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -1698,7 +1672,6 @@
                                 $("#feedback").css("color", "green");
                                 $('#feedback').attr("class", "alert alert-success");
                                 $("#feedback").html("Response saved successfully!");
-                                document.querySelector('.btn2').style.display = 'block';
                             });
                             break;
 
@@ -1730,7 +1703,7 @@
 
                             break;
                     }
-                    
+                    document.querySelector('.btn2').style.display = 'block';
                     e.preventDefault();
                 },
                 error: function (err) {
@@ -1740,16 +1713,16 @@
 
             });
 
-           
-
-          
-                
-
                 console.log(allrfqitems);
 
         });
 
-         </script>
+        
+        
+
+
+    </script>
+      
         <script type="text/javascript">
             function agentattachdocuments(entryNo) {
                 document.getElementById("ContentPlaceHolder1_DocCode").value = entryNo;
@@ -1811,6 +1784,15 @@
                 $("#removeActivityModal").modal();
             }
         </script>
+
+       <script>
+           function removeDoc(entryNo, No) {
+               document.getElementById("documentDel").innerText = No;
+               document.getElementById("ContentPlaceHolder1_docEntry").value = entryNo;
+                $("#removeDocumentModal").modal();
+            }
+        </script>
+
          <script>
              function removeGovernance(entryNo, No) {
                  document.getElementById("GovernanceToRemove").innerText = No;
@@ -1852,7 +1834,7 @@
                         <strong>Document Type</strong><span class="text-danger" style="font-size: 25px">*</span>
                         <asp:TextBox runat="server" ID="DocCode" CssClass="form-control" />
                     </div>
-                    <div class="form-group">
+                  <%--  <div class="form-group">
                         <label>Issue Date:</label>
                         <asp:TextBox CssClass="form-control" runat="server" ID="txtDate" TextMode="Date" />
 
@@ -1861,7 +1843,7 @@
                         <label>Expiry Date:</label>
                         <asp:TextBox CssClass="form-control" runat="server" ID="txtexpiry" TextMode="Date" />
 
-                    </div>
+                    </div>--%>
                     <div class="form-group">
                         <strong>Upload Document</strong><span class="text-danger" style="font-size: 25px">*</span>
                         <asp:FileUpload runat="server" CssClass="form-control" ID="uploadfile" />
@@ -1870,6 +1852,25 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <asp:Button runat="server" CssClass="btn btn-success" Text="Upload Document" ID="uploadDoc" OnClick="uploadDoc_Click" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+            <div id="removeDocumentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Deleting File</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the file <strong id="documentDel"></strong>?</p>
+                    <asp:TextBox runat="server" ID="docEntry" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete File" id="docDelete" OnClick="docDelete_Click"  />
                 </div>
             </div>
 
@@ -2092,7 +2093,7 @@
 
         </div>
     </div>
-         <div id="removeStaffModal" class="modal fade" role="dialog">
+    <div id="removeStaffModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -2107,7 +2108,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" id="removestaff" OnClick="removestaff_Click"/>
+                    <asp:Button runat="server" CssClass="btn btn-danger" Text="Delete" ID="removestaff" OnClick="removestaff_Click" />
                 </div>
             </div>
 
@@ -2155,6 +2156,29 @@
 
         </div>
     </div>
+
+    <div id="add_banks" class="modal custom-modal fade" role="dialog">        
+            <div class="modal-dialog">
+                  <div runat="server" id="equipmentsError"></div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Any Other Service</h5>
+                    </div>
+                    <div class="modal-body">
+                          <div class="form-group">
+                        <strong>Any other Service:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="otherservice" CssClass="form-control" />
+                    </div>
+                  
+                        <div class="m-t-20 text-center">
+                              
+                             <asp:Button runat="server" CssClass="btn btn-success" Text="Save Other service" ID="submitOtherServ" OnClick="submitOtherServ_Click"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </asp:Content>
 
 

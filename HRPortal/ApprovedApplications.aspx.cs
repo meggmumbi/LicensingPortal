@@ -13,7 +13,18 @@ namespace HRPortal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                var nav = new Config().ReturnNav();
 
+                var Paymodes = nav.PaymentModesSetup;
+                PaymentModes.DataSource = Paymodes;
+                PaymentModes.DataTextField = "Code";
+                PaymentModes.DataValueField = "Code";
+                PaymentModes.DataBind();
+                PaymentModes.Items.Insert(0, new ListItem("--select--", ""));
+
+            }
         }
         protected void ConfirmPayments_Click(object sender, EventArgs e)
         {
@@ -53,7 +64,7 @@ namespace HRPortal
                                     if (new Config().IsAllowedExtension(extension))
                                     {
 
-                                        String ApplicationNo = Request.QueryString["ApplicationNo"];
+                                        String ApplicationNo = accreditationnumber.Text.Trim();
                                         ApplicationNo = ApplicationNo.Replace('/', '_');
                                         ApplicationNo = ApplicationNo.Replace(':', '_');
                                         String documentDirectory = filesFolder + ApplicationNo + "/";
@@ -87,9 +98,10 @@ namespace HRPortal
                                                 paymentdocument.SaveAs(filename);
                                                 if (File.Exists(filename))
                                                 {
+                                                    string tpaymentMode = PaymentModes.SelectedValue.Trim();
                                                     string paymentreference = paymentsref.Text.Trim();
-                                                    Config.navExtender.AddLinkToRecord("License_Application_Header", ApplicationNo, filename, "");
-                                                    var status = Config.ObjNav.FnConfirmPayment(ApplicationNo, paymentreference);
+                                                    Config.navExtender.AddLinkToRecord("License_Application Card", ApplicationNo, filename, "");
+                                                    var status = Config.ObjNav.FnConfirmPayment(ApplicationNo, paymentreference,tpaymentMode);
                                                     String[] info = status.Split('*');
                                                     if (info[0] == "success")
                                                     {

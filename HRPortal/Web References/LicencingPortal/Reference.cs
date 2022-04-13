@@ -355,7 +355,6 @@ namespace HRPortal.LicencingPortal {
         public string FnLicenceApplicationHeader(
                     string temail, 
                     string tapplicationNo, 
-                    string tPhysicalLocation, 
                     int tPhysicalAddressStatus, 
                     string tLicenseType, 
                     string tCustomerNumber, 
@@ -370,11 +369,14 @@ namespace HRPortal.LicencingPortal {
                     string headTelephone, 
                     string headWhatsapp, 
                     string headEmail, 
-                    int tcertificateType) {
+                    int tcertificateType, 
+                    string buildingName, 
+                    string streetName, 
+                    string floorName, 
+                    string roomNumber) {
             object[] results = this.Invoke("FnLicenceApplicationHeader", new object[] {
                         temail,
                         tapplicationNo,
-                        tPhysicalLocation,
                         tPhysicalAddressStatus,
                         tLicenseType,
                         tCustomerNumber,
@@ -389,7 +391,11 @@ namespace HRPortal.LicencingPortal {
                         headTelephone,
                         headWhatsapp,
                         headEmail,
-                        tcertificateType});
+                        tcertificateType,
+                        buildingName,
+                        streetName,
+                        floorName,
+                        roomNumber});
             return ((string)(results[0]));
         }
         
@@ -397,30 +403,6 @@ namespace HRPortal.LicencingPortal {
         public void FnLicenceApplicationHeaderAsync(
                     string temail, 
                     string tapplicationNo, 
-                    string tPhysicalLocation, 
-                    int tPhysicalAddressStatus, 
-                    string tLicenseType, 
-                    string tCustomerNumber, 
-                    string tcertNo, 
-                    System.DateTime tdate, 
-                    string headName, 
-                    string headcountry, 
-                    int headform, 
-                    string headID, 
-                    string headPassport, 
-                    string headDesignation, 
-                    string headTelephone, 
-                    string headWhatsapp, 
-                    string headEmail, 
-                    int tcertificateType) {
-            this.FnLicenceApplicationHeaderAsync(temail, tapplicationNo, tPhysicalLocation, tPhysicalAddressStatus, tLicenseType, tCustomerNumber, tcertNo, tdate, headName, headcountry, headform, headID, headPassport, headDesignation, headTelephone, headWhatsapp, headEmail, tcertificateType, null);
-        }
-        
-        /// <remarks/>
-        public void FnLicenceApplicationHeaderAsync(
-                    string temail, 
-                    string tapplicationNo, 
-                    string tPhysicalLocation, 
                     int tPhysicalAddressStatus, 
                     string tLicenseType, 
                     string tCustomerNumber, 
@@ -436,6 +418,36 @@ namespace HRPortal.LicencingPortal {
                     string headWhatsapp, 
                     string headEmail, 
                     int tcertificateType, 
+                    string buildingName, 
+                    string streetName, 
+                    string floorName, 
+                    string roomNumber) {
+            this.FnLicenceApplicationHeaderAsync(temail, tapplicationNo, tPhysicalAddressStatus, tLicenseType, tCustomerNumber, tcertNo, tdate, headName, headcountry, headform, headID, headPassport, headDesignation, headTelephone, headWhatsapp, headEmail, tcertificateType, buildingName, streetName, floorName, roomNumber, null);
+        }
+        
+        /// <remarks/>
+        public void FnLicenceApplicationHeaderAsync(
+                    string temail, 
+                    string tapplicationNo, 
+                    int tPhysicalAddressStatus, 
+                    string tLicenseType, 
+                    string tCustomerNumber, 
+                    string tcertNo, 
+                    System.DateTime tdate, 
+                    string headName, 
+                    string headcountry, 
+                    int headform, 
+                    string headID, 
+                    string headPassport, 
+                    string headDesignation, 
+                    string headTelephone, 
+                    string headWhatsapp, 
+                    string headEmail, 
+                    int tcertificateType, 
+                    string buildingName, 
+                    string streetName, 
+                    string floorName, 
+                    string roomNumber, 
                     object userState) {
             if ((this.FnLicenceApplicationHeaderOperationCompleted == null)) {
                 this.FnLicenceApplicationHeaderOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnLicenceApplicationHeaderOperationCompleted);
@@ -443,7 +455,6 @@ namespace HRPortal.LicencingPortal {
             this.InvokeAsync("FnLicenceApplicationHeader", new object[] {
                         temail,
                         tapplicationNo,
-                        tPhysicalLocation,
                         tPhysicalAddressStatus,
                         tLicenseType,
                         tCustomerNumber,
@@ -458,7 +469,11 @@ namespace HRPortal.LicencingPortal {
                         headTelephone,
                         headWhatsapp,
                         headEmail,
-                        tcertificateType}, this.FnLicenceApplicationHeaderOperationCompleted, userState);
+                        tcertificateType,
+                        buildingName,
+                        streetName,
+                        floorName,
+                        roomNumber}, this.FnLicenceApplicationHeaderOperationCompleted, userState);
         }
         
         private void OnFnLicenceApplicationHeaderOperationCompleted(object arg) {
@@ -1372,7 +1387,7 @@ namespace HRPortal.LicencingPortal {
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnInsertStudentStatistics" +
             "", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnInsertStudentStatistics_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
-        public string FnInsertStudentStatistics(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals) {
+        public string FnInsertStudentStatistics(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals, string country) {
             object[] results = this.Invoke("FnInsertStudentStatistics", new object[] {
                         tapplicationNo,
                         tcoursetype,
@@ -1380,17 +1395,18 @@ namespace HRPortal.LicencingPortal {
                         malenumber,
                         femalenumber,
                         county,
-                        totals});
+                        totals,
+                        country});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void FnInsertStudentStatisticsAsync(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals) {
-            this.FnInsertStudentStatisticsAsync(tapplicationNo, tcoursetype, coursename, malenumber, femalenumber, county, totals, null);
+        public void FnInsertStudentStatisticsAsync(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals, string country) {
+            this.FnInsertStudentStatisticsAsync(tapplicationNo, tcoursetype, coursename, malenumber, femalenumber, county, totals, country, null);
         }
         
         /// <remarks/>
-        public void FnInsertStudentStatisticsAsync(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals, object userState) {
+        public void FnInsertStudentStatisticsAsync(string tapplicationNo, int tcoursetype, string coursename, int malenumber, int femalenumber, string county, int totals, string country, object userState) {
             if ((this.FnInsertStudentStatisticsOperationCompleted == null)) {
                 this.FnInsertStudentStatisticsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertStudentStatisticsOperationCompleted);
             }
@@ -1401,7 +1417,8 @@ namespace HRPortal.LicencingPortal {
                         malenumber,
                         femalenumber,
                         county,
-                        totals}, this.FnInsertStudentStatisticsOperationCompleted, userState);
+                        totals,
+                        country}, this.FnInsertStudentStatisticsOperationCompleted, userState);
         }
         
         private void OnFnInsertStudentStatisticsOperationCompleted(object arg) {

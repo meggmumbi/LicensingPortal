@@ -16,55 +16,62 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-           My Appeal Applications
+            My Appeal Applications
         </div>
-          <div id="feedback" runat="server"></div>
+        <div id="feedback" runat="server"></div>
         <div class="panel-body">
-             <div class="table-responsive">
-                     <table id="example1" class="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Application No</th>                       
-                        <th>Institution Name</th>                        
-                        <th>Appeal Date</th>
-                        <th>Appeal Reason</th>                      
-                        <th>Appeal Status</th>
-                        <th>Appeal Verdict</th>
-                      
-                     
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        var nav = new Config().ReturnNav();
-                       string institutionNo = Convert.ToString(Session["InstitutionNo"]);
-                        var data = nav.LicenceApplicationHeader.Where(x=> x.Institution_No == institutionNo && x.Appealed==true).ToList();
-                        int counter = 0;
-                        foreach (var item in data)
-                        {
-                            counter++;
-                    %>
-                    <tr>
-                        <td><%=counter %></td>
-                        <td><%=item.Application_No %></td>                                      
-                        <td><% =item.Institution_Name %></td>
-                      <td><% = Convert.ToDateTime(item.Appeal_Date).ToString("dd/MM/yyyy") %></td>   
-                        <td><% =item.Reason_for_Appeal %></td>                      
-                         <td><% = item.Appeal_Status%></td>
-                        <td><% = item.Appeal_Verdict%></td>
-                                          
-                        
+            <div class="table-responsive">
+                <table id="example1" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Application No</th>
+                            <th>Institution Name</th>
+                            <th>Appeal Date</th>
+                            <th>Appeal Reason</th>
+                            <th>Appeal Status</th>
+                            <th>Appeal Verdict</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
                         <%
-                            }
+                            var nav = new Config().ReturnNav();
+                            string institutionNo = Convert.ToString(Session["InstitutionNo"]);
+                            var data = nav.LicenceApplicationHeader.Where(x => x.Institution_No == institutionNo && x.Appealed == true).ToList();
+                            int counter = 0;
+                            foreach (var item in data)
+                            {
+                                counter++;
                         %>
-                    </tr>
-                </tbody>
-            </table>
-                 </div>
+                        <tr>
+                            <td><%=counter %></td>
+                            <td><%=item.Application_No %></td>
+                            <td><% =item.Institution_Name %></td>
+                            <td><% = Convert.ToDateTime(item.Appeal_Date).ToString("dd/MM/yyyy") %></td>
+                            <td><% =item.Reason_for_Appeal %></td>
+                            <td><% = item.Appeal_Status%></td>
+
+                            <%if (item.Appeal_Verdict == "Withold Initial Verdict")
+                                { %>
+
+                            <td>
+                                <p><strong>Initial verdict withheld</strong></p>
+                            </td>
+                            <%}
+                                else
+                                { %>
+                            <td><p><strong>Pending</strong></p></td>
+                            <%} %>
+
+                            <%
+                                }
+                            %>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-
-
 </asp:Content>

@@ -6249,6 +6249,7 @@
     <Content Include="css\style.css" />
     <Content Include="CustomCss\CustomCss.css" />
     <Content Include="CustomJs\CustomJs.js" />
+    <Content Include="CustomJs\response.js" />
     <Content Include="Dashboard.aspx" />
     <Content Include="dist\css\AdminLTE.css" />
     <Content Include="dist\css\AdminLTE.min.css" />
@@ -6692,8 +6693,6 @@
     <Content Include="LoginAssets\vendor\toastr\toastr.min.css" />
     <Content Include="LoginAssets\vendor\toastr\toastr.min.js" />
     <Content Include="Login.aspx" />
-    <Content Include="MeScripts\PCadditionalActivities.js" />
-    <Content Include="MeScripts\StaffPerformanceContract.js" />
     <Content Include="MyAppealApplications.aspx" />
     <Content Include="MyProfile.aspx" />
     <Content Include="NewApplication.aspx" />
@@ -7509,7 +7508,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Site.Mobile.Master" />
-    <None Include="Service References\Nav\service.edmx" />
     <Content Include="TerminatedApplications.aspx" />
     <Content Include="vendor\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
     <Content Include="vendor\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.css" />
@@ -7870,13 +7868,14 @@
     <Content Include="vendor\select2\src\scss\_multiple.scss" />
     <Content Include="vendor\select2\src\scss\_single.scss" />
     <Content Include="vendor\toastr\toastr.js.map" />
+    <None Include="Service References\Nav\service.edmx" />
     <None Include="Web References\LicencingPortal\LicencingPortal.wsdl" />
     <None Include="Web References\LicencingPortal\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\NavExtender\NavXtender.wsdl" />
-    <None Include="Web References\NavExtender\Reference.map">
+    <None Include="Web References\NavXtender\NavXtender.wsdl" />
+    <None Include="Web References\NavXtender\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -8487,16 +8486,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\NavExtender\Reference.cs">
+    <Compile Include="Web References\NavXtender\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\Nav\">
-      <Type>datasvcmap</Type>
-    </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -8505,10 +8499,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/LicencingPortal">
+    <WebReferenceUrl Include="http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/LicencingPortal">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\LicencingPortal\</RelPath>
-      <UpdateFromURL>http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/LicencingPortal</UpdateFromURL>
+      <UpdateFromURL>http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/LicencingPortal</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -8516,16 +8510,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>HRPortal_LicencingPortal_LicencingPortal</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/NavXtender">
+    <WebReferenceUrl Include="http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/NavXtender">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\NavExtender\</RelPath>
-      <UpdateFromURL>http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/NavXtender</UpdateFromURL>
+      <RelPath>Web References\NavXtender\</RelPath>
+      <UpdateFromURL>http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/NavXtender</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HRPortal_NavExtender_NavXtender</CachedSettingsPropName>
+      <CachedSettingsPropName>HRPortal_NavXtender_NavXtender</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
@@ -8535,8 +8529,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MeScripts\" />
     <Folder Include="vendor\bootstrap-social\" />
     <Folder Include="vendor\fullcalendar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ServiceReferenceMetadataStorage Include="Service References\Nav\">
+      <Type>datasvcmap</Type>
+    </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

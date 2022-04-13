@@ -42,10 +42,10 @@ namespace HRPortal
             }
         }
 
-        public static NavExtender.NavXtender navExtender
+        public static NavXtender.NavXtender navExtender
         {
             get { 
-            var res = new NavExtender.NavXtender();
+            var res = new NavXtender.NavXtender();
             try
             {
                 var credential = new NetworkCredential(ConfigurationManager.AppSettings["W_USER"],

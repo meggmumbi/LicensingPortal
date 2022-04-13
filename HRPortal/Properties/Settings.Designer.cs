@@ -26,20 +26,20 @@ namespace HRPortal.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/NavXtender")]
-        public string HRPortal_NavExtender_NavXtender {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/LicencingPortal")]
+        public string HRPortal_LicencingPortal_LicencingPortal {
             get {
-                return ((string)(this["HRPortal_NavExtender_NavXtender"]));
+                return ((string)(this["HRPortal_LicencingPortal_LicencingPortal"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/LicencingPortal")]
-        public string HRPortal_LicencingPortal_LicencingPortal {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/NavXtender")]
+        public string HRPortal_NavXtender_NavXtender {
             get {
-                return ((string)(this["HRPortal_LicencingPortal_LicencingPortal"]));
+                return ((string)(this["HRPortal_NavXtender_NavXtender"]));
             }
         }
     }

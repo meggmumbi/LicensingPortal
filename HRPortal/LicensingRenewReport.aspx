@@ -28,7 +28,7 @@
         </div>
     </div>
       <div class="panel-footer">
-                <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Exit" CausesValidation="false" ID="previoes" OnClick="previoes_Click"/>
+                <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Exit" CausesValidation="false" ID="previoes" />
            
             <div class="clearfix"></div>
         </div>

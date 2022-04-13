@@ -56,7 +56,7 @@ namespace HRPortal
                 postalAddress.DataBind();
                 postalAddress.Items.Insert(0, new ListItem("--select--", ""));
 
-                var Countyz = nav.county.ToList();
+                var Countyz = nav.County.ToList();
                 county.DataSource = Countyz;
                 county.DataTextField = "Description";
                 county.DataValueField = "Code";
@@ -143,6 +143,11 @@ namespace HRPortal
                             hoaWhatsapp.Text = item.HOA_Whatsapp_No;
                             headEmail.Text = item.HOA_Email_Address;
 
+                            PhysicalLocation.Text = item.Building_Name;
+                            StreetName.Text = item.Street_Name;
+                            FloorNumber.Text = item.Floor_Name;
+                            RoomNumber.Text = item.Room_Number;
+
                             if (addresTyp == "Owned")
                             {
                                 addrresstype.SelectedValue = "1";
@@ -179,12 +184,7 @@ namespace HRPortal
 
 
                             Session["ApplicationNo"] = item.Application_No;
-
-
-
-
-
-
+                            
 
                         }
                     }
@@ -257,8 +257,9 @@ namespace HRPortal
                 else
                 {
                     string docNo = Convert.ToString(Session["ApplicationNo"]);
-                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, ttPhysicalLocation, tPhysicalAddressStatus, tLicenceType, tCustomerNumber,tcertNo, 
-                        tIncorpDate, thoaName, tcountryCitizen, tformCitizen, thoaId, thoaPass, tHoaDesignation, tHeadPhone, thoaWhatsapp, theadEmail, certificateType);
+                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, tPhysicalAddressStatus, tLicenceType, tCustomerNumber,tcertNo, 
+                        tIncorpDate, thoaName, tcountryCitizen, tformCitizen, thoaId, thoaPass, tHoaDesignation, tHeadPhone, thoaWhatsapp, theadEmail, certificateType, 
+                        BuildingName, tStreetName, tFloorNumber, tRoomNumber);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
@@ -390,11 +391,11 @@ namespace HRPortal
         //    Response.Redirect("NewApplication.aspx?step=3");
         //}
         [System.Web.Services.WebMethod(EnableSession = true)]
-        public static string InsertComponentItems(List<QuestionsModel> cmpitems)
+        public static string InsertComponentItems(List<Targets> cmpitems)
         {
             string tqnCode = "", tresponse = "", tapplicationNo = "", tqnCategory = "";
-
-
+            HtmlGenericControl NewControl = new HtmlGenericControl();
+            var results = (dynamic)null;
             string results_0 = (dynamic)null;
 
 
@@ -403,15 +404,17 @@ namespace HRPortal
 
                 //Check for NULL.
                 if (cmpitems == null)
-                    cmpitems = new List<QuestionsModel>();
+                    cmpitems = new List<Targets>();
+
+                NewControl.ID = "feedback";
 
                 //Loop and insert records.
-                foreach (QuestionsModel oneitem in cmpitems)
+                foreach (Targets oneitem in cmpitems)
                 {
-                    tqnCode = oneitem.QuestionCode;
-                    tresponse = oneitem.response;
-                    tapplicationNo = oneitem.applicationNo;
-                    tqnCategory = oneitem.qnCategory;
+                    tqnCode = oneitem.TargetNumber;
+                    tresponse = oneitem.comment;
+                    tapplicationNo = oneitem.ApplicationNo;
+                    tqnCategory = oneitem.category;
 
                     if (string.IsNullOrWhiteSpace(tapplicationNo))
                     {
@@ -420,18 +423,31 @@ namespace HRPortal
                     }
 
                     string status = Config.ObjNav.FnInsertResponse(tapplicationNo, tqnCategory, tqnCode, tresponse);
-
                     string[] info = status.Split('*');
-                    results_0 = info[0];
+                    if (info[0] == "success")
+                    {
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[0];
+                    }
+                    else if (info[0] == "danger")
+                    {
+
+                        NewControl.ID = "feedback";
+                        NewControl.InnerHtml = "<div class='alert alert-" + info[0] + "'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        results = info[1];
+
+
+                    }
 
 
                 }
             }
             catch (Exception ex)
             {
-                results_0 = ex.Message;
+                results = ex.Message;
             }
-            return results_0;
+            return results;
         }
 
         [System.Web.Services.WebMethod(EnableSession = true)]
@@ -1849,8 +1865,23 @@ namespace HRPortal
 
         protected void previewReport_Click(object sender, EventArgs e)
         {
+
+            var nav = new Config().ReturnNav();
             string docNo = Request.QueryString["ApplicationNo"];
-            Response.Redirect("ApplicationFinalReport.aspx?ApplicationNo=" + docNo);
+            var data = nav.AgencyAttachedDocuments.Where(x => x.Application_No == docNo && x.Attached == true).ToList();
+            var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false && r.Appliaction_Area == "License Application").ToList();
+
+            if (data.Count < details.Count)
+            {
+                string msg = "Please attach all documents in order to proceed. ";
+                documentsfeedback.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+            else
+            {
+
+                Response.Redirect("ApplicationFinalReport.aspx?ApplicationNo=" + docNo);
+            }
+            
         }
 
         protected void previousSteps_Click(object sender, EventArgs e)
@@ -1915,26 +1946,26 @@ namespace HRPortal
 
                 if (error)
                 {
-                    equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    studentsServices.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                 }
                 else
                 {
 
-                    String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, tOtherService, 0, "","");
+                    var status = Config.ObjNav.FnInsertAgentServices(tApplicationNo, "008", tOtherService);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
-                        equipmentsError.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        studentsServices.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                     else
                     {
-                        equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        studentsServices.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                 }
             }
             catch (Exception m)
             {
-                equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                studentsServices.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
             }
         }
 
@@ -1954,26 +1985,26 @@ namespace HRPortal
 
                 if (error)
                 {
-                    equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                 }
                 else
                 {
 
-                    String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, tOtherService, 0, "", "");
+                    String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, "C-009", 0, "009", tOtherService);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
-                        equipmentsError.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        AgencyFacilities.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                     else
                     {
-                        equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                 }
             }
             catch (Exception m)
             {
-                equipmentsError.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
             }
         }
     }

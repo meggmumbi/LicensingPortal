@@ -71,13 +71,13 @@ namespace HRPortal
         protected void next_Click(object sender, EventArgs e)
         {
             string docNo = Request.QueryString["ApplicationNo"];
-            Response.Redirect("NewApplication.aspx?step=11&&ApplicationNo=" + docNo);
+            Response.Redirect("NewApplication.aspx?step=9&&ApplicationNo=" + docNo);
         }
 
         protected void previoes_Click(object sender, EventArgs e)
         {
             string docNo = Request.QueryString["ApplicationNo"];
-            Response.Redirect("NewApplication.aspx?step=9&&ApplicationNo=" + docNo);
+            Response.Redirect("NewApplication.aspx?step=8&&ApplicationNo=" + docNo);
         }
     }
 }

@@ -172,7 +172,7 @@
                                             <div class="form-group">
                                                 <label>Country Codes. <span class="text-danger">*</span></label>
                                                 <asp:DropDownList CssClass="form-control" runat="server" ID="CountryTeleCodes" Placeholder="Please enter Country code +254" TextMode="Number" Style="height: 42px;" />                                    
-                                                  <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator8" ControlToValidate="CountryTeleCodes"  ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />
+                                                 <%-- <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator8" ControlToValidate="CountryTeleCodes"  ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />--%>
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-lg-4">

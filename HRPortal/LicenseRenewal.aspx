@@ -2,6 +2,18 @@
 <%@ Import Namespace="HRPortal" %>
 <%@ Import Namespace="System.IO" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function Sum() {
+            var text1 = document.getElementById('<%= NumberFemales.ClientID %>');
+            var text2 = document.getElementById('<%= maleNumber.ClientID %>');
+           
+
+            var x = parseInt(text1.value);
+            var y = parseInt(text2.value);
+            document.getElementById('<%= totalSum.ClientID %>').value = x + y;
+}
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 </asp:Content>
@@ -34,9 +46,10 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Create A New Application (<i style="color: yellow">Kindly note that all fields marked with asterisk (<span style="color: red">*</span>) are mandatory</i>)
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 6 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
         </div>
         <div class="panel-body">
+            <p style="color:blue">Incase of any changes during the expired license period edit the details below.</p>
             <div runat="server" id="linesfeedback"></div>
             <div class="row">
                 <div class="col-md-6 col-lg-6">
@@ -52,60 +65,85 @@
                             <asp:ListItem>--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Owned</asp:ListItem>
                             <asp:ListItem Value="2">Leased</asp:ListItem>
-
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validateapplicanttype" ControlToValidate="addrresstype" InitialValue="--Select--" ErrorMessage="Please select Physical Address Status, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
                <div class="col-md-6 col-lg-6">
                     <div class="form-group">
-                        <label class="span2">Type of Certificate<span style="color: red">*</span></label>
+                        <label class="span2">Type of Certification<span style="color: red">*</span></label>
                         <asp:DropDownList runat="server" ID="certType" AppendDataBoundItems="true" CssClass="form-control select2">
                             <asp:ListItem>--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Certificate of Incorporation</asp:ListItem>
-                            <asp:ListItem Value="2">Certificate of Registration</asp:ListItem>
+                            <asp:ListItem Value="2">Certificate of Business Name Registration</asp:ListItem>
                         </asp:DropDownList>
+                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator17" ControlToValidate="certType" InitialValue="--Select--" ErrorMessage="Type of Certificate, it cannot be empty!" ForeColor="Red" />
                     </div>
                    <div class="form-group">
-                       <label>Certificate of No:<span class="text-danger">*</span></label>
-                       <asp:TextBox CssClass="form-control" runat="server" ID="certNo" Placeholder="Enter Certificate Number" Style="height: 42px;" />
-                         <asp:RequiredFieldValidator Display="dynamic"  ID="certNoValidator9"  runat="server" ControlToValidate="certNo" InitialValue="--Select--" ErrorMessage="Please select Physical Address Status, it cannot be empty!" ForeColor="Red" />
+                       <label>Certificate No<span class="text-danger">*</span></label>
+                       <asp:TextBox CssClass="form-control" runat="server" ID="certNo" Placeholder="Enter Certificate Number" />
+                         <asp:RequiredFieldValidator Display="dynamic"  ID="certNoValidator9"  runat="server" ControlToValidate="certNo"  ErrorMessage="Certificate No, it cannot be empty!" ForeColor="Red" />
                    </div>
                </div>
-
                 <div class="col-md-6 col-lg-6">
                         <div class="form-group">
-                       <label>Date of Incorporation/ Registration: <i>(MM/dd/YYYY)</i></label>
-                       <asp:TextBox CssClass="form-control" runat="server" ID="txtDateInc" TextMode="Date" Style="height: 42px;" />
+                       <label>Date of Incorporation/ Registration <i>(MM/dd/YYYY)</i></label>
+                       <asp:TextBox CssClass="form-control" runat="server" ID="txtDateInc" TextMode="Date" />
+                             <asp:RequiredFieldValidator Display="dynamic"  ID="RequiredFieldValidator18"  runat="server" ControlToValidate="txtDateInc"  ErrorMessage="Date of Incorporation/ Registration:, it cannot be empty!" ForeColor="Red" />
 
-                   </div>
-
-             
+                   </div>             
                     <div class="form-group">
-                        <label class="span2">Country<span style="color: red">*</span></label>
+                        <label class="span2">Country<span style="color: red">*</span> <%--<i style="color: blue">(Where you obtained programme)</i>--%></label>
                         <asp:DropDownList runat="server" ID="country" AppendDataBoundItems="true" CssClass="form-control select2">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validatecountry" ControlToValidate="country" InitialValue="--Select--" ErrorMessage="Please select Country, it cannot be empty!" ForeColor="Red" />
                     </div>
                 </div>
-
                 <div class="col-md-6 col-lg-6">
-
-
-                    <div class="form-group">
-                        <label class="span2">Physical Location <i>(Building name,Street name,Floor number,Room number,Town)</i><span style="color: red">*</span></label>
-                        <asp:TextBox runat="server" ID="PhysicalLocation" CssClass="form-control span3" placeholder="Please Enter Your Physical Location" />
-                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator1" ControlToValidate="PhysicalLocation" ErrorMessage="Please enter Your physical Location!" ForeColor="Red" />
-                    </div>
                     <div class="form-group">
                         <label class="span2">Email<span style="color: red">*</span></label>
                         <asp:TextBox runat="server" ID="email" TextMode="Email" CssClass="form-control span3" placeholder="Please Enter Your Email" />
                         <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="validateenddate" ControlToValidate="email" ErrorMessage="Please enter Email!" ForeColor="Red" />
                     </div>
                 </div>
-               
+
+            </div>
+            <p>------Office Physical Location Details-------</p>
+            <div class="row">
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label>Building Name.<span class="text-danger">*</span></label>
+                        <asp:TextBox runat="server" ID="PhysicalLocation" CssClass="form-control span3" placeholder="Please Enter Your Physical Location" />
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator1" ControlToValidate="PhysicalLocation" ErrorMessage="Please enter Your physical Location!" ForeColor="Red" />
+                    </div>
                 </div>
-                   <i><p><strong>--Head of Agency Details--</strong></p></i>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label>Street Name <span class="text-danger">*</span></label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="StreetName" Placeholder="Street Name" type="text" />
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator23" ControlToValidate="StreetName" ErrorMessage="Street Name must have a value, it cannot be empty!" ForeColor="Red" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label>Floor Name<span class="text-danger">*</span></label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="FloorNumber" Placeholder="Floor Name" type="text" />
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator24" ControlToValidate="FloorNumber" ErrorMessage="Floor Name must have a value, it cannot be empty!" ForeColor="Red" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label>Room Number. <span class="text-danger">*</span></label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="RoomNumber" Placeholder="Room Number" type="text" />
+                        <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator25" ControlToValidate="RoomNumber" ErrorMessage="Room Number must have a value, it cannot be empty!" ForeColor="Red" />
+                    </div>
+                </div>
+            </div>
+            
+
+          
+                   <p style="align-content:center"><i></i><strong>--Head of Agency Details--</strong></p></i>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -126,7 +164,7 @@
                 <div id="foreignCitiz" runat="server" visible="false">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">country if citizenship<span class="text-danger">*</span></label>
+                            <label for="exampleInputEmail1">country of citizenship<span class="text-danger">*</span></label>
                             <asp:DropDownList runat="server" ID="HOAC" AppendDataBoundItems="true" CssClass="form-control select2" OnSelectedIndexChanged="HOAC_SelectedIndexChanged" AutoPostBack="true">
                             </asp:DropDownList>
 
@@ -166,20 +204,26 @@
                         <asp:TextBox runat="server" CssClass="form-control" ID="HoaDesignation"></asp:TextBox>
                     </div>
                 </div>
-
-                <div class="col-md-6">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Country Codes<span class="text-danger">*</span></label>
+                        <asp:DropDownList CssClass="form-control" runat="server" ID="CountryTeleCodes" Placeholder="Please enter Country code +254" TextMode="Number" />
+                      <%--  <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator19" ControlToValidate="CountryTeleCodes" ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />--%>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="city">Telephone Number<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="HeadPhone" TextMode="Number"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="HeadPhone" ErrorMessage="Please Enter a valid Phone Number" ForeColor="Red" ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator>
+                       
                     </div>
 
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">WhatsApp Number</label>
+                        <label for="exampleInputEmail1">WhatsApp Number<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="hoaWhatsapp" TextMode="Number"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="hoaWhatsapp" ErrorMessage="Please Enter a valid Phone Number" ForeColor="Red" ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator>
+                     
                     </div>
                 </div>
 
@@ -192,15 +236,20 @@
                 </div>
 
             </div>
-          <%--  <div class="row" style="align-content:center">
-                <asp:Button runat="server" ID="addapplication" CssClass="btn btn-warning center-block" Text="Add Application" OnClick="addapplication_Click" Visible="true"/>
-                 <asp:Button runat="server" ID="editButton" CssClass="btn btn-warning center-block" Text="Edit Application" OnClick="addapplication_Click" Visible="false"/>
+
+
+
+          <%--  
+            <div class="row" style="align-content:center">
+                <asp:Button runat="server" ID="addapplication" CssClass="btn btn-warning center-block" Text="Add Application" OnClick="addapplication_Click" Visible="false"/>
+                 <asp:Button runat="server" ID="editButton" CssClass="btn btn-warning center-block" Text="Edit Application" OnClick="Nexttostep2_Click" Visible="false"/>
             </div>--%>
         <div class="panel-footer">
             
-               <asp:Button runat="server" ID="Nexttostep2" CssClass="btn btn-success pull-right" Text="Next" CausesValidation="false" OnClick="addapplication_Click"/>
+               <asp:Button runat="server" ID="Nexttostep2" CssClass="btn btn-success pull-right" Text="Next" CausesValidation="false" OnClick="addapplication_Click" />
             <div class="clearfix"></div>
         </div>
+
     </div>
         </div>
     <%
@@ -232,16 +281,17 @@
                 <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
                 <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped tblselectedFacilities" id="example1">
+                     <table class="table table-bordered table-striped tblselectedFacilities" id="example1">
                         <thead>
                             <tr>
 
-                                <th>select If Available</th>
+                               
                                 <th>Code</th>
                                 <th>Category</th>
                                 <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Adequcy</th>
+                                 <th>Select(tick) Available facility</th>
+                                <th>Quantity(where applicable)</th>
+                                <th>Description (Where Applicable)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -255,13 +305,14 @@
                                 {
                             %>
                             <tr>
-                                <td>
-                                <input type="checkbox" id="FacilitySelected" name="FacilitySelected" class="checkboxes" value="<% =activity.Code %>" /></td>
+                               
+                               
                                 <td><%=activity.Code %></td>
                                    <td><%=activity.Category %></td>
                                 <td><%=activity.Description %></td>
+                                <td><input type="checkbox" id="FacilitySelected" name="FacilitySelected" class="checkboxes" value="<% =activity.Code %>" /></td>
                                 <td><input type="number" class="form-control" autocomplete="off" id="Tquantity"  min="0" /></td> 
-                                <td><input type="number" class="form-control" autocomplete="off" id="Tadequcy"  min="0" /></td> 
+                                 <td><input class="form-control" autocomplete="off" /></td> 
 
                                 <%} %>
                             </tr>
@@ -272,6 +323,7 @@
                 </div>
                     </div>
                 <div class="col-md-12 col-lg-12">
+                     <a href="#" class="btn btn-primary pull-left rounded" data-toggle="modal" data-target="#add_facility"><i class="fa fa-plus"></i> Add Any other Facility Available</a>
                     <input type="button" id="btn_apply_SubmitRenewalFacilities" class="btn btn-success center-block btn_apply_SubmitRenewalFacilities" name="btn_apply_SubmitRenewalFacilities" value="Submit Selected Facilities" />
                 </div>
             </div>
@@ -303,6 +355,7 @@
                     <%
 
                         string docNo = Request.QueryString["ApplicationNo"];
+                        //var data = nav.LicenceApplicationHeader.Where(x=> x.Institution_No == institutionNo && x.License_Type=="Renewal").ToList();
                         var data = nav.AgencyApplicationFacilities.Where(x => x.Application_No == docNo).ToList();
                         int counter = 0;
                         foreach (var item in data)
@@ -353,7 +406,7 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
-                            <strong>Course Type<span class="text-danger">*</span></strong>
+                            <strong>Course Level<span class="text-danger">*</span></strong>
                             <asp:DropDownList runat="server" ID="courseType" AppendDataBoundItems="true" CssClass="form-control select2">
                                 <asp:ListItem Value="0">--Select--</asp:ListItem>
                                 <asp:ListItem Value="1">Undergraduate</asp:ListItem>
@@ -363,34 +416,41 @@
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
-                            <strong>Course Name: </strong><span class="asterisk" style="color: red">*</span>
+                            <strong>Course Type: </strong><span class="asterisk" style="color: red">*</span>
                             <asp:TextBox runat="server" ID="courseName" CssClass="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>Number of Females:</strong> <span class="asterisk" style="color: red">*</span>
-                            <asp:TextBox runat="server" ID="NumberFemales" TextMode="Number" CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="NumberFemales" TextMode="Number" CssClass="form-control" onblur="Sum()" />
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>Number of Males:</strong> <span class="asterisk" style="color: red">*</span>
-                            <asp:TextBox runat="server" ID="maleNumber" TextMode="Number" CssClass="form-control" />
-                        </div>
-                    </div>             
-                    <div class="col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <strong>County: </strong><span class="asterisk" style="color: red">*</span>
-                            <asp:DropDownList runat="server" ID="county" CssClass="form-control select2" />               
-                           
-                        
+                            <asp:TextBox runat="server" ID="maleNumber" TextMode="Number" CssClass="form-control" onblur="Sum()" />
                         </div>
                     </div>
+                     <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <strong>Country of Study: </strong><span class="asterisk" style="color: red">*</span>
+                            <asp:DropDownList runat="server" ID="countryStudy" CssClass="form-control select2" OnSelectedIndexChanged="countryStudy_SelectedIndexChanged" AutoPostBack="true"/> 
+                        </div>
+                    </div>
+                    <div runat="server" id="kenLoc" visible="false">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <strong>County: </strong><span class="asterisk" style="color: red">*</span>
+                                <asp:DropDownList runat="server" ID="county" CssClass="form-control select2" />
+                            </div>
+                        </div>
+                    </div>
+                   
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
                             <strong>Totals: </strong><span class="asterisk" style="color: red">*</span>
-                            <asp:TextBox runat="server" ID="totals" TextMode="Number" CssClass="form-control"  />
+                            <input runat="server" ID="totalSum" class="form-control" ReadOnly="true"/>
                         </div>
                     </div>
                 </div>
@@ -479,7 +539,7 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <i><strong>(Universisities and institutions the Agency Represents)</strong></i>
+            <i><strong>Universities and institutions the Agency Represents</strong></i>
             <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 6 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
@@ -487,7 +547,7 @@
             <div class="row">
                        <div class="col-md-6 col-lg-6">
                         <div class="form-group">
-                            <strong>Course Type<span class="text-danger">*</span></strong>
+                            <strong>Type of Organization the agency represents<span class="text-danger">*</span></strong>
                             <asp:DropDownList runat="server" ID="DropDownList2" AppendDataBoundItems="true" CssClass="form-control select2">
                                 <asp:ListItem Value="0">--Select--</asp:ListItem>
                                 <asp:ListItem Value="1">University</asp:ListItem>
@@ -691,8 +751,8 @@
                              <tbody>
                                  <% 
                                      var nav = new Config().ReturnNav();
-                                     var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false).ToList();
-
+                                     var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false && r.Appliaction_Area=="License Renewal").ToList();
+                                     int programesCounter = 0;
                                      var attacheddoc = nav.AgencyAttachedDocuments.Where(x => x.Application_No == Convert.ToString(Request.QueryString["ApplicationNo"])).ToList();
 
 
@@ -732,7 +792,6 @@
 
 
 
-                                         int programesCounter = 0;
                                          int counter1 = 0;
                                          foreach (var detail in result)
                                          {
@@ -750,11 +809,27 @@
 
                                      <td>
                                          <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.code %>');">Attach Document</label>
-                                     </td>
-                                 </tr>
-                                 <%  
+                                         <%  
+                                                 }
+                                             }
+                                             else
+                                             {
+                                                 foreach (var detail in details)
+                                                 {
+                                                      programesCounter++;
+                                         %>
+                                     <tr>
+                                         <td><%=programesCounter %></td>
+                                         <td><%=detail.Code %></td>
+                                         <td><%=detail.Description %></td>
+                                         <td>
+                                             <label class="btn btn-success" onclick="agentattachdocuments('<%=detail.Code %>');">Attach Document</label>
+                                         </td>
+                                     </tr>
+
+                                 <%}
                                      }
-                                 } %>
+                                 %>
                              </tbody>
                          </table>
                      </div>
@@ -896,8 +971,73 @@
 
         %>
 
+     <script type="text/javascript">
+            function agentattachdocuments(entryNo) {
+                document.getElementById("ContentPlaceHolder1_DocCode").value = entryNo;
+                $("#DocumentsAttach").modal();
+            }
+        </script>
 
 
+      <div id="DocumentsAttach" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Attach the Document</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <strong>Document Type</strong><span class="text-danger" style="font-size: 25px">*</span>
+                        <asp:TextBox runat="server" ID="DocCode" CssClass="form-control" />
+                    </div>
+                  <%--  <div class="form-group">
+                        <label>Issue Date:</label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="txtDate" TextMode="Date" />
+
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date:</label>
+                        <asp:TextBox CssClass="form-control" runat="server" ID="txtexpiry" TextMode="Date" />
+
+                    </div>--%>
+                    <div class="form-group">
+                        <strong>Upload Document</strong><span class="text-danger" style="font-size: 25px">*</span>
+                        <asp:FileUpload runat="server" CssClass="form-control" ID="uploadfile" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <asp:Button runat="server" CssClass="btn btn-success" Text="Upload Document" ID="uploadDoc" OnClick="uploadDoc_Click" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="add_facility" class="modal custom-modal fade" role="dialog">        
+            <div class="modal-dialog">
+                  <div runat="server" id="Div4"></div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Any Other available Facility</h5>
+                    </div>
+                    <div class="modal-body">
+                          <div class="form-group">
+                        <strong>Any other Facility:</strong> <span class="asterisk" style="color: red">*</span>
+                        <asp:TextBox runat="server" ID="ANYotherfacility" CssClass="form-control" />
+                    </div>
+                  
+                        <div class="m-t-20 text-center">
+                              
+                             <asp:Button runat="server" CssClass="btn btn-success" Text="Save Other Facility" ID="otherfacility" OnClick="otherfacility_Click"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
       
 </asp:Content>

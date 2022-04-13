@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group">
                         <strong>Select mode of payment</strong>
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="PaymentModes" OnSelectedIndexChanged="PaymentModes_SelectedIndexChanged" AutoPostBack="true">  
+                        <asp:DropDownList runat="server" CssClass="form-control" ID="PaymentModes">  
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">

@@ -35,7 +35,7 @@ universities or institutions (Indirect recruitment/Collaboration);</li>
                 </ol>
         </div>
         <div class="col-md-12 col-lg-12">
-            <a href="Downloads/NINTH_AND_TENTH_SCHEDULES.docx">Click Here To View Full Details</a>
+            <a href="Downloads/NINTH_AND_TENTH_SCHEDULES.pdf">Click Here To View Full Details</a>
         </div>
     </div>
 </div>

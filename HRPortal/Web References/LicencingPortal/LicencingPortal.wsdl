@@ -62,7 +62,6 @@
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="temail" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="tPhysicalLocation" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tPhysicalAddressStatus" type="int" />
             <element minOccurs="1" maxOccurs="1" name="tLicenseType" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tCustomerNumber" type="string" />
@@ -78,6 +77,10 @@
             <element minOccurs="1" maxOccurs="1" name="headWhatsapp" type="string" />
             <element minOccurs="1" maxOccurs="1" name="headEmail" type="string" />
             <element minOccurs="1" maxOccurs="1" name="tcertificateType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="buildingName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="streetName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="floorName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="roomNumber" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -522,6 +525,7 @@
             <element minOccurs="1" maxOccurs="1" name="femalenumber" type="int" />
             <element minOccurs="1" maxOccurs="1" name="county" type="string" />
             <element minOccurs="1" maxOccurs="1" name="totals" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="country" type="string" />
           </sequence>
         </complexType>
       </element>
@@ -1217,7 +1221,7 @@
   </binding>
   <service name="LicencingPortal">
     <port name="LicencingPortal_Port" binding="tns:LicencingPortal_Binding">
-      <address location="http://41.89.47.16:9082/CUE/WS/CUEL/Codeunit/LicencingPortal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <address location="http://41.89.47.15:7047/CUELIVE/WS/CUEL/Codeunit/LicencingPortal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
     </port>
   </service>
 </definitions>

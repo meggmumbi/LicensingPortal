@@ -30,11 +30,9 @@
                         <th>Application Category</th>
                         <th>Applicant Type</th>
                         <th>Institution Name</th>
-                        <th>Registration Certificate</th>
-                       
+                        <th>Registration Certificate</th>                       
                         <th>Licence Type</th>
-                        <th>Registration Date</th>
-                     
+                        <th>Registration Date</th>                     
                         <th>Edit</th>
                      
                     </tr>

@@ -15,7 +15,10 @@
                         <center><h3 class="box-title">Compose New Message</h3></center>
                     </div>
                     <div class="box-body">
-                       
+                        <div class="form-group">
+                          <h5>Message From:<strong><% =Session["Name"] %></strong></h5> 
+                            <input class="form-control" value="<%=Session["email"] %>" id="useremailaddress" name="useremailaddress">
+                        </div>
                          <% 
                              var nav = new Config().ReturnNav();
                              string LicensingEmail = "";
@@ -25,13 +28,15 @@
                                  LicensingEmail = datacollection.SREQ_Email;
                         %>
                            <% } %>
+
                      
-                        <h5><strong>Message Body</strong></h5>
+                       
                         <div class="form-group">
                              <h5>Message Subject:</h5>
                             <input class="form-control" id="emailsubject" name="emailsubject" placeholder="Subject:">
                         </div>
                         <div class="form-group">
+                               <h5>Message Body:</h5>
                             <textarea name="emailassitancerequest"class="form-control emailassitancerequest" id="emailassitancerequest" style="height: 300px">Please Enter text here...</textarea>
                         </div>
                     </div>

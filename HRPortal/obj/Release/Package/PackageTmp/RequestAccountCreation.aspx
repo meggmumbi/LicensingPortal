@@ -122,21 +122,21 @@
                                             <div class="form-group">
                                                 <label>Street Name <span class="text-danger">*</span></label>
                                                 <asp:TextBox CssClass="form-control" runat="server" ID="StreetName" Placeholder="Street Name" type="text" Style="height: 42px;" />
-                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator9" ControlToValidate="residentialAddress"  ErrorMessage="Street Name must have a value, it cannot be empty!" ForeColor="Red" />
+                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator9" ControlToValidate="StreetName"  ErrorMessage="Street Name must have a value, it cannot be empty!" ForeColor="Red" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-6">
                                             <div class="form-group">
                                                 <label>Floor Name<span class="text-danger">*</span></label>
                                                 <asp:TextBox CssClass="form-control" runat="server" ID="FloorNumber" Placeholder="Floor Name" type="text" Style="height: 42px;" />
-                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator10" ControlToValidate="residentialAddress"  ErrorMessage="Floor Name must have a value, it cannot be empty!" ForeColor="Red" />
+                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator10" ControlToValidate="FloorNumber"  ErrorMessage="Floor Name must have a value, it cannot be empty!" ForeColor="Red" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-6">
                                             <div class="form-group">
                                                 <label>Room Number. <span class="text-danger">*</span></label>
                                                 <asp:TextBox CssClass="form-control" runat="server" ID="RoomNumber" Placeholder="Room Number" type="text" Style="height: 42px;" />
-                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator11" ControlToValidate="residentialAddress"  ErrorMessage="Room Number must have a value, it cannot be empty!" ForeColor="Red" />
+                                                 <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator11" ControlToValidate="RoomNumber"  ErrorMessage="Room Number must have a value, it cannot be empty!" ForeColor="Red" />
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                             <div class="form-group">
                                                 <label>Country Codes. <span class="text-danger">*</span></label>
                                                 <asp:DropDownList CssClass="form-control" runat="server" ID="CountryTeleCodes" Placeholder="Please enter Country code +254" TextMode="Number" Style="height: 42px;" />                                    
-                                                  <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator8" ControlToValidate="CountryTeleCodes"  ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />
+                                                 <%-- <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator8" ControlToValidate="CountryTeleCodes"  ErrorMessage="Country Code must have a value, it cannot be empty!" ForeColor="Red" />--%>
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-lg-4">

@@ -670,6 +670,15 @@ namespace HRPortal {
         protected global::System.Web.UI.WebControls.Button recruitButton;
         
         /// <summary>
+        /// recruitUnive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button recruitUnive;
+        
+        /// <summary>
         /// studentsServices control.
         /// </summary>
         /// <remarks>
@@ -677,6 +686,15 @@ namespace HRPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl studentsServices;
+        
+        /// <summary>
+        /// serviceOff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button serviceOff;
         
         /// <summary>
         /// governemt control.
@@ -760,6 +778,15 @@ namespace HRPortal {
         protected global::System.Web.UI.WebControls.Button governement;
         
         /// <summary>
+        /// gvtCompliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button gvtCompliance;
+        
+        /// <summary>
         /// BackActivity control.
         /// </summary>
         /// <remarks>
@@ -785,6 +812,15 @@ namespace HRPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button backToPhysical;
+        
+        /// <summary>
+        /// AgencyFacilitiesNxt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AgencyFacilitiesNxt;
         
         /// <summary>
         /// keyStaff control.
@@ -1021,13 +1057,13 @@ namespace HRPortal {
         protected global::System.Web.UI.WebControls.Button staffButton;
         
         /// <summary>
-        /// Div1 control.
+        /// StaffNextBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        protected global::System.Web.UI.WebControls.Button StaffNextBtn;
         
         /// <summary>
         /// documentsfeedback control.

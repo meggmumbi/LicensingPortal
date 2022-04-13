@@ -13,7 +13,7 @@
         try
         {
             step = Convert.ToInt32(Request.QueryString["step"]);
-            if (step>11||step<1)
+            if (step>9||step<1)
             {
                 step = 1;
             }
@@ -35,7 +35,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Create A New Application (<i style="color: yellow">Kindly note that all fields marked with asterisk (<span style="color: red">*</span>) are mandatory</i>)
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 1 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span> 
         </div>
         <div class="panel-body">
             <div runat="server" id="linesfeedback"></div>
@@ -63,7 +63,7 @@
                         <asp:DropDownList runat="server" ID="certType" AppendDataBoundItems="true" CssClass="form-control select2">
                             <asp:ListItem>--Select--</asp:ListItem>
                             <asp:ListItem Value="1">Certificate of Incorporation</asp:ListItem>
-                            <asp:ListItem Value="2">Certificate of Registration</asp:ListItem>
+                            <asp:ListItem Value="2">Certificate of Business Name Registration</asp:ListItem>
                         </asp:DropDownList>
                          <asp:RequiredFieldValidator Display="dynamic" runat="server" ID="RequiredFieldValidator17" ControlToValidate="certType" InitialValue="--Select--" ErrorMessage="Type of Certificate, it cannot be empty!" ForeColor="Red" />
                     </div>
@@ -256,7 +256,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Physical Location Details <i><strong> (Note: indicate all the proposed agency office locations/towns in Kenya. )</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 2 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 2 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
             </div>
             <div class="panel-body">
                 <div runat="server" id="physicalLocations"></div>
@@ -369,7 +369,7 @@
         </div>
     </div>
             <div class="panel-footer">
-             <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" ID="nextBtn" Visible="false"/>
+             <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" ID="nextBtn"/>
              <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="backtostep1" CausesValidation="false" OnClick="previousstep_Click"/>
             <div class="clearfix"></div>
         </div>
@@ -397,12 +397,12 @@
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">
-              Institutions/ Universities represented by the agency <strong> (Provide for a list of the universities for which they apply to recruit for.)</strong>
-                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+              Institutions/ Universities represented by the agency
+                <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 3 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
             </div>
             <div class="panel-body">
                 <div runat="server" id="recruitingInst"></div>
-                <p><i><strong>Details of the Institutions/universities which the proposed Agency will be recruiting students.</strong></i></p>
+               
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="form-group">
@@ -490,6 +490,7 @@
                         </div>
                     </div>
                 </div>
+                  <p style="color:blue"><i>Incase of more than one University/Institution click on  (Add University/Institution) and fill the fields at the top</i></p>
                 <div class="row" style="align-content: center">
                     <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add University/Institution" ID="recruitButton" OnClick="recruitButton_Click" />
 
@@ -526,6 +527,7 @@
                         int counter = 0;
                         foreach (var item in data)
                         {
+                            recruitUnive.Visible = true;
                             counter++;
                     %>
                     <tr>
@@ -551,7 +553,7 @@
     </div>
         <div class="panel-footer">
        
-               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" id="recruitUnive" Visible="false" CausesValidation="false" />
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
@@ -575,13 +577,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
          <i><strong>The services rendered to students before and after they join the universities and institutions they are recruited for</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 4 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="studentsServices"></div>
-               <div class="col-xs-8 text-right m-b-30">
-                    <a href="#" class="btn btn-primary pull-right rounded" data-toggle="modal" data-target="#add_banks"><i class="fa fa-plus"></i> Add Any other service</a>
-          </div>
+             
              
                 <div class="row" style="justify-content:center">
                 <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
@@ -626,7 +626,9 @@
 
              
             </div>
+         
                  <div class="col-md-12 col-lg-12">
+                     <a href="#" class="btn btn-primary pull-left" data-toggle="modal" data-target="#add_banks"><i class="fa fa-plus"></i> Add Any other service</a>
                     <input type="button" id="btn_apply_SubmitServices" class="btn btn-success center-block btn_apply_SubmitServices" name="btn_apply_SubmitServices" value="Submit Selected services" />
                 </div>
 
@@ -648,7 +650,7 @@
                         <th>#</th>
 
                         <th>Service Offered</th>                      
-                                     
+                        <th>Description</th>  
                         <th>Remove</th>
                     </tr>
                 </thead>
@@ -660,11 +662,13 @@
                         int counter = 0;
                         foreach (var item in data)
                         {
+                            serviceOff.Visible = true;
                             counter++;
                     %>
                     <tr>
                         <td><%=counter %></td>
                         <td><% =item.Description%></td>
+                        <td><%=item.Comments %></td>
                                      
                         <td>
                              <label class="btn btn-danger" onclick="removeAgencyActivity('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
@@ -680,7 +684,7 @@
       
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
        
-        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" ID="serviceOff" Visible="false" CausesValidation="false" />
         <div class="clearfix"></div>
     </div>
    
@@ -703,7 +707,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
            <strong>Compliance with national and County Government’s regulations governing public and health safety including fire safety</strong>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 5 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="governemt"></div>
@@ -755,7 +759,7 @@
 
                 </div>--%>
             </div>
-             <p style="color:blue"><i>To enter details of a different certificate click on (Add Agency Government Compliance) button then proceed to fill the fields at the top</i></p>
+             <p style="color:blue"><i>To enter details of a different certificate click on (Add Agency Government Compliance) button then fill the fields at the top</i></p>
                <div class="row" style="align-content:center">
                     <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Agency Government Compliance" ID="governement" OnClick="governement_Click" />
                
@@ -790,6 +794,7 @@
                         int counter = 0;
                         foreach (var item in data)
                         {
+                            gvtCompliance.Visible = true;
                             counter++;
                     %>
                     <tr>
@@ -817,7 +822,7 @@
     </div>
         <div class="panel-footer">
        
-               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" ID="gvtCompliance" Visible="false" OnClick="nextstep_Click" CausesValidation="false" />
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="BackActivity" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
@@ -842,15 +847,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Facilities <i><strong>(Office Space and Facilities) Note: A Student Recruitment Agency shall have appropriate and adequate office space</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 6 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="AgencyFacilities"></div>
 
-              <div class="col-xs-8 text-right m-b-30">
-                    <a href="#" class="btn btn-primary pull-right rounded" data-toggle="modal" data-target="#add_facility"><i class="fa fa-plus"></i> Add Any other Facility Available</a>
-          </div>
-             
 
                 <div class="row" style="justify-content:center">
                 <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
@@ -866,7 +867,7 @@
                                 <th>Description</th>
                                  <th>Select(tick) Available facility</th>
                                 <th>Quantity(where applicable)</th>
-                                <th>Description</th>
+                                <th>Description (Where Applicable)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -898,6 +899,7 @@
                 </div>
                     </div>
                 <div class="col-md-12 col-lg-12">
+                     <a href="#" class="btn btn-primary pull-left rounded" data-toggle="modal" data-target="#add_facility"><i class="fa fa-plus"></i> Add Any other Facility Available</a>
                     <input type="button" id="btn_apply_SubmitFacilities" class="btn btn-success center-block btn_apply_SubmitFacilities" name="btn_apply_SubmitFacilities" value="Submit Selected Facilities" />
                 </div>
             </div>
@@ -934,6 +936,7 @@
                         int counter = 0;
                         foreach (var item in data)
                         {
+                            AgencyFacilitiesNxt.Visible = true;
                             counter++;
                     %>
                     <tr>
@@ -955,7 +958,7 @@
       
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" ID="backToPhysical" CausesValidation="false" OnClick="previousstep_Click" />
        
-        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+        <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" id="AgencyFacilitiesNxt" Visible="false" OnClick="nextstep_Click" CausesValidation="false" />
         <div class="clearfix"></div>
     </div>
    
@@ -969,14 +972,14 @@
         <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
-                <li class="breadcrumb-item active">staff members Qualifications</li>
+                <li class="breadcrumb-item active">Staff Members Qualifications</li>
             </ol>
         </div>
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
             Agency Staff Profile <i><strong>(At least two staff members shall have a minimum of a Bachelor’s degree). Agency to fill following information for key members of staff:</strong></i>
-            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 7 of 9 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
         <div class="panel-body">
             <div runat="server" id="keyStaff"></div>
@@ -1087,7 +1090,7 @@
                 </div>
             
         </div>
-             <p style="color:blue"><i>Incase of more than one staff member click on  (Add Staff Member)button then proceed to fill the fields at the top</i></p>
+             <p style="color:blue"><i>Incase of more than one staff member click on  (Add Staff Member)button then fill the fields at the top</i></p>
            <div class="row" style="align-content: center">
                 <asp:Button runat="server" CssClass="btn btn-success center-block" Text="Add Staff Member" ID="staffButton" OnClick="staffButton_Click" />
 
@@ -1125,6 +1128,7 @@
                         int counter = 0;
                         foreach (var item in data)
                         {
+                            StaffNextBtn.Visible = true;
                             counter++;
                     %>
                     <tr>
@@ -1155,18 +1159,145 @@
     </div>
         <div class="panel-footer">
        
-               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
+               <asp:Button runat="server" CssClass="btn btn-success pull-right" Text="Next" ID="StaffNextBtn" Visible="false" OnClick="nextstep_Click" CausesValidation="false" />
         <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
         <div class="clearfix"></div>
     </div>
-  <%
+<%--  <%
       }
 
       else if (step == 8)
       {
-  %>
+  %>--%>
 
-        <div class="panel panel-default" style="width: 80%; margin: 0 auto">
+   <%--      
+     <div class="row">
+        <div class="col-sm-12">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="Home.aspx">Dashboard</a></li>
+                <li class="breadcrumb-item active">Agency Q/A</li>
+            </ol>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+           <i><strong>Provide for ‘Yes’ or ‘No’ answer</strong></i>
+            <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 8 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+        </div>
+        <div class="panel-body">
+            <div runat="server" id="Div6"></div>
+
+
+                <div class="row" style="justify-content:center">
+                <input type="hidden" value="<% =Request.QueryString["ApplicationNo"] %>" id="txtAppNo" />
+                <div class="col-md-12">
+                <div class="table-responsive">
+                   <table class="table table-striped custom-table datatable" id="tbl_bidpricing_details">
+                        <thead>
+                            <tr>
+
+                               
+                                <th>Code</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Yes/No answer</th>
+                                <th>(If Yes please attach a document)</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <% 
+                                var nav = new Config().ReturnNav();
+                                var Questions = nav.AgencyQuestionList.Where(r => r.Question_Types != "Table").ToList();
+
+                                foreach (var activity in Questions)
+
+                                {
+                            %>
+                            <tr>
+                               
+                               
+                                <td><%=activity.Code %></td>
+                                   <td><%=activity.Question_Category %></td>
+                                <td><%=activity.Description %></td>
+                                <td><select class="form-control">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option></select></td>
+                                <%var subQn = nav.Agency_Sub_Questions.Where(r => r.Parent_Question_ID == activity.Code && r.Answer_Option == "YES" && r.Question_Types == "Attachment").ToList();
+                                    if (subQn.Count > 0)
+                                    {%>
+                                <td>
+                                    <label class="btn btn-success" onclick="agentattachdocuments('<%=activity.Code %>');">Attach Document</label>
+                                </td>
+                                <%}
+                                    else { 
+                                %>
+                                <td></td>
+
+                                <%   } %>
+
+
+                                <%} %>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                   <input type="button" id="btnSave" class="btn btn-success center-block" value="Submit Response" />
+                </div>
+            </div>
+                    </div>
+
+        </div>
+    </div>
+
+   
+    <div class="panel-heading">
+       Response
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="example4" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+
+                        <th>Question Category</th>
+                        <th>Question</th>
+                        <th>Response</th>                       
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+
+                        string docNo = Request.QueryString["ApplicationNo"];
+                        var data = nav.Agency_Application_Response.Where(x => x.Application_No == docNo).ToList();
+                        int counter = 0;
+                        foreach (var item in data)
+                        {
+                            counter++;
+                    %>
+                    <tr>
+                        <td><%=counter %></td>
+                        <td><% =item.Question_Category_Description%></td>
+                        <td><% =item.Question_Description %></td>     
+                         <td><% =item.Response %></td>                      
+                        <td>
+                             <label class="btn btn-danger" onclick="removeFacilities('<%=item.Entry_No %>','<%=item.Application_No %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
+                        <%
+                            }
+                        %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>--%>
+
+
+
+
+     <%--   <div class="panel panel-default" style="width: 80%; margin: 0 auto">
             <div class="panel-heading" id="institutional">
                 <%
                     var nav = new Config().ReturnNav();
@@ -1364,32 +1495,32 @@
 
                         %>
                           </div>
-                    </div>
+                    </div>--%>
                 </div>
-            
-        <center> <button type="submit" class="btn btn-success saveresponce" aria-required="true">Save Response</button> </center>
+           
+        
 
 
-        <div class="panel-footer">
+      <%--  <div class="panel-footer">
 
             <asp:Button runat="server" CssClass="btn btn-warning pull-left" Text="Previous" CausesValidation="false" OnClick="previousstep_Click" />
 
             <asp:Button runat="server" CssClass="btn btn-success pull-right btn2" Text="Next" OnClick="nextstep_Click" CausesValidation="false" />
             <div class="clearfix"></div>
-        </div>
+        </div>--%>
 
 
         <%
             }
 
-            else if (step == 9)
+            else if (step == 8)
             {
               %>
 
      <div class="panel panel-primary">
         <div class="panel-heading">
             Supporting Documents
-              <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 9 of 11 <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
+              <span class="pull-right"><i class="fa fa-chevron-left"></i>Step 8 of 9  <i class="fa fa-chevron-right"></i></span><span class="clearfix"></span>
         </div>
          <div class="panel-body">
              <div runat="server" id="documentsfeedback"></div>
@@ -1410,7 +1541,7 @@
                                  <% 
                                      var nav = new Config().ReturnNav();
                                      int programesCounter = 0;
-                                     var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false).ToList();
+                                     var details = nav.AgencyDocuments.Where(r => r.Application_Type == "Agency" && r.Blocked == false && r.Appliaction_Area=="License Application").ToList();
 
                                      var attacheddoc = nav.AgencyAttachedDocuments.Where(x => x.Application_No == Convert.ToString(Request.QueryString["ApplicationNo"])).ToList();
 
@@ -1583,27 +1714,17 @@
     <%
         }
 
-        else if (step == 10)
-        {
-              %>
 
 
 
-
-
-   
-        <%
-            }
-
-
-            else if (step == 11)
+            else if (step == 9)
             {
               %>
 
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            Declaration<div class="pull-right"><i class="fa fa-angle-left"></i>Step 11 of 11<i class="fa fa-angle-right"></i></div>
+            Declaration<div class="pull-right"><i class="fa fa-angle-left"></i>Step 9 of 9<i class="fa fa-angle-right"></i></div>
             <div class="clearfix"></div>
         </div>
         <div id="submit" runat="server"></div>

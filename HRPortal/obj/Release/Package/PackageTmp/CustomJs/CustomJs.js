@@ -247,6 +247,7 @@
                 var checkbox_value = $('#FacilitySelected').val();
                 var Targets = {};
                 Targets.quantity = ($(this).find("TD input").eq(1).val());
+                Targets.comment = ($(this).find("TD input").eq(2).val());
                 Targets.targetNumber = ($(this).find('td').eq(0).text());
                 Targets.category = ($(this).find('td').eq(1).text());
                 Targets.ApplicationNo = $("#txtAppNo").val();
@@ -407,7 +408,7 @@
                 //procurement category
                 var checkbox_value = $('#servicesSelected').val();
                 var Targets = {};
-                Targets.comment = ($(this).find("TD input").eq(1).val());
+               // Targets.comment = ($(this).find("TD input").eq(1).val());
                 Targets.targetNumber = ($(this).find('td').eq(0).text());
                 Targets.ApplicationNo = $("#txtAppNo").val();
                 PrimaryInitiative.push(Targets);
@@ -567,11 +568,12 @@
                 //procurement category
                 var checkbox_value = $('#FacilitySelected').val();
                 var Targets = {}; 
-                Targets.quantity = ($(this).find("TD input").eq(1).val());
-                Targets.adequacy = ($(this).find("TD input").eq(2).val());
-                Targets.targetNumber = ($(this).find('td').eq(1).text());
-                Targets.category = ($(this).find('td').eq(2).text());
+                  Targets.quantity = ($(this).find("TD input").eq(1).val());
+                Targets.comment = ($(this).find("TD input").eq(2).val());
+                Targets.targetNumber = ($(this).find('td').eq(0).text());
+                Targets.category = ($(this).find('td').eq(1).text());
                 Targets.ApplicationNo = $("#txtAppNo").val();
+              
                 PrimaryInitiative.push(Targets);
             });
             var postData = {
@@ -647,6 +649,11 @@
             });
 
         });
+
+
+
+    
+
 
 
     $(".btn_request_assistance").click(function () {

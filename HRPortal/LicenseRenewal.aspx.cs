@@ -38,7 +38,7 @@ namespace HRPortal
 
                 HOAC.SelectedValue = "KE";
 
-                var Countyz = nav.county.ToList();
+                var Countyz = nav.County.ToList();
                 county.DataSource = Countyz;
                 county.DataTextField = "Description";
                 county.DataValueField = "Code";
@@ -53,9 +53,21 @@ namespace HRPortal
                 CountryNationality.Items.Insert(0, new ListItem("--select--", ""));
 
 
+                countryStudy.DataSource = countries;
+                countryStudy.DataTextField = "Name";
+                countryStudy.DataValueField = "Code";
+                countryStudy.DataBind();
+                countryStudy.Items.Insert(0, new ListItem("--select--", ""));
+
+                countryStudy.SelectedValue = "KE";
+
+                if (countryStudy.SelectedValue == "KE")
+                {
+                    kenLoc.Visible = true;
+                }
 
 
-                var LicenseType = nav.LicenceTypeList.ToList();
+                    var LicenseType = nav.LicenceTypeList.ToList();
                 licenseType.DataSource = LicenseType;
                 licenseType.DataTextField = "Description";
                 licenseType.DataValueField = "Code";
@@ -89,14 +101,20 @@ namespace HRPortal
                             hoaName.Text = item.HOA_Name;
                             HOAC.SelectedValue = item.HOA_Country;
                             string formCizizen = item.HOA_Form_of_Citizenship;
-                            string citizenshipType = item.Citizenship_Type;
+                            string citizenshipTypeS = item.Citizenship_Type;
                             hoaId.Text = item.HOA_ID_NO;
                             hoaPass.Text = item.HOA_Passport_No;
                             HoaDesignation.Text = item.HOA_Designation;
                             HeadPhone.Text = item.HOA_Telephone_No;
                             hoaWhatsapp.Text = item.HOA_Whatsapp_No;
                             headEmail.Text = item.HOA_Email_Address;
-                            PayingAmount.Text = Convert.ToString(item.Application_Amount);  
+                            PayingAmount.Text = Convert.ToString(item.Application_Amount);
+
+
+                            PhysicalLocation.Text = item.Building_Name;
+                            StreetName.Text = item.Street_Name;
+                            FloorNumber.Text = item.Floor_Name;
+                            RoomNumber.Text = item.Room_Number;
 
                             if (addresTyp == "Owned")
                             {
@@ -123,24 +141,18 @@ namespace HRPortal
                             {
                                 certType.SelectedValue = "2";
                             }
-                            if (citizenshipType == "Local")
+                            if (citizenshipTypeS == "Local")
                             {
-                                certType.SelectedValue = "1";
+                                citizenshipType.SelectedValue = "1";
                             }
-                            else if (citizenshipType == "Foreign")
+                            else if (citizenshipTypeS == "Foreign")
                             {
-                                certType.SelectedValue = "2";
+                                citizenshipType.SelectedValue = "2";
                             }
 
 
                             Session["ApplicationNo"] = item.Application_No;
-
                             
-
-
-
-
-
                         }
 
                     }
@@ -179,6 +191,11 @@ namespace HRPortal
                 string theadEmail = headEmail.Text.Trim();
                 int certificateType = Convert.ToInt32(certType.SelectedValue);
 
+                string BuildingName = PhysicalLocation.Text.Trim();
+                string tStreetName = StreetName.Text.Trim();
+                string tFloorNumber = FloorNumber.Text.Trim();
+                string tRoomNumber = RoomNumber.Text.Trim();
+
                 var dateValue = tIncorpDate as DateTime? ?? new DateTime();
 
 
@@ -205,8 +222,9 @@ namespace HRPortal
                 else
                 {
                     string docNo = Convert.ToString(Session["ApplicationNo"]);
-                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, ttPhysicalLocation, tPhysicalAddressStatus, tLicenceType, tCustomerNumber, tcertNo,
-                        tIncorpDate, thoaName, tcountryCitizen, tformCitizen, thoaId, thoaPass, tHoaDesignation, tHeadPhone, thoaWhatsapp, theadEmail, certificateType);
+                    String status = Config.ObjNav.FnLicenceApplicationHeader(temail, docNo, tPhysicalAddressStatus, tLicenceType, tCustomerNumber, tcertNo,
+                      tIncorpDate, thoaName, tcountryCitizen, tformCitizen, thoaId, thoaPass, tHoaDesignation, tHeadPhone, thoaWhatsapp, theadEmail, certificateType,
+                      BuildingName, tStreetName, tFloorNumber, tRoomNumber);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
@@ -250,8 +268,18 @@ namespace HRPortal
                 foreach (Targets target in targetNumber)
                 {
 
+
+                    if (target.quantity == "")
+                    {
+
+                        target.quantity = String.IsNullOrWhiteSpace(target.quantity) ? "0" : target.quantity; ;
+                    }
+
                     string InitiativeNumber = target.TargetNumber;
                     var nav1 = new Config().ReturnNav();
+
+
+
 
                     var status = Config.ObjNav.FnInsertRenewalacilities(target.ApplicationNo, target.TargetNumber, Convert.ToInt32(target.quantity), target.category,Convert.ToInt32(target.adequacy));
                     string[] info = status.Split('*');
@@ -579,6 +607,105 @@ namespace HRPortal
 
         }
 
+        protected void uploadDoc_Click(object sender, EventArgs e)
+        {
+
+            String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "License Application/";
+
+            if (uploadfile.HasFile)
+            {
+                try
+                {
+                    if (Directory.Exists(filesFolder))
+                    {
+                        String extension = System.IO.Path.GetExtension(uploadfile.FileName);
+                        if (new Config().IsAllowedExtension(extension))
+                        {
+                            string tDocCode = DocCode.Text.Trim();
+
+                            String ApplicationNo = Request.QueryString["ApplicationNo"];
+                            ApplicationNo = ApplicationNo.Replace('/', '_');
+                            ApplicationNo = ApplicationNo.Replace(':', '_');
+                            String documentDirectory = filesFolder + ApplicationNo + "/";
+                            Boolean createDirectory = true;
+                            try
+                            {
+                                if (!Directory.Exists(documentDirectory))
+                                {
+                                    Directory.CreateDirectory(documentDirectory);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                createDirectory = false;
+                                documentsfeedback.InnerHtml =
+                                                                "<div class='alert alert-danger'>We could not create a directory for your documents. Please try again" +
+                                                                "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                            }
+                            if (createDirectory)
+                            {
+                                string filename = documentDirectory + uploadfile.FileName + "_" + tDocCode;
+                                if (File.Exists(filename))
+                                {
+                                    documentsfeedback.InnerHtml =
+                                                                       "<div class='alert alert-danger'>A document with the given name already exists. Please delete it before uploading the new document or rename the new document<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                                }
+                                else
+                                {
+                                    uploadfile.SaveAs(filename);
+                                    if (File.Exists(filename))
+                                    {
+
+                                        Config.navExtender.AddLinkToRecord("License renewal Card", ApplicationNo, filename, "");
+                                        var status = Config.ObjNav.FnAddDocumentsLinks(ApplicationNo, tDocCode);
+                                        String[] info = status.Split('*');
+                                        if (info[0] == "success")
+                                        {
+                                            documentsfeedback.InnerHtml =
+                                            "<div class='alert alert-success'>The document was successfully uploaded. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                        }
+                                        else
+                                        {
+                                            documentsfeedback.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        documentsfeedback.InnerHtml =
+                                            "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document's file extension is not allowed. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        }
+
+                    }
+                    else
+                    {
+                        documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document's root folder defined does not exist in the server. Please contact support. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                }
+            }
+            else
+            {
+                documentsfeedback.InnerHtml = "<div class='alert alert-danger'>Please select the document to upload. (or the document is empty) <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+
+            }
+        }
+
         //protected void uploadDocument_Click(object sender, EventArgs e)
         //{
         //    String filesFolder = ConfigurationManager.AppSettings["FilesLocation"] + "License Application/";
@@ -690,7 +817,8 @@ namespace HRPortal
                 int tmaleNumber = Convert.ToInt32(maleNumber.Text.Trim());
                 int tNumberFemales = Convert.ToInt32(NumberFemales.Text.Trim());
                 string tcounty = county.Text.Trim();
-                int ttotals = Convert.ToInt32(totals.Text.Trim());
+                int ttotals = Convert.ToInt32(totalSum.Value);
+                string tcountry = countryStudy.Text.Trim();
                 string docNo = Request.QueryString["ApplicationNo"];
 
                 if (error)
@@ -700,12 +828,10 @@ namespace HRPortal
                 else
                 {
                   
-                    String status = Config.ObjNav.FnInsertStudentStatistics(docNo, tcourseType, tcourseName, tmaleNumber, tNumberFemales, tcounty, ttotals);
+                    String status = Config.ObjNav.FnInsertStudentStatistics(docNo, tcourseType, tcourseName, tmaleNumber, tNumberFemales, tcounty, ttotals, tcountry);
                     String[] info = status.Split('*');
                     if (info[0] == "success")
                     {
-                        Session["ApplicationNo"] = info[2];
-                        Nexttostep2.Visible = true;
                         physicalLocations.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
                     }
                     else
@@ -716,7 +842,7 @@ namespace HRPortal
             }
             catch (Exception m)
             {
-                linesfeedback.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                physicalLocations.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
             }
         }
 
@@ -773,6 +899,57 @@ namespace HRPortal
             catch (Exception m)
             {
                 linesfeedback.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void otherfacility_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool error = false;
+                string msg = "";
+
+                //string tfacilityCode = facilityDescription.SelectedValue.Trim();
+                string tOtherService = ANYotherfacility.Text.Trim();
+                string tApplicationNo = Request.QueryString["ApplicationNo"];
+
+                decimal txtfees = 0;
+
+
+                if (error)
+                {
+                    AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + msg + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                }
+                else
+                {
+
+                    String status = Config.ObjNav.FnInsertAgentFacilities(tApplicationNo, "C-009", 0, "009", tOtherService);
+                    String[] info = status.Split('*');
+                    if (info[0] == "success")
+                    {
+                        AgencyFacilities.InnerHtml = "<div class='alert alert-success'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                    else
+                    {
+                        AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + info[1] + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                AgencyFacilities.InnerHtml = "<div class='alert alert-danger'>" + m.Message + " <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+            }
+        }
+
+        protected void countryStudy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (countryStudy.SelectedValue == "KE")
+            {
+                kenLoc.Visible = true;
+            }
+            else
+            {
+                kenLoc.Visible = false;
             }
         }
     }

@@ -659,7 +659,7 @@ namespace HRPortal
                                     {
 
                                         Config.navExtender.AddLinkToRecord("License renewal Card", ApplicationNo, filename, "");
-                                        var status = Config.ObjNav.FnAddDocumentsLinks(ApplicationNo, tDocCode);
+                                        var status = Config.ObjNav.FnAddDocumentsLinks(ApplicationNo, tDocCode, filename);
                                         String[] info = status.Split('*');
                                         if (info[0] == "success")
                                         {

@@ -775,26 +775,28 @@ namespace HRPortal.LicencingPortal {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/LicencingPortal:FnAddDocumentsLinks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", ResponseElementName="FnAddDocumentsLinks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/LicencingPortal", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
-        public string FnAddDocumentsLinks(string tapplicationNo, string documentCode) {
+        public string FnAddDocumentsLinks(string tapplicationNo, string documentCode, string docName) {
             object[] results = this.Invoke("FnAddDocumentsLinks", new object[] {
                         tapplicationNo,
-                        documentCode});
+                        documentCode,
+                        docName});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode) {
-            this.FnAddDocumentsLinksAsync(tapplicationNo, documentCode, null);
+        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode, string docName) {
+            this.FnAddDocumentsLinksAsync(tapplicationNo, documentCode, docName, null);
         }
         
         /// <remarks/>
-        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode, object userState) {
+        public void FnAddDocumentsLinksAsync(string tapplicationNo, string documentCode, string docName, object userState) {
             if ((this.FnAddDocumentsLinksOperationCompleted == null)) {
                 this.FnAddDocumentsLinksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnAddDocumentsLinksOperationCompleted);
             }
             this.InvokeAsync("FnAddDocumentsLinks", new object[] {
                         tapplicationNo,
-                        documentCode}, this.FnAddDocumentsLinksOperationCompleted, userState);
+                        documentCode,
+                        docName}, this.FnAddDocumentsLinksOperationCompleted, userState);
         }
         
         private void OnFnAddDocumentsLinksOperationCompleted(object arg) {

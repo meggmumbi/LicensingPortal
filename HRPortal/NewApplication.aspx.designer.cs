@@ -1165,6 +1165,15 @@ namespace HRPortal {
         protected global::System.Web.UI.WebControls.TextBox docEntry;
         
         /// <summary>
+        /// docfileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox docfileName;
+        
+        /// <summary>
         /// docDelete control.
         /// </summary>
         /// <remarks>

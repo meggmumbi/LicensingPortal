@@ -1636,6 +1636,7 @@
                         <th>#</th>
                         <th>Code</th>
                         <th>Description</th>
+                        <th>FileName</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -1654,12 +1655,13 @@
                     <tr>
                         <td><%=counter %></td>
                         <td><% =item.Code%></td>
-                        <td><% =item.Description %></td>                                   
+                        <td><% =item.Description %></td>  
+                         <td><% =item.DocumentTitle %></td>                                   
                         
                       
                           
                         <td>
-                              <label class="btn btn-danger" onclick="removeDoc('<%=item.Entry_No %>','<%=item.Code %>');"><i class="fa fa-trash-o"></i> Remove</label></td>
+                              <label class="btn btn-danger" onclick="removeDoc('<%=item.Entry_No %>','<%=item.Code %>','<%=item.DocumentTitle%>');"><i class="fa fa-trash-o"></i> Remove</label></td>
                         <%
                             }
                         %>
@@ -1941,9 +1943,10 @@
         </script>
 
        <script>
-           function removeDoc(entryNo, No) {
+           function removeDoc(entryNo, No, docFilename) {
                document.getElementById("documentDel").innerText = No;
                document.getElementById("ContentPlaceHolder1_docEntry").value = entryNo;
+               document.getElementById("ContentPlaceHolder1_docfileName").value = docFilename;
                 $("#removeDocumentModal").modal();
             }
         </script>
@@ -2022,6 +2025,7 @@
                 <div class="modal-body">
                     <p>Are you sure you want to delete the file <strong id="documentDel"></strong>?</p>
                     <asp:TextBox runat="server" ID="docEntry" type="hidden" />
+                     <asp:TextBox runat="server" ID="docfileName" type="hidden" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

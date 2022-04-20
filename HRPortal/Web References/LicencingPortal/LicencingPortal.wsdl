@@ -233,6 +233,7 @@
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="tapplicationNo" type="string" />
             <element minOccurs="1" maxOccurs="1" name="documentCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="docName" type="string" />
           </sequence>
         </complexType>
       </element>

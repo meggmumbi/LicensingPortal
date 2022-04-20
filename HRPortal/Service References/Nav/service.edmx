@@ -70,6 +70,19 @@
         <Property Name="Blocked" Type="Edm.Boolean" />
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
       </EntityType>
+      <EntityType Name="ApplicationPayments">
+        <Key>
+          <PropertyRef Name="Application_No" />
+          <PropertyRef Name="Line_No" />
+        </Key>
+        <Property Name="Application_No" Type="Edm.String" Nullable="false" />
+        <Property Name="Line_No" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Payment_Mode" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Payment_Reference" Type="Edm.String" />
+        <Property Name="Amount" Type="Edm.Decimal" />
+        <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
+      </EntityType>
       <EntityType Name="Chart_of_Accounts">
         <Key>
           <PropertyRef Name="No" />
@@ -256,6 +269,15 @@
         <Property Name="County" Type="Edm.String" />
         <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
         <NavigationProperty Name="Country_Region_Code_Link" Relationship="NAV.PostCodes_Country_Region_Code_Link" ToRole="Country_Region_Code_Link" FromRole="PostCodes" />
+      </EntityType>
+      <EntityType Name="ProgramDomain">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="Abbreviation" Type="Edm.String" />
+        <Property Name="ETag" Type="Edm.String" ConcurrencyMode="Fixed" />
       </EntityType>
       <EntityType Name="ResourceList">
         <Key>
@@ -494,6 +516,7 @@
         <Property Name="Certificate_No" Type="Edm.String" />
         <Property Name="Issue_Date" Type="Edm.DateTime" />
         <Property Name="Expiry_Date" Type="Edm.DateTime" />
+        <Property Name="DocumentTitle" Type="Edm.String" />
         <Property Name="AuxiliaryIndex1" Type="Edm.String" Nullable="false" />
       </EntityType>
       <EntityType Name="AgencyComplianceSetup">
@@ -1403,6 +1426,96 @@
         <Property Name="Category" Type="Edm.String" />
         <Property Name="Sponsor" Type="Edm.String" />
         <Property Name="No" Type="Edm.String" Nullable="false" />
+      </EntityType>
+      <EntityType Name="CaseAdvocatehearings">
+        <Key>
+          <PropertyRef Name="Entry_No" />
+        </Key>
+        <Property Name="Entry_No" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Advocate_No" Type="Edm.String" />
+        <Property Name="Advocate_Name" Type="Edm.String" />
+        <Property Name="Header_No" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="CaseAdvocates">
+        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" Nullable="false" />
+        <Property Name="Names" Type="Edm.String" />
+        <Property Name="Contacts" Type="Edm.String" />
+        <Property Name="Email" Type="Edm.String" />
+        <Property Name="Firm_Code" Type="Edm.String" />
+        <Property Name="Firm_name" Type="Edm.String" />
+        <Property Name="Second_name" Type="Edm.String" />
+        <Property Name="Address" Type="Edm.String" />
+        <Property Name="City" Type="Edm.String" />
+        <Property Name="Postal_Code" Type="Edm.String" />
+        <Property Name="No_Series" Type="Edm.String" />
+        <Property Name="Advocate_Fee_LCY" Type="Edm.Decimal" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="Employee_No" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="CaseHearing">
+        <Key>
+          <PropertyRef Name="Case_Entry" />
+          <PropertyRef Name="Day" />
+        </Key>
+        <Property Name="Case_Entry" Type="Edm.String" Nullable="false" />
+        <Property Name="Last_Hearing_Date" Type="Edm.DateTime" />
+        <Property Name="Next_Hearing_Date" Type="Edm.DateTime" />
+        <Property Name="Day" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Advocate_On_Record" Type="Edm.String" />
+        <Property Name="Bring_Up_Date" Type="Edm.DateTime" />
+        <Property Name="Entry_Type" Type="Edm.String" />
+        <Property Name="Mention_Date" Type="Edm.DateTime" />
+        <Property Name="Created_By" Type="Edm.String" />
+        <Property Name="Created_On" Type="Edm.DateTime" />
+        <Property Name="Status" Type="Edm.String" />
+        <Property Name="Posted" Type="Edm.Boolean" />
+        <Property Name="Posted_By" Type="Edm.String" />
+        <Property Name="Posted_On" Type="Edm.DateTime" />
+        <Property Name="Advocate_Name" Type="Edm.String" />
+        <Property Name="Bring_Up_Date_Mention" Type="Edm.DateTime" />
+      </EntityType>
+      <EntityType Name="CaseRegister">
+        <Key>
+          <PropertyRef Name="No" />
+        </Key>
+        <Property Name="No" Type="Edm.String" Nullable="false" />
+        <Property Name="Case_Number" Type="Edm.String" />
+        <Property Name="Case_Types" Type="Edm.String" />
+        <Property Name="Nature_of_Description" Type="Edm.String" />
+        <Property Name="Case_Desscription_Transpired" Type="Edm.String" />
+        <Property Name="Nature_of_Case" Type="Edm.String" />
+        <Property Name="Advocate_on_Record" Type="Edm.String" />
+        <Property Name="Name_of_Parties" Type="Edm.String" />
+        <Property Name="Nature_of_Claim" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.String" />
+        <Property Name="Verdict" Type="Edm.String" />
+        <Property Name="Verdict_Date" Type="Edm.DateTime" />
+        <Property Name="No_series" Type="Edm.String" />
+        <Property Name="From_Document_Number" Type="Edm.String" />
+        <Property Name="Employee_Name" Type="Edm.String" />
+        <Property Name="Employee_No" Type="Edm.String" />
+        <Property Name="Court_House" Type="Edm.String" />
+        <Property Name="Judge" Type="Edm.String" />
+        <Property Name="Judge_Name" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="Advocate_Firm" Type="Edm.String" />
+        <Property Name="Advocate_name" Type="Edm.String" />
+        <Property Name="Process_Type" Type="Edm.String" />
+        <Property Name="Linked_to_Legal_Case_No" Type="Edm.String" />
+        <Property Name="Created_By" Type="Edm.String" />
+        <Property Name="Created_On" Type="Edm.DateTime" />
+        <Property Name="Date_of_Receipt" Type="Edm.DateTime" />
+        <Property Name="Time_of_Receipt" Type="Edm.String" />
+        <Property Name="Preq_Advocate" Type="Edm.String" />
+        <Property Name="Last_Hearing_Date" Type="Edm.DateTime" />
+        <Property Name="Next_Hearing_Date" Type="Edm.DateTime" />
+        <Property Name="Progress" Type="Edm.String" />
+        <Property Name="Last_Mention_Date" Type="Edm.DateTime" />
+        <Property Name="Next_Mention_Date" Type="Edm.DateTime" />
+        <Property Name="No_of_Attachments" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="Casuals">
         <Key>
@@ -9816,6 +9929,7 @@
         <NavigationProperty Name="Agency_Application_Response" Relationship="NAV.Company_Agency_Application_Response" ToRole="Agency_Application_Response" FromRole="Company" />
         <NavigationProperty Name="Agency_Sub_Questions" Relationship="NAV.Company_Agency_Sub_Questions" ToRole="Agency_Sub_Questions" FromRole="Company" />
         <NavigationProperty Name="AgencyQuestionList" Relationship="NAV.Company_AgencyQuestionList" ToRole="AgencyQuestionList" FromRole="Company" />
+        <NavigationProperty Name="ApplicationPayments" Relationship="NAV.Company_ApplicationPayments" ToRole="ApplicationPayments" FromRole="Company" />
         <NavigationProperty Name="Chart_of_Accounts" Relationship="NAV.Company_Chart_of_Accounts" ToRole="Chart_of_Accounts" FromRole="Company" />
         <NavigationProperty Name="Collaboration_Programmes" Relationship="NAV.Company_Collaboration_Programmes" ToRole="Collaboration_Programmes" FromRole="Company" />
         <NavigationProperty Name="CollaborationFeeSetup" Relationship="NAV.Company_CollaborationFeeSetup" ToRole="CollaborationFeeSetup" FromRole="Company" />
@@ -9826,6 +9940,7 @@
         <NavigationProperty Name="Leave_ApplicationsPage" Relationship="NAV.Company_Leave_ApplicationsPage" ToRole="Leave_ApplicationsPage" FromRole="Company" />
         <NavigationProperty Name="LicenceTypeList" Relationship="NAV.Company_LicenceTypeList" ToRole="LicenceTypeList" FromRole="Company" />
         <NavigationProperty Name="PostCodes" Relationship="NAV.Company_PostCodes" ToRole="PostCodes" FromRole="Company" />
+        <NavigationProperty Name="ProgramDomain" Relationship="NAV.Company_ProgramDomain" ToRole="ProgramDomain" FromRole="Company" />
         <NavigationProperty Name="ResourceList" Relationship="NAV.Company_ResourceList" ToRole="ResourceList" FromRole="Company" />
         <NavigationProperty Name="sourceOfFunds" Relationship="NAV.Company_sourceOfFunds" ToRole="sourceOfFunds" FromRole="Company" />
         <NavigationProperty Name="academicenrolldraft" Relationship="NAV.Company_academicenrolldraft" ToRole="academicenrolldraft" FromRole="Company" />
@@ -9894,6 +10009,10 @@
         <NavigationProperty Name="businessTypes" Relationship="NAV.Company_businessTypes" ToRole="businessTypes" FromRole="Company" />
         <NavigationProperty Name="CalenderYearCodesList" Relationship="NAV.Company_CalenderYearCodesList" ToRole="CalenderYearCodesList" FromRole="Company" />
         <NavigationProperty Name="campuses" Relationship="NAV.Company_campuses" ToRole="campuses" FromRole="Company" />
+        <NavigationProperty Name="CaseAdvocatehearings" Relationship="NAV.Company_CaseAdvocatehearings" ToRole="CaseAdvocatehearings" FromRole="Company" />
+        <NavigationProperty Name="CaseAdvocates" Relationship="NAV.Company_CaseAdvocates" ToRole="CaseAdvocates" FromRole="Company" />
+        <NavigationProperty Name="CaseHearing" Relationship="NAV.Company_CaseHearing" ToRole="CaseHearing" FromRole="Company" />
+        <NavigationProperty Name="CaseRegister" Relationship="NAV.Company_CaseRegister" ToRole="CaseRegister" FromRole="Company" />
         <NavigationProperty Name="Casuals" Relationship="NAV.Company_Casuals" ToRole="Casuals" FromRole="Company" />
         <NavigationProperty Name="ClassificationofDegrees" Relationship="NAV.Company_ClassificationofDegrees" ToRole="ClassificationofDegrees" FromRole="Company" />
         <NavigationProperty Name="collaborationCurriculum" Relationship="NAV.Company_collaborationCurriculum" ToRole="collaborationCurriculum" FromRole="Company" />
@@ -10312,6 +10431,10 @@
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.AgencyQuestionList" Role="AgencyQuestionList" Multiplicity="*" />
       </Association>
+      <Association Name="Company_ApplicationPayments">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.ApplicationPayments" Role="ApplicationPayments" Multiplicity="*" />
+      </Association>
       <Association Name="Company_Chart_of_Accounts">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
         <End Type="NAV.Chart_of_Accounts" Role="Chart_of_Accounts" Multiplicity="*" />
@@ -10350,6 +10473,10 @@
       </Association>
       <Association Name="Company_PostCodes">
         <End Type="NAV.PostCodes" Role="PostCodes" Multiplicity="*" />
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_ProgramDomain">
+        <End Type="NAV.ProgramDomain" Role="ProgramDomain" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
       </Association>
       <Association Name="Company_ResourceList">
@@ -10623,6 +10750,22 @@
       <Association Name="Company_campuses">
         <End Type="NAV.campuses" Role="campuses" Multiplicity="*" />
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_CaseAdvocatehearings">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.CaseAdvocatehearings" Role="CaseAdvocatehearings" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_CaseAdvocates">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.CaseAdvocates" Role="CaseAdvocates" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_CaseHearing">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.CaseHearing" Role="CaseHearing" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_CaseRegister">
+        <End Type="NAV.Company" Role="Company" Multiplicity="*" />
+        <End Type="NAV.CaseRegister" Role="CaseRegister" Multiplicity="*" />
       </Association>
       <Association Name="Company_Casuals">
         <End Type="NAV.Company" Role="Company" Multiplicity="*" />
@@ -12090,6 +12233,7 @@
         <EntitySet Name="Agency_Application_Response" EntityType="NAV.Agency_Application_Response" />
         <EntitySet Name="Agency_Sub_Questions" EntityType="NAV.Agency_Sub_Questions" />
         <EntitySet Name="AgencyQuestionList" EntityType="NAV.AgencyQuestionList" />
+        <EntitySet Name="ApplicationPayments" EntityType="NAV.ApplicationPayments" />
         <EntitySet Name="Chart_of_Accounts" EntityType="NAV.Chart_of_Accounts" />
         <EntitySet Name="Collaboration_Programmes" EntityType="NAV.Collaboration_Programmes" />
         <EntitySet Name="CollaborationFeeSetup" EntityType="NAV.CollaborationFeeSetup" />
@@ -12100,6 +12244,7 @@
         <EntitySet Name="Leave_ApplicationsPage" EntityType="NAV.Leave_ApplicationsPage" />
         <EntitySet Name="LicenceTypeList" EntityType="NAV.LicenceTypeList" />
         <EntitySet Name="PostCodes" EntityType="NAV.PostCodes" />
+        <EntitySet Name="ProgramDomain" EntityType="NAV.ProgramDomain" />
         <EntitySet Name="ResourceList" EntityType="NAV.ResourceList" />
         <EntitySet Name="sourceOfFunds" EntityType="NAV.sourceOfFunds" />
         <EntitySet Name="academicenrolldraft" EntityType="NAV.academicenrolldraft" />
@@ -12168,6 +12313,10 @@
         <EntitySet Name="businessTypes" EntityType="NAV.businessTypes" />
         <EntitySet Name="CalenderYearCodesList" EntityType="NAV.CalenderYearCodesList" />
         <EntitySet Name="campuses" EntityType="NAV.campuses" />
+        <EntitySet Name="CaseAdvocatehearings" EntityType="NAV.CaseAdvocatehearings" />
+        <EntitySet Name="CaseAdvocates" EntityType="NAV.CaseAdvocates" />
+        <EntitySet Name="CaseHearing" EntityType="NAV.CaseHearing" />
+        <EntitySet Name="CaseRegister" EntityType="NAV.CaseRegister" />
         <EntitySet Name="Casuals" EntityType="NAV.Casuals" />
         <EntitySet Name="ClassificationofDegrees" EntityType="NAV.ClassificationofDegrees" />
         <EntitySet Name="collaborationCurriculum" EntityType="NAV.collaborationCurriculum" />
@@ -12586,6 +12735,10 @@
           <End Role="Company" EntitySet="Company" />
           <End Role="AgencyQuestionList" EntitySet="AgencyQuestionList" />
         </AssociationSet>
+        <AssociationSet Name="Company_ApplicationPayments_ApplicationPayments" Association="NAV.Company_ApplicationPayments">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="ApplicationPayments" EntitySet="ApplicationPayments" />
+        </AssociationSet>
         <AssociationSet Name="Company_Chart_of_Accounts_Chart_of_Accounts" Association="NAV.Company_Chart_of_Accounts">
           <End Role="Company" EntitySet="Company" />
           <End Role="Chart_of_Accounts" EntitySet="Chart_of_Accounts" />
@@ -12625,6 +12778,10 @@
         <AssociationSet Name="Company_PostCodes_PostCodes" Association="NAV.Company_PostCodes">
           <End Role="Company" EntitySet="Company" />
           <End Role="PostCodes" EntitySet="PostCodes" />
+        </AssociationSet>
+        <AssociationSet Name="Company_ProgramDomain_ProgramDomain" Association="NAV.Company_ProgramDomain">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="ProgramDomain" EntitySet="ProgramDomain" />
         </AssociationSet>
         <AssociationSet Name="Company_ResourceList_ResourceList" Association="NAV.Company_ResourceList">
           <End Role="Company" EntitySet="Company" />
@@ -12897,6 +13054,22 @@
         <AssociationSet Name="Company_campuses_campuses" Association="NAV.Company_campuses">
           <End Role="Company" EntitySet="Company" />
           <End Role="campuses" EntitySet="campuses" />
+        </AssociationSet>
+        <AssociationSet Name="Company_CaseAdvocatehearings_CaseAdvocatehearings" Association="NAV.Company_CaseAdvocatehearings">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="CaseAdvocatehearings" EntitySet="CaseAdvocatehearings" />
+        </AssociationSet>
+        <AssociationSet Name="Company_CaseAdvocates_CaseAdvocates" Association="NAV.Company_CaseAdvocates">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="CaseAdvocates" EntitySet="CaseAdvocates" />
+        </AssociationSet>
+        <AssociationSet Name="Company_CaseHearing_CaseHearing" Association="NAV.Company_CaseHearing">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="CaseHearing" EntitySet="CaseHearing" />
+        </AssociationSet>
+        <AssociationSet Name="Company_CaseRegister_CaseRegister" Association="NAV.Company_CaseRegister">
+          <End Role="Company" EntitySet="Company" />
+          <End Role="CaseRegister" EntitySet="CaseRegister" />
         </AssociationSet>
         <AssociationSet Name="Company_Casuals_Casuals" Association="NAV.Company_Casuals">
           <End Role="Company" EntitySet="Company" />
